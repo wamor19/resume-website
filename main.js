@@ -95,7 +95,8 @@ document.getElementById("downloadJson")?.addEventListener("click", () => {
     email: "william.amor@protonmail.com",
     phone: "+44 7 889 904 127",
     linkedin: "https://www.linkedin.com/in/willamor/",
-    nationality: "UK and Ireland",
+    nationality: "British and Irish (dual citizenship)",
+    right_to_work: "UK and EU/EEA (no sponsorship)",
     open_to: ["Principal Product Owner", "Product Owner", "Product Manager"],
     industries: ["Insurance", "Consumer health", "Pharma"],
     open_to_locations:

@@ -767,6 +767,11 @@ button { font: inherit; }
 }
 .bullets li { margin: 8px 0; }
 .bullets strong { color: var(--accent); }
+/* Experience: figures read as body text, not highlighted callouts */
+.xpList .bullets strong {
+  font-weight: inherit;
+  color: inherit;
+}
 
 .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
 .tag {
