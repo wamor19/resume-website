@@ -85,34 +85,36 @@ if (supportsIo) {
 }
 
 /* JSON: contact snapshot for ATS/CRM tooling */
-document.getElementById("downloadJson")?.addEventListener("click", () => {
-  const data = {
-    purpose:
-      "Contact and key metadata in structured form. For CRM, ATS, or other tooling. Full resume: use the PDF download on this page.",
-    name: "William Amor",
-    role: "Principal Product Owner",
-    location: "London, SE10 9JU",
-    email: "william.amor@protonmail.com",
-    phone: "+44 7 889 904 127",
-    linkedin: "https://www.linkedin.com/in/willamor/",
-    nationality: "British and Irish (dual citizenship)",
-    right_to_work: "UK and EU/EEA (no sponsorship)",
-    open_to: ["Principal Product Owner", "Product Owner", "Product Manager"],
-    industries: ["Insurance", "Consumer health", "Pharma"],
-    open_to_locations:
-      "UK, US, Canada, and EU/EEA (EU member states plus Iceland, Liechtenstein, and Norway). Sponsorship required for US and Canada only.",
-    will_travel: "Up to 75%",
-    certifications: ["SAFe 5 Agilist", "ITIL v3"],
-  };
-  const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = "william-amor-resume.json";
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  setTimeout(() => URL.revokeObjectURL(a.href), 800);
-  toast("JSON file downloaded.");
+document.querySelectorAll(".js-download-json").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const data = {
+      purpose:
+        "Contact and key metadata in structured form. For CRM, ATS, or other tooling. Full resume: use the PDF download on this page.",
+      name: "William Amor",
+      role: "Principal Product Owner",
+      location: "London, SE10 9JU",
+      email: "william.amor@protonmail.com",
+      phone: "+44 7 889 904 127",
+      linkedin: "https://www.linkedin.com/in/willamor/",
+      nationality: "British and Irish (dual citizenship)",
+      right_to_work: "UK and EU/EEA (no sponsorship)",
+      open_to: ["Principal Product Owner", "Product Owner", "Product Manager"],
+      industries: ["Insurance", "Consumer health", "Pharma"],
+      open_to_locations:
+        "UK, US, Canada, and EU/EEA (EU member states plus Iceland, Liechtenstein, and Norway). Sponsorship required for US and Canada only.",
+      will_travel: "Up to 75%",
+      certifications: ["SAFe 5 Agilist", "ITIL v3"],
+    };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "william-amor-resume.json";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 800);
+    toast("JSON file downloaded.");
+  });
 });
 
 /* Copy email to clipboard from the closing band */
@@ -125,7 +127,7 @@ document.getElementById("copyEmail")?.addEventListener("click", async (e) => {
     toast("Email copied to clipboard.");
     if (label) {
       const original = label.textContent;
-      label.textContent = "Copied — paste away";
+      label.textContent = "Copied. Paste away";
       setTimeout(() => { label.textContent = original; }, 1600);
     }
   } catch {
