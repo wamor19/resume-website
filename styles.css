@@ -43,6 +43,9 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 
 button { font: inherit; }
 
+/* Ensure native HTML `hidden` always hides (some CSS resets can override). */
+[hidden] { display: none !important; }
+
 /* ========== Topbar ========== */
 .topbar {
   position: sticky;
