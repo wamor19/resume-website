@@ -257,10 +257,18 @@ html { scroll-padding-top: 82px; }
 .status__grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px 14px;
-  padding-top: 4px;
+  gap: 0;
+  padding-top: 6px;
   border-top: 1px solid rgba(255,255,255,.07);
 }
+.status__grid > div {
+  padding: 12px 14px;
+}
+/* dividers between cells (2-column layout) */
+.status__grid > div:nth-child(n + 3) {
+  border-top: 1px solid rgba(255,255,255,.07);
+}
+.status__grid > div:nth-child(odd) { border-right: 1px solid rgba(255,255,255,.07); }
 .status__k { font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text); }
 .status__v { font-size: 13px; color: var(--text); margin-top: 2px; }
 .status__sub {
@@ -304,7 +312,7 @@ html { scroll-padding-top: 82px; }
   font-size: 12px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--faint);
+  color: var(--text);
 }
 .sideBlock__p {
   color: var(--muted);
@@ -1095,6 +1103,9 @@ html.reveal-animations-on [data-reveal].is-in > .eduRow > .eduChip:nth-child(3) 
   .industries { grid-template-columns: 1fr; }
   .eduRow { grid-template-columns: 1fr; }
   .status__grid { grid-template-columns: 1fr; }
+  .status__grid > div { border-right: 0; padding-left: 0; padding-right: 0; }
+  .status__grid > div { border-top: 0; padding-top: 10px; }
+  .status__grid > div + div { border-top: 1px solid rgba(255,255,255,.07); padding-top: 14px; }
   .topbar__nav { display: none; }
   .topbar__inner { justify-content: center; }
   .topbar__brand { font-size: 1.35rem; }
