@@ -66,10 +66,20 @@ html { scroll-padding-top: 82px; }
   gap: 14px;
 }
 .topbar__brand {
+  display: grid;
+  gap: 1px;
   font-weight: 720;
   letter-spacing: -0.03em;
   white-space: nowrap;
   font-size: 1.125rem;
+  line-height: 1.05;
+}
+.topbar__brandName { line-height: 1.05; }
+.topbar__brandRole {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--muted);
 }
 .topbar__nav {
   display: flex;
@@ -749,11 +759,19 @@ html { scroll-padding-top: 82px; }
   display: none !important;
 }
 .xpCard__top {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    "title date"
+    "org   org";
+  column-gap: 16px;
+  row-gap: 4px;
+  align-items: start;
 }
+.xpCard__head { display: contents; }
+.xpCard__title { grid-area: title; }
+.xpCard__org { grid-area: org; }
+.xpCard__date { grid-area: date; justify-self: end; }
 .xpCard__title {
   margin: 0;
   font-size: 22px;
@@ -761,15 +779,53 @@ html { scroll-padding-top: 82px; }
   line-height: 1.15;
 }
 .xpCard__org {
-  margin-top: 6px;
+  margin-top: 2px;
   display: grid;
-  gap: 2px;
+  gap: 3px;
   font-size: 15px;
   color: var(--muted);
 }
-.xpCard__orgName { color: rgba(255, 255, 255, 0.82); font-weight: 650; }
+.xpCard__orgName {
+  color: rgba(255, 255, 255, 0.96);
+  font-weight: 720;
+  font-size: 15.5px;
+  letter-spacing: -0.01em;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.xpCard__orgName::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(125, 211, 252, 0.95);
+  box-shadow: 0 0 0 3px rgba(125, 211, 252, 0.14);
+  flex: 0 0 auto;
+  transform: translateY(1px);
+}
 .xpCard__dot { display: none; }
-.xpCard__orgMeta { color: var(--muted); font-size: 13.5px; }
+.xpCard__orgMeta {
+  color: var(--muted);
+  font-size: 13.5px;
+  display: grid;
+  gap: 2px;
+  align-items: baseline;
+}
+.xpCard__orgLine {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: baseline;
+}
+.xpCard__orgIndustry {
+  color: rgba(255, 255, 255, 0.82);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.xpCard__orgDesc { color: var(--muted); }
+.xpCard__orgSep { color: rgba(255, 255, 255, 0.38); }
+.xpCard__orgLoc { color: rgba(255, 255, 255, 0.60); }
 .xpCard__date {
   white-space: nowrap;
   font-size: 13.5px;
@@ -985,7 +1041,8 @@ html { scroll-padding-top: 82px; }
   color: rgba(255,255,255,.92);
   background: rgba(7, 11, 24, 0.35);
   backdrop-filter: blur(6px);
-  pointer-events: none;
+  pointer-events: auto;
+  cursor: pointer;
   transition: opacity 160ms ease;
 }
 .game__overlay.is-off { opacity: 0; }

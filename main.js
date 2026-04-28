@@ -367,6 +367,7 @@ document.getElementById("copyEmail")?.addEventListener("click", async (e) => {
   const restartBtn = document.getElementById("gameRestart");
   const overlay = document.getElementById("gameOverlay");
   if (!canvas || !scoreEl || !startBtn || !restartBtn || !overlay) return;
+  const stage = canvas.closest(".game__stage");
 
   const ctx = canvas.getContext("2d", { alpha: true });
   if (!ctx) return;
@@ -547,7 +548,21 @@ document.getElementById("copyEmail")?.addEventListener("click", async (e) => {
   restartBtn.addEventListener("pointerdown", startOnce);
   startBtn.addEventListener("touchstart", startOnce, { passive: false });
   restartBtn.addEventListener("touchstart", startOnce, { passive: false });
-  canvas.addEventListener("pointerdown", () => { if (!running) return; jump(); });
+  function stagePress(e) {
+    if (running) {
+      jump();
+      return;
+    }
+    startOnce(e);
+  }
+
+  // Let the centre game area start the game (and jump once running).
+  canvas.addEventListener("pointerdown", stagePress);
+  stage?.addEventListener("pointerdown", stagePress);
+  overlay.addEventListener("pointerdown", stagePress);
+  overlay.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") stagePress(e);
+  });
   window.addEventListener("keydown", (e) => {
     if (!running) return;
     if (e.code === "Space" || e.code === "ArrowUp") {
