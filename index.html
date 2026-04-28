@@ -42,8 +42,8 @@
           <a class="topbar__link" href="#hero">Summary</a>
           <a class="topbar__link" href="#industries">Industries</a>
           <a class="topbar__link" href="#impact">Impact</a>
-          <a class="topbar__link" href="#experience">Track record</a>
-          <a class="topbar__link" href="#toolbox-skills">How I work</a>
+          <a class="topbar__link" href="#experience">Experience</a>
+          <a class="topbar__link" href="#toolbox-skills">Skills and Platforms</a>
           <a class="topbar__link" href="#faq">FAQ</a>
           <a class="topbar__link" href="#contact">Contact</a>
         </nav>
@@ -129,16 +129,15 @@
             </div>
           </div>
 
-          <div
-            class="sideBlock"
-            role="group"
-            aria-label="Resume: PDF and structured data"
-          >
+          <div class="sideBlock" role="group" aria-label="Resume: PDF">
             <div class="sideBlock__h">Prefer the PDF?</div>
             <div class="sideBlock__p">Same content, one page, recruiter-friendly.</div>
             <div class="actions actions--center">
               <a class="pill" href="./assets/files/william-amor-cv-apr-2026.pdf" download>Download CV (PDF)</a>
             </div>
+          </div>
+
+          <div class="sideBlock" role="group" aria-label="Resume: structured JSON">
             <div class="sideBlock__h">JSON / structured export?</div>
             <div class="sideBlock__p">
               For ATS, CRM, or in-house tools that want fields, not a scraped PDF. Contact and key metadata only. Use the
@@ -179,7 +178,7 @@
                 <span>Send me a role</span>
                 <svg class="ico ico--arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 5l7 7-7 7-1.4-1.4 4.6-4.6H3v-2h13.7l-4.6-4.6L13.5 5z"/></svg>
               </a>
-              <a class="ctaBtn ctaBtn--ghost" href="#experience">See the track record</a>
+              <a class="ctaBtn ctaBtn--ghost" href="#experience">See experience</a>
               <span class="hero__reply">Usually replies within a working day.</span>
             </div>
           </div>
@@ -188,7 +187,6 @@
         <section class="section" id="industries" data-reveal>
           <div class="sectionHead">
             <h2 class="h2">Industries</h2>
-            <p class="sectionHead__sub">Three regulated sectors. Data and analytics products delivered with measurable commercial impact.</p>
           </div>
           <div class="industries">
             <article class="industry">
@@ -198,8 +196,8 @@
                 </span>
                 <h3 class="h3">Insurance</h3>
               </div>
-              <p class="industry__p">Reinsurance and broking analytics: premium tracking, opportunities for underwriters, multi-squad delivery.</p>
-              <div class="industry__metric"><strong>$15bn+</strong> premiums tracked · <strong>$8m+</strong> placement opportunities surfaced</div>
+              <p class="industry__p">Turned fragmented premium data into a single view and an opportunity engine used by underwriters.</p>
+              <div class="industry__metric"><strong>$15bn+</strong> premiums tracked · <strong>$8m+</strong> placement opportunities identified</div>
               <div class="industry__co">Marsh</div>
             </article>
             <article class="industry">
@@ -207,10 +205,10 @@
                 <span class="industry__icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24"><path d="M12 21s-7-4.35-7-10.5A4.5 4.5 0 0 1 12 6a4.5 4.5 0 0 1 7 4.5C19 16.65 12 21 12 21z"/></svg>
                 </span>
-                <h3 class="h3">Consumer health</h3>
+                <h3 class="h3">Consumer Healthcare</h3>
               </div>
-              <p class="industry__p">EMEA data and analytics on Snowflake: digital, eCommerce, and marketing data pulled together for a single view.</p>
-              <div class="industry__metric">Part of a <strong>$5m</strong> Amazon sales uplift · Snowflake migration</div>
+              <p class="industry__p">Unified eCommerce, marketing, and digital signals on Snowflake so teams could act on one set of numbers.</p>
+              <div class="industry__metric">Contributed to a <strong>$5m</strong> Amazon sales uplift · Snowflake migration delivered</div>
               <div class="industry__co">Kenvue (formerly J&amp;J)</div>
             </article>
             <article class="industry">
@@ -218,10 +216,10 @@
                 <span class="industry__icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24"><path d="M9 2h6v4h3v4l-3 1v3a4 4 0 0 1-4 4 4 4 0 0 1-4-4v-3L4 10V6h3V2h2zm0 2v2h6V4H9zm-3 4v.93l3 1V14a3 3 0 0 0 6 0V9.93l3-1V8H6z"/></svg>
                 </span>
-                <h3 class="h3">Pharma</h3>
+                <h3 class="h3">Pharmaceuticals</h3>
               </div>
-              <p class="industry__p">Regulatory and commercial delivery: change control, process, and systems work that stands up to scrutiny.</p>
-              <div class="industry__metric">UAT across <strong>125</strong> countries · <strong>$1.5m</strong> sales effect on UK reporting refresh</div>
+              <p class="industry__p">Delivered regulated reporting changes end-to-end with governance, auditability, and global rollout built in.</p>
+              <div class="industry__metric">UAT across <strong>125</strong> countries · <strong>$1.5m</strong> sales impact from UK reporting refresh</div>
               <div class="industry__co">Pfizer · Johnson &amp; Johnson · GSK</div>
             </article>
           </div>
@@ -344,16 +342,14 @@
 
         <section class="section" id="experience" data-reveal>
           <div class="sectionHead">
-            <h2 class="h2">Track record</h2>
+            <h2 class="h2">Experience</h2>
             <p class="sectionHead__sub">Filter to the work that's relevant to your role.</p>
           </div>
 
           <div class="filterBar" role="tablist" aria-label="Filter experience by industry">
-            <button class="filterPill is-on" type="button" data-filter="all" role="tab" aria-selected="true">All</button>
-            <button class="filterPill" type="button" data-filter="insurance" role="tab" aria-selected="false">Insurance</button>
-            <button class="filterPill" type="button" data-filter="consumer" role="tab" aria-selected="false">Consumer health</button>
-            <button class="filterPill" type="button" data-filter="pharma" role="tab" aria-selected="false">Pharma</button>
-            <button class="filterPill" type="button" data-filter="automation" role="tab" aria-selected="false">Automation</button>
+            <button class="filterPill is-on" type="button" data-filter="insurance" role="tab" aria-selected="true">Insurance</button>
+            <button class="filterPill" type="button" data-filter="consumer" role="tab" aria-selected="false">Consumer Healthcare</button>
+            <button class="filterPill" type="button" data-filter="pharma" role="tab" aria-selected="false">Pharmaceuticals</button>
           </div>
 
           <div class="xpList" id="xpList">
@@ -536,10 +532,48 @@
           <p class="filterEmpty" id="filterEmpty" hidden>No roles match that filter. <button type="button" class="linkBtn" id="filterClear">Clear filter</button></p>
         </section>
 
+        <section class="section" id="education" data-reveal>
+          <div class="sectionHead">
+            <h2 class="h2">Education</h2>
+          </div>
+          <div class="eduRow" aria-label="Education">
+            <div class="eduChip">
+              <div class="eduChip__h">University of Kent</div>
+              <div class="eduChip__meta">
+                <div class="eduChip__degree">Computing &amp; Business Administration</div>
+                <div class="eduChip__grade">
+                  <strong>First Class Honours</strong>
+                  <span class="eduChip__gradeSep" aria-hidden="true">·</span>
+                  <span class="eduChip__gpa">US GPA equivalent: ~4.0/4.0</span>
+                </div>
+              </div>
+              <ul class="eduChip__bullets" aria-label="Highlights">
+                <li><strong>Year in Industry</strong> at <strong>GSK</strong>, then extended into final year: <strong>20 hrs/week</strong> part‑time on an <strong>RPA product</strong> automating goods ordering in a manufacturing plant.</li>
+                <li><strong>Dissertation (First Class)</strong>: “The disruption and emergence of FinTech”.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="certificates" data-reveal>
+          <div class="sectionHead">
+            <h2 class="h2">Certificates</h2>
+          </div>
+          <div class="eduRow" aria-label="Certificates">
+            <div class="eduChip">
+              <div class="eduChip__h">SAFe 5 Agilist</div>
+              <div class="eduChip__p">Scaled Agile Framework certification.</div>
+            </div>
+            <div class="eduChip">
+              <div class="eduChip__h">ITIL v3</div>
+              <div class="eduChip__p">Service management foundation.</div>
+            </div>
+          </div>
+        </section>
+
         <section class="section" id="toolbox-skills" data-reveal>
           <div class="sectionHead">
-            <h2 class="h2">How I work</h2>
-            <p class="sectionHead__sub">Ways of working and the tools I use day to day.</p>
+            <h2 class="h2">Skills and Platforms</h2>
           </div>
           <div class="toolboxBand" id="toolbox-product">Product craft</div>
           <div class="tags" aria-labelledby="toolbox-product">
@@ -577,21 +611,6 @@
             <span class="tag">Alteryx</span>
             <span class="tag">RPA</span>
             <span class="tag">Product analytics</span>
-          </div>
-          <div class="toolboxBand" id="toolbox-edu">Education &amp; certificates</div>
-          <div class="eduRow" aria-labelledby="toolbox-edu">
-            <div class="eduChip">
-              <div class="eduChip__h">University of Kent</div>
-              <div class="eduChip__p">Computing &amp; Business Administration (Year in Industry). First Class, 4.0 GPA. Jul 2019.</div>
-            </div>
-            <div class="eduChip">
-              <div class="eduChip__h">SAFe 5 Agilist</div>
-              <div class="eduChip__p">Scaled Agile Framework certification.</div>
-            </div>
-            <div class="eduChip">
-              <div class="eduChip__h">ITIL v3</div>
-              <div class="eduChip__p">Service management foundation.</div>
-            </div>
           </div>
         </section>
 
@@ -648,7 +667,7 @@
         <section class="section" id="game" data-reveal>
           <div class="sectionHead">
             <h2 class="h2">Not the right fit?</h2>
-            <p class="sectionHead__sub">No point leaving empty-handed. Have a go at setting a new score.</p>
+            <p class="sectionHead__sub">No problem — you aren’t leaving empty-handed. Have some fun.</p>
           </div>
           <div class="game">
             <div class="game__hud" aria-label="Game status">

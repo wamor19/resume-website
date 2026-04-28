@@ -99,7 +99,7 @@ document.querySelectorAll(".js-download-json").forEach((btn) => {
       nationality: "British and Irish (dual citizenship)",
       right_to_work: "UK and EU/EEA (no sponsorship)",
       open_to: ["Principal Product Owner", "Product Owner", "Product Manager"],
-      industries: ["Insurance", "Consumer health", "Pharma"],
+      industries: ["Insurance", "Consumer Healthcare", "Pharmaceuticals"],
       open_to_locations:
         "UK, US, Canada, and EU/EEA (EU member states plus Iceland, Liechtenstein, and Norway). Sponsorship required for US and Canada only.",
       will_travel: "Up to 75%",
@@ -159,8 +159,8 @@ document.getElementById("copyEmail")?.addEventListener("click", async (e) => {
     }
   }
 
-  pills.forEach((p) => p.addEventListener("click", () => apply(p.getAttribute("data-filter") || "all")));
-  clear?.addEventListener("click", () => apply("all"));
+  pills.forEach((p) => p.addEventListener("click", () => apply(p.getAttribute("data-filter") || "insurance")));
+  clear?.addEventListener("click", () => apply("insurance"));
 })();
 
 /* Hero rotator: cross-fade through positioning lines */

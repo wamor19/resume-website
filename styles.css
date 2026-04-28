@@ -805,6 +805,9 @@ button { font: inherit; }
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
 }
+
+/* Education: single card should span full width */
+#education .eduRow { grid-template-columns: 1fr; }
 .eduChip {
   border: 1px solid var(--stroke);
   border-radius: 14px;
@@ -813,6 +816,23 @@ button { font: inherit; }
 }
 .eduChip__h { font-weight: 650; font-size: 14px; }
 .eduChip__p { color: var(--muted); font-size: 13px; margin-top: 4px; line-height: 1.5; }
+
+/* Education card: stronger hierarchy */
+.eduChip__meta { margin-top: 6px; display: grid; gap: 6px; }
+.eduChip__degree { font-weight: 650; letter-spacing: -0.01em; }
+.eduChip__grade { color: var(--muted); font-size: 13px; line-height: 1.35; }
+.eduChip__grade strong { color: var(--text); font-weight: 650; }
+.eduChip__gradeSep { opacity: .6; margin: 0 6px; }
+.eduChip__gpa { white-space: nowrap; }
+.eduChip__bullets {
+  margin: 10px 0 0;
+  padding-left: 18px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+.eduChip__bullets li { margin: 6px 0; }
+.eduChip__bullets strong { color: var(--text); font-weight: 650; }
 
 /* ========== Recruiter FAQ ========== */
 .faq {
