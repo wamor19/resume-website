@@ -265,6 +265,7 @@ button { font: inherit; }
   line-height: 1.45;
   color: var(--faint);
 }
+.status__sub > div + div { margin-top: 4px; }
 
 .cit-tip {
   cursor: help;

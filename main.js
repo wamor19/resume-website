@@ -159,8 +159,8 @@ document.getElementById("copyEmail")?.addEventListener("click", async (e) => {
     }
   }
 
-  pills.forEach((p) => p.addEventListener("click", () => apply(p.getAttribute("data-filter") || "insurance")));
-  clear?.addEventListener("click", () => apply("insurance"));
+  pills.forEach((p) => p.addEventListener("click", () => apply(p.getAttribute("data-filter") || "all")));
+  clear?.addEventListener("click", () => apply("all"));
 })();
 
 /* Hero rotator: cross-fade through positioning lines */
