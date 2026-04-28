@@ -52,6 +52,10 @@ button { font: inherit; }
   border-bottom: 1px solid rgba(255,255,255,.10);
   backdrop-filter: blur(12px);
 }
+
+/* Anchor scrolling: keep section headings visible under sticky topbar */
+html { scroll-padding-top: 82px; }
+.section { scroll-margin-top: 82px; }
 .topbar__inner {
   max-width: var(--max);
   margin: 0 auto;
@@ -247,7 +251,7 @@ button { font: inherit; }
   font-size: 12px;
   letter-spacing: 0.10em;
   text-transform: uppercase;
-  color: var(--faint);
+  color: var(--text);
 }
 .status__p { font-size: 13.5px; color: var(--text); margin-top: 4px; line-height: 1.45; }
 .status__grid {
@@ -257,7 +261,7 @@ button { font: inherit; }
   padding-top: 4px;
   border-top: 1px solid rgba(255,255,255,.07);
 }
-.status__k { font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); }
+.status__k { font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text); }
 .status__v { font-size: 13px; color: var(--text); margin-top: 2px; }
 .status__sub {
   margin-top: 6px;
@@ -562,6 +566,7 @@ button { font: inherit; }
   border-radius: var(--r-lg);
   /* Reserve space so arrows never sit on top of content */
   padding: 0 56px;
+  touch-action: pan-y;
 }
 .carousel__viewport::before,
 .carousel__viewport::after {

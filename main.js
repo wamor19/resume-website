@@ -188,6 +188,7 @@ document.getElementById("copyEmail")?.addEventListener("click", async (e) => {
   if (!carousels.length) return;
 
   for (const root of carousels) {
+    const viewport = root.querySelector("[data-carousel-viewport]") || root;
     const track = root.querySelector("[data-carousel-track]");
     const slides = Array.from(root.querySelectorAll("[data-carousel-slide]"));
     const prev = root.querySelector("[data-carousel-prev]");
@@ -234,6 +235,112 @@ document.getElementById("copyEmail")?.addEventListener("click", async (e) => {
 
     prev?.addEventListener("click", () => step(-1));
     next?.addEventListener("click", () => step(1));
+
+    // Drag/swipe support (mobile + trackpads). Only capture mostly-horizontal gestures.
+    (function setupDrag() {
+      let pointerId = null;
+      let startX = 0;
+      let startY = 0;
+      let dx = 0;
+      let dragging = false;
+      let locked = false;
+      let w = 0;
+      let lastDown = 0;
+
+      function width() {
+        const rect = viewport.getBoundingClientRect();
+        return Math.max(1, rect.width);
+      }
+
+      function setTransform(px) {
+        track.style.transform = `translateX(${px}px)`;
+      }
+
+      function snap() {
+        track.style.transition = "";
+        track.style.transform = `translateX(${-i * 100}%)`;
+      }
+
+      viewport.addEventListener("pointerdown", (e) => {
+        // Ignore non-primary buttons/multi-touch.
+        if (e.pointerType === "mouse" && e.button !== 0) return;
+        if (pointerId !== null) return;
+        pointerId = e.pointerId;
+        startX = e.clientX;
+        startY = e.clientY;
+        dx = 0;
+        dragging = false;
+        locked = false;
+        w = width();
+        lastDown = Date.now();
+        stop();
+        viewport.setPointerCapture?.(pointerId);
+      });
+
+      viewport.addEventListener("pointermove", (e) => {
+        if (pointerId !== e.pointerId) return;
+        dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+
+        if (!locked) {
+          // Decide if this is a horizontal drag or a normal vertical scroll.
+          const ax = Math.abs(dx);
+          const ay = Math.abs(dy);
+          if (ax < 6 && ay < 6) return;
+          locked = true;
+          dragging = ax > ay;
+          if (dragging) track.style.transition = "none";
+        }
+
+        if (!dragging) return;
+        e.preventDefault();
+
+        // Convert the current slide position into pixels, then add dx.
+        const base = -i * w;
+        setTransform(base + dx);
+      }, { passive: false });
+
+      function finish(e) {
+        if (pointerId !== e.pointerId) return;
+        viewport.releasePointerCapture?.(pointerId);
+
+        const wasDragging = dragging;
+        const moved = Math.abs(dx);
+        const threshold = Math.max(44, w * 0.18);
+
+        pointerId = null;
+        dragging = false;
+        locked = false;
+
+        if (wasDragging && moved > threshold) {
+          step(dx < 0 ? 1 : -1);
+        } else {
+          snap();
+          renderDots();
+        }
+
+        // Prevent a click from firing after a swipe.
+        if (wasDragging || moved > 10 || (Date.now() - lastDown) < 160) {
+          window.setTimeout(() => start(), 250);
+        } else {
+          start();
+        }
+      }
+
+      viewport.addEventListener("pointerup", finish);
+      viewport.addEventListener("pointercancel", (e) => {
+        if (pointerId !== e.pointerId) return;
+        pointerId = null;
+        dragging = false;
+        locked = false;
+        snap();
+        renderDots();
+        start();
+      });
+
+      // Keep pixel math correct if the viewport size changes.
+      window.addEventListener("resize", () => { w = width(); snap(); });
+    })();
 
     // Pause on hover/focus so it doesn't fight the user.
     root.addEventListener("mouseenter", stop);
