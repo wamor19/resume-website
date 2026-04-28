@@ -387,9 +387,10 @@ button { font: inherit; }
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  width: fit-content;
   max-width: 100%;
   flex-wrap: wrap;
+  justify-content: center;
+  box-sizing: border-box;
   padding: 6px 12px;
   border: 1px solid rgba(125, 211, 252, 0.30);
   border-radius: 999px;
@@ -399,6 +400,8 @@ button { font: inherit; }
   color: #cbecff;
   background: var(--signal-soft);
   white-space: normal;
+  overflow-wrap: anywhere;
+  text-align: center;
 }
 .hero__pulse {
   width: 8px;
@@ -1093,6 +1096,10 @@ html.reveal-animations-on [data-reveal].is-in > .eduRow > .eduChip:nth-child(3) 
   .xpCard { grid-template-columns: 1fr; }
   .xpCard__logo { width: 52px; height: 52px; }
   .hero__h1 { font-size: clamp(28px, 7.5vw, 38px); }
+}
+
+@media (max-width: 520px) {
+  .hero__eyebrow { width: 100%; }
 }
 
 @media (max-width: 420px) {
