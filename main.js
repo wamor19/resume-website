@@ -21,6 +21,7 @@
 const sections = Array.from(document.querySelectorAll("main .section"));
 const navLinks = Array.from(document.querySelectorAll(".topbar__nav .topbar__link"));
 const toastEl = document.getElementById("toast");
+const topbarEl = document.querySelector(".topbar");
 
 function sleep(ms) {
   return new Promise((r) => setTimeout(r, ms));
@@ -50,6 +51,27 @@ function setActiveSection(id) {
   activeId = id;
   for (const a of navLinks) a.setAttribute("aria-current", a.getAttribute("href") === `#${id}` ? "true" : "false");
 }
+
+/* Keep topbar visible; compact to nav-only while scrolling */
+(function setupTopbarCompactOnScroll() {
+  if (!topbarEl) return;
+  let raf = 0;
+  function apply() {
+    raf = 0;
+    const atTop = (window.scrollY || window.pageYOffset || 0) <= 1;
+    topbarEl.classList.toggle("is-compact", !atTop);
+  }
+  apply();
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (raf) return;
+      raf = window.requestAnimationFrame(apply);
+    },
+    { passive: true }
+  );
+  window.addEventListener("resize", apply, { passive: true });
+})();
 
 const supportsIo = typeof window !== "undefined" && "IntersectionObserver" in window;
 
@@ -588,11 +610,17 @@ onReady(() => {
 
   const roleEl = document.getElementById("roleType");
   const roleText = roleEl?.getAttribute("data-text") || "Principal Product Owner";
+  const caretEl =
+    (roleEl?.nextElementSibling && roleEl.nextElementSibling.classList.contains("caret") ? roleEl.nextElementSibling : null) ||
+    roleEl?.parentElement?.querySelector?.(".caret") ||
+    document.querySelector(".brand__role .caret");
 
   if (roleEl) roleEl.textContent = roleText;
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
-      void typeInto(roleEl, roleText, { startDelayMs: 120, charDelayMs: 24 });
+      void typeInto(roleEl, roleText, { startDelayMs: 120, charDelayMs: 24 }).then(() => {
+        caretEl?.remove?.();
+      });
     });
   });
 });
