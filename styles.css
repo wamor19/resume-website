@@ -7,8 +7,8 @@
   --frame: rgba(255, 255, 255, 0.04);
   --panel: rgba(255, 255, 255, 0.04);
   --text: rgba(255, 255, 255, 0.92);
-  --muted: rgba(255, 255, 255, 0.70);
-  --faint: rgba(255, 255, 255, 0.48);
+  --muted: rgba(255, 255, 255, 0.78);
+  --faint: rgba(255, 255, 255, 0.58);
   --stroke: rgba(255, 255, 255, 0.12);
   --accent: rgba(255, 255, 255, 0.92);
 
@@ -16,6 +16,8 @@
   --signal: #7dd3fc;        /* sky-300 */
   --signal-deep: #38bdf8;   /* sky-400 */
   --signal-soft: rgba(125, 211, 252, 0.18);
+  --signal2: #a78bfa;       /* violet-400 */
+  --signal2-soft: rgba(167, 139, 250, 0.16);
 
   --r: 14px;
   --r-lg: 20px;
@@ -107,7 +109,7 @@ html { scroll-padding-top: 82px; }
   text-decoration: none;
   color: var(--text);
   background: rgba(255,255,255,.06);
-  border-color: rgba(255,255,255,.08);
+  border-color: rgba(167, 139, 250, 0.26);
 }
 .topbar__link[aria-current="true"] {
   color: var(--text);
@@ -576,6 +578,31 @@ html { scroll-padding-top: 82px; }
   font-size: 15px;
 }
 .hero__lede strong { color: var(--text); }
+.hero__chips{
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.chip{
+  font-size: 12.5px;
+  color: rgba(255,255,255,.86);
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.04);
+  padding: 7px 10px;
+  border-radius: 999px;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+.wins{
+  margin: 12px 0 0;
+  padding-left: 18px;
+  color: var(--muted);
+  max-width: 72ch;
+}
+.wins li{ margin: 8px 0; }
+.wins strong{ color: var(--text); font-weight: 650; }
 .hero__ctas {
   display: flex;
   flex-wrap: wrap;
@@ -826,7 +853,7 @@ html { scroll-padding-top: 82px; }
 }
 .filterPill:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px rgba(125, 211, 252, 0.7);
+  box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px rgba(167, 139, 250, 0.55);
 }
 
 .xpList { display: grid; gap: 14px; margin-top: 14px; }
@@ -1089,6 +1116,7 @@ html { scroll-padding-top: 82px; }
   font-size: 14px;
   line-height: 1.6;
 }
+.faqItem .actions { margin: 10px 0 14px; }
 .faqItem p .pill { margin-left: 8px; vertical-align: middle; }
 
 /* ========== Contact band ========== */
