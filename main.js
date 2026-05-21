@@ -73,6 +73,49 @@ function setActiveSection(id) {
   window.addEventListener("resize", apply, { passive: true });
 })();
 
+/* Back to top: show after meaningful scroll; respect reduced motion */
+(function setupBackToTop() {
+  const btn = document.getElementById("backToTop");
+  const topEl = document.getElementById("top");
+  if (!btn) return;
+
+  const reduceMq = window.matchMedia("(prefers-reduced-motion: reduce)");
+  let raf = 0;
+  let visible = false;
+
+  function threshold() {
+    return Math.max(320, Math.round((window.innerHeight || 600) * 0.55));
+  }
+
+  function setVisible(next) {
+    if (visible === next) return;
+    visible = next;
+    btn.toggleAttribute("hidden", !next);
+    btn.classList.toggle("is-visible", next);
+  }
+
+  function apply() {
+    raf = 0;
+    setVisible((window.scrollY || window.pageYOffset || 0) > threshold());
+  }
+
+  btn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: reduceMq.matches ? "auto" : "smooth" });
+    topEl?.focus({ preventScroll: true });
+  });
+
+  apply();
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (raf) return;
+      raf = window.requestAnimationFrame(apply);
+    },
+    { passive: true }
+  );
+  window.addEventListener("resize", apply, { passive: true });
+})();
+
 const supportsIo = typeof window !== "undefined" && "IntersectionObserver" in window;
 
 if (supportsIo) {
@@ -139,23 +182,38 @@ document.querySelectorAll(".js-download-json").forEach((btn) => {
   });
 });
 
-/* Copy email to clipboard from the closing band */
-document.getElementById("copyEmail")?.addEventListener("click", async (e) => {
-  const btn = e.currentTarget;
-  const email = btn.getAttribute("data-email") || "";
-  const label = btn.querySelector("#copyEmailLabel");
-  try {
-    await navigator.clipboard.writeText(email);
-    toast("Email copied to clipboard.");
-    if (label) {
-      const original = label.textContent;
-      label.textContent = "Copied. Paste away";
-      setTimeout(() => { label.textContent = original; }, 1600);
-    }
-  } catch {
-    window.location.href = `mailto:${email}`;
-  }
-});
+/* Reveal email on click, then copy to clipboard */
+(function setupEmailReveal() {
+  const buttons = document.querySelectorAll("[data-email-reveal]");
+  if (!buttons.length) return;
+
+  buttons.forEach((btn) => {
+    const email = btn.getAttribute("data-email") || "";
+    const label = btn.querySelector("[data-email-label]");
+    if (!email || !label) return;
+
+    btn.addEventListener("click", async () => {
+      if (!btn.classList.contains("is-revealed")) {
+        btn.classList.add("is-revealed");
+        label.textContent = email;
+        btn.setAttribute("aria-label", email);
+      }
+
+      const restore = btn.classList.contains("is-revealed") ? email : "Email me";
+
+      try {
+        await navigator.clipboard.writeText(email);
+        toast("Email copied to clipboard.");
+        label.textContent = "Copied";
+        setTimeout(() => {
+          label.textContent = restore;
+        }, 1600);
+      } catch {
+        window.location.href = `mailto:${email}`;
+      }
+    });
+  });
+})();
 
 /* Track-record industry filter */
 (function setupFilter() {
@@ -287,6 +345,10 @@ document.getElementById("copyEmail")?.addEventListener("click", async (e) => {
         // Ignore non-primary buttons/multi-touch.
         if (e.pointerType === "mouse" && e.button !== 0) return;
         if (pointerId !== null) return;
+        // Touches on prev/next (or any control) bubble here; capturing on the
+        // viewport breaks click() on those targets on touch devices.
+        const t = e.target;
+        if (t instanceof Element && t.closest("button, a, input, select, textarea")) return;
         pointerId = e.pointerId;
         startX = e.clientX;
         startY = e.clientY;

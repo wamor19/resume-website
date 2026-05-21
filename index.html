@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-GB">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,7 +7,7 @@
     <title>William Amor | Principal Product Owner</title>
     <meta
       name="description"
-      content="William Amor, Principal Product Owner in London. Data and analytics products across insurance, consumer health, and pharma: roadmaps, delivery, and measurable commercial impact."
+      content="William Amor, Principal Product Owner in London. Data and analytics products in insurance, consumer health, and pharma: roadmaps, delivery, and commercial results."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -18,8 +18,9 @@
     <link rel="stylesheet" href="styles.css" />
     <noscript
       ><style>
-        [data-reveal] > *:not(ul.bullets):not(.kpis):not(.grid3):not(.tags):not(.stack):not(.industries):not(.faq):not(.xpList),
+        [data-reveal] > *:not(ul.bullets):not(ul.impactWins):not(.kpis):not(.grid3):not(.tags):not(.stack):not(.industries):not(.faq):not(.xpList),
         [data-reveal] > ul.bullets > li,
+        [data-reveal] > ul.impactWins > li,
         [data-reveal] > .kpis > .kpi,
         [data-reveal] > .grid3 > .card,
         [data-reveal] > .tags > .tag,
@@ -72,14 +73,14 @@
           </a>
 
           <div class="ctaRow" aria-label="Primary contact links">
-            <a class="ctaBtn" href="mailto:william.amor@protonmail.com" aria-label="Email me">
+            <button class="ctaBtn" type="button" data-email-reveal data-email="william.amor@protonmail.com" aria-label="Email me">
               <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
                 <path
                   d="M4 6.75A2.75 2.75 0 0 1 6.75 4h10.5A2.75 2.75 0 0 1 20 6.75v10.5A2.75 2.75 0 0 1 17.25 20H6.75A2.75 2.75 0 0 1 4 17.25V6.75Zm2.1-.75 5.62 4.49c.16.13.39.13.55 0L18.9 6H6.1Zm12.9 1.78-6.06 4.84a1.75 1.75 0 0 1-2.19 0L4.7 7.78V17.25c0 .97.78 1.75 1.75 1.75h10.8c.97 0 1.75-.78 1.75-1.75V7.78Z"
                 />
               </svg>
-              <span>Email me</span>
-            </a>
+              <span data-email-label>Email me</span>
+            </button>
 
             <a class="ctaBtn ctaBtn--ghost" href="https://www.linkedin.com/in/willamor/" target="_blank" rel="noreferrer">
               <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
@@ -96,7 +97,7 @@
               <span class="status__dot status__dot--on" aria-hidden="true"></span>
               <div>
                 <div class="status__h">Open to roles</div>
-                <div class="status__p">Principal · Product Strategy · Product Owner · Product Manager · Digital Delivery</div>
+                <div class="status__p">Product Strategy · Product Owner · Product Manager · Digital Delivery</div>
               </div>
             </div>
             <div class="status__grid">
@@ -135,9 +136,9 @@
             </div>
           </div>
 
-          <div class="sideBlock" role="group" aria-label="Resume: PDF" hidden>
+          <div class="sideBlock" role="group" aria-label="Resume: PDF">
             <div class="sideBlock__h">Prefer the PDF?</div>
-            <div class="sideBlock__p">Same content, recruiter-friendly, easy to forward.</div>
+            <div class="sideBlock__p">Same content, easy for recruiters to forward.</div>
             <div class="actions actions--center">
               <a class="pill" href="./assets/files/william-amor-cv-apr-2026.pdf" download>Download CV (PDF)</a>
             </div>
@@ -166,7 +167,7 @@
         </div>
       </aside>
 
-      <main class="content" id="top">
+      <main class="content" id="top" tabindex="-1">
         <section class="section section--hero" id="hero" data-reveal>
           <div class="hero">
             <div class="hero__eyebrow">
@@ -176,44 +177,80 @@
             <h1 class="hero__h1">
               <span class="hero__accent">Principal Product Owner</span>
             </h1>
-            <div class="heroRotator" aria-live="polite" aria-label="What I do">
-              <span class="heroRotator__prefix">Currently</span>
-              <span class="heroRotator__rot" id="heroRotator">
-                <span class="heroRotator__line is-on">leading product strategy and delivery: scope, decisions, and measurable outcomes.</span>
-                <span class="heroRotator__line">running roadmaps across multiple squads (25+ across engineering, analytics, and product).</span>
-                <span class="heroRotator__line">shaping work from problem definition through to shipped change and adoption.</span>
-                <span class="heroRotator__line">delivering in regulated environments with infosec and audit constraints.</span>
-              </span>
+            <div class="hero__panel hero__surface">
+              <div class="heroRotator" aria-live="polite" aria-label="What I do">
+                <span class="heroRotator__prefix">Currently</span>
+                <span class="heroRotator__rot" id="heroRotator">
+                  <span class="heroRotator__line is-on">leading product strategy and delivery across roadmaps, squads, and releases.</span>
+                  <span class="heroRotator__line">running roadmaps across multiple squads (25+ across engineering, analytics, and product).</span>
+                  <span class="heroRotator__line">taking work from the initial problem through to release and adoption.</span>
+                  <span class="heroRotator__line">delivering in regulated environments with infosec and audit requirements.</span>
+                </span>
+              </div>
+              <div class="hero__ledes">
+                <p class="hero__lede">
+                  Eight years working across <strong>insurance</strong>, <strong>consumer health</strong>, and <strong>pharma</strong>, including consultancy work at <strong>Marsh</strong>. I lead product strategy and delivery: agree scope with stakeholders and ship products people actually use.
+                </p>
+                <p class="hero__lede">
+                  I’ve owned and delivered on <strong>Qlik</strong>, <strong>Power BI</strong>, <strong>Power Platform</strong>, <strong>Alteryx</strong>, <strong>AWS</strong>, <strong>React</strong>, and modern web stacks, including rollouts, governance, and change management.
+                </p>
+                <p class="hero__lede">
+                  I’ve led product in large multinationals with global teams across all continents. I build products that save time and grow revenue, and I use data to decide what to build, fund, or stop.
+                </p>
+              </div>
+              <div class="hero__chips" aria-label="Core strengths">
+                <span class="chip">Adoption &amp; metrics</span>
+                <span class="chip">Agile &amp; SAFe</span>
+                <span class="chip">B2B SaaS &amp; web products</span>
+                <span class="chip">BI &amp; dashboards</span>
+                <span class="chip">Change management</span>
+                <span class="chip">Client management</span>
+                <span class="chip">Commercial outcomes</span>
+                <span class="chip">Data &amp; analytics</span>
+                <span class="chip">Discovery</span>
+                <span class="chip">Global delivery</span>
+                <span class="chip">Infosec governance</span>
+                <span class="chip">Intelligent automation</span>
+                <span class="chip">Portfolio prioritisation</span>
+                <span class="chip">Prototyping (Figma)</span>
+                <span class="chip">Regulated delivery</span>
+                <span class="chip">Roadmaps &amp; OKRs</span>
+                <span class="chip">Snowflake &amp; SQL</span>
+                <span class="chip">Stakeholder management</span>
+                <span class="chip">Strategy</span>
+                <span class="chip">Technical product ownership</span>
+                <span class="chip">UAT &amp; release</span>
+                <span class="chip">Vendor &amp; RFP</span>
+              </div>
             </div>
-            <p class="hero__lede">
-              Eight years across <strong>insurance</strong>, <strong>consumer health</strong>, and <strong>pharma</strong> — including consultancy/advisory work in insurance at <strong>Marsh</strong>. I lead product strategy and digital delivery: align stakeholders, shape scope, and ship work that gets used.
-            </p>
-            <p class="hero__lede">
-              Product-owned and delivered across <strong>Qlik</strong>, <strong>Power BI</strong>, <strong>Power Platform</strong>, <strong>Alteryx</strong>, <strong>AWS</strong>, <strong>React</strong>, and modern <strong>web development</strong> — including enterprise rollouts, governance, adoption/change management, and measurable outcomes.
-            </p>
-            <p class="hero__lede">
-              Experienced in large, complex multinationals with global teams. I context-switch quickly across business and user scenarios, shape strategy and funding pitches, and influence senior decision-makers with clear, evidence-led recommendations that work for the business and the user.
-            </p>
-            <div class="hero__chips" aria-label="Core strengths">
-              <span class="chip">Strategy</span>
-              <span class="chip">Stakeholder influence</span>
-              <span class="chip">Roadmaps &amp; OKRs</span>
-              <span class="chip">Technical product ownership</span>
-              <span class="chip">Regulated delivery</span>
-              <span class="chip">Prototyping (Figma)</span>
-            </div>
-            <ul class="wins" aria-label="Selected wins">
-              <li>Tracked <strong>$15bn+</strong> premium with consistent reporting and adoption.</li>
-              <li>Shipped insight products surfacing <strong>$8m+</strong> placement opportunities.</li>
-              <li>Delivered work tied to a measured <strong>$5m</strong> uplift (Amazon 360 view).</li>
-            </ul>
-            <div class="hero__ctas">
-              <a class="ctaBtn ctaBtn--primary" href="mailto:william.amor@protonmail.com?subject=Role%20enquiry">
-                <span>Send me a role</span>
-                <svg class="ico ico--arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 5l7 7-7 7-1.4-1.4 4.6-4.6H3v-2h13.7l-4.6-4.6L13.5 5z"/></svg>
-              </a>
-              <a class="ctaBtn ctaBtn--ghost" href="#experience">See experience</a>
-              <span class="hero__reply">Usually replies within a working day.</span>
+            <div class="hero__ctaBar hero__surface" aria-label="Contact">
+              <div class="hero__ctaMain">
+                <div class="hero__ctaActions">
+                  <a class="ctaBtn ctaBtn--primary" href="mailto:william.amor@protonmail.com?subject=Role%20enquiry">
+                    <span>Send me a role</span>
+                    <svg class="ico ico--arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 5l7 7-7 7-1.4-1.4 4.6-4.6H3v-2h13.7l-4.6-4.6L13.5 5z"/></svg>
+                  </a>
+                  <a class="ctaBtn ctaBtn--ghost" href="#impact">See impact</a>
+                  <a class="ctaBtn ctaBtn--ghost" href="#experience">See experience</a>
+                </div>
+                <p class="hero__reply">Usually replies within a working day.</p>
+              </div>
+              <div class="hero__ctaAside" aria-label="At a glance">
+                <dl class="hero__ctaFacts">
+                  <div>
+                    <dt>Open to</dt>
+                    <dd>Product Strategy · Product Owner · Product Manager</dd>
+                  </div>
+                  <div>
+                    <dt>Based in</dt>
+                    <dd>London, United Kingdom</dd>
+                  </div>
+                  <div>
+                    <dt>Right to work</dt>
+                    <dd>UK and EU/EEA (no sponsorship)</dd>
+                  </div>
+                </dl>
+              </div>
             </div>
           </div>
         </section>
@@ -262,8 +299,14 @@
         <section class="section" id="impact" data-reveal>
           <div class="sectionHead">
             <h2 class="h2">Impact</h2>
-            <p class="sectionHead__sub">A few outcomes from recent roles.</p>
+            <p class="sectionHead__sub">Revenue, scale, and programmes shipped across insurance, consumer health, and pharma.</p>
           </div>
+          <ul class="impactWins" aria-label="Selected outcomes">
+            <li>Placement Operations used product insight on commission rates with clients; Marsh attributed a <strong>$2m</strong> revenue increase.</li>
+            <li>Delivered an Amazon 360 view and sentiment analysis at Kenvue for UK commercial teams; part of a <strong>$5m</strong> sales uplift on that account set.</li>
+            <li>Refreshed ETL and reporting for UK sales at Johnson &amp; Johnson; the business attributed a <strong>$1.5m</strong> sales effect after go-live.</li>
+            <li>Designed and pitched an EMEA graduate scheme to the regional CIO at Kenvue: secured sponsorship and funding; hiring in the UK, Germany, and Dubai; led <strong>3</strong> cohorts over <strong>3</strong> years.</li>
+          </ul>
           <div class="carousel" data-carousel aria-label="Impact examples">
             <div class="carousel__top">
               <div class="carousel__hint">More examples.</div>
@@ -286,7 +329,7 @@
                   </div>
                   <p class="industry__p">Built analytics used by broking teams to identify placement opportunities.</p>
                   <p class="industry__p">Owned roadmap and delivery across multiple squads.</p>
-                  <div class="industry__metric"><strong>$8m+</strong> opportunities surfaced · <strong>$2m+</strong> net-new</div>
+                  <div class="industry__metric"><strong>$8m+</strong> opportunities identified · <strong>$2m+</strong> net new</div>
                   <div class="industry__co">Marsh</div>
                 </article>
 
@@ -298,7 +341,7 @@
                     <h3 class="h3">Revenue impact (consumer health)</h3>
                   </div>
                   <p class="industry__p">Built an Amazon view combining performance and sentiment.</p>
-                  <p class="industry__p">Used in account work tied to a measured uplift.</p>
+                  <p class="industry__p">Used in account planning linked to a measured uplift.</p>
                   <div class="industry__metric">Part of a <strong>$5m</strong> Amazon sales uplift</div>
                   <div class="industry__co">Kenvue</div>
                 </article>
@@ -311,7 +354,7 @@
                     <h3 class="h3">Portfolio scale (insurance)</h3>
                   </div>
                   <p class="industry__p">Ran an analytics portfolio at commercial scale, with usage tracking and outcomes reporting.</p>
-                  <p class="industry__p">Kept roadmap decisions tied to measurable change.</p>
+                  <p class="industry__p">Kept roadmap decisions tied to results teams could see.</p>
                   <div class="industry__metric"><strong>$15bn+</strong> premiums tracked</div>
                   <div class="industry__co">Marsh</div>
                 </article>
@@ -399,8 +442,8 @@
                       <span class="xpCard__orgMeta">
                         <span class="xpCard__orgLine">
                           <span class="xpCard__orgIndustry">Insurance</span>
-                          <span class="xpCard__orgSep" aria-hidden="true">—</span>
-                          <span class="xpCard__orgDesc">global insurance broker, advisory &amp; consulting</span>
+                          <span class="xpCard__orgSep" aria-hidden="true">·</span>
+                          <span class="xpCard__orgDesc">global insurance broker and consultancy</span>
                         </span>
                         <span class="xpCard__orgLoc">London, United Kingdom</span>
                       </span>
@@ -409,11 +452,11 @@
                   <div class="xpCard__date">Aug 2024 to present</div>
                 </header>
                 <ul class="bullets">
-                  <li>Owned a global product portfolio with multi-million-dollar annual revenue; tracked <strong>$15bn+</strong> premium and <strong>$2m+</strong> net-new placement opportunities.</li>
+                  <li>Principal product owner for a <strong>$15bn+</strong> premium portfolio: multi-million-dollar revenue, <strong>$8m+</strong> placement opportunities, and <strong>$2m</strong> revenue Marsh attributed.</li>
                   <li>Set product strategy, roadmaps, and OKRs with MD/Partner stakeholders.</li>
-                  <li>Led backlogs across multiple squads (<strong>25+</strong> across engineering, analytics, and product).</li>
-                  <li>Shipped insight products surfacing <strong>$8m+</strong> placement opportunities for broking teams.</li>
-                  <li>Defined product instrumentation and reporting for adoption and engagement.</li>
+                  <li>Led backlogs across <strong>25+</strong> people in engineering, analytics, and product.</li>
+                  <li>Shipped commission-rate and placement insight products for broking teams.</li>
+                  <li>Set up usage tracking and engagement reporting across the portfolio.</li>
                   <li>Owned defect triage through to fix, including shared infrastructure teams.</li>
                 </ul>
                 <div class="tags">
@@ -433,7 +476,7 @@
                       <span class="xpCard__orgMeta">
                         <span class="xpCard__orgLine">
                           <span class="xpCard__orgIndustry">Consumer healthcare</span>
-                          <span class="xpCard__orgSep" aria-hidden="true">—</span>
+                          <span class="xpCard__orgSep" aria-hidden="true">·</span>
                           <span class="xpCard__orgDesc">skin health, essential health</span>
                         </span>
                         <span class="xpCard__orgLoc">Buckinghamshire, United Kingdom</span>
@@ -443,13 +486,14 @@
                   <div class="xpCard__date">Jul 2023 to Jun 2024</div>
                 </header>
                 <ul class="bullets">
-                  <li>Owned an EMEA product portfolio: vision, backlog, and delivery.</li>
-                  <li>Ran prioritisation and stakeholder cadence; cut scope when it didn’t justify the cost.</li>
-                  <li>Planned investment and capacity across the portfolio.</li>
-                  <li>Migrated digital, eCommerce, and marketing data onto the Snowflake Kenvue Data Platform.</li>
-                  <li>Built SQL datasets behind analytics, dashboards, and ad hoc EMEA requests.</li>
-                  <li>Delivered an Amazon 360 view plus sentiment; part of a <strong>$5m</strong> sales uplift on that account set.</li>
-                  <li>Launched and mentored a graduate scheme with CIO sponsorship.</li>
+                  <li>Data &amp; analytics product owner for a <strong>$5m</strong> UK Amazon sales uplift: 360 view and sentiment analysis for commercial teams.</li>
+                  <li>Owned an EMEA portfolio across digital, eCommerce, and marketing: vision, backlog, and delivery.</li>
+                  <li>Ran prioritisation and stakeholder reviews; cut scope when ROI didn’t justify the cost.</li>
+                  <li>Planned investment and squad capacity across the portfolio.</li>
+                  <li>Migrated digital, eCommerce, and marketing data onto the Snowflake Kenvue Data Platform, consolidating sources behind EMEA reporting.</li>
+                  <li>Built SQL datasets powering analytics, dashboards, and ad hoc EMEA requests.</li>
+                  <li>Designed an EMEA graduate scheme for hiring in <strong>3</strong> countries: scope, fully loaded cost, and regional CIO sponsorship.</li>
+                  <li>Led the scheme for <strong>3 years</strong> across <strong>3 cohorts</strong> at Johnson &amp; Johnson and Kenvue.</li>
                 </ul>
                 <div class="tags">
                   <span class="tag">Snowflake</span><span class="tag">SQL</span><span class="tag">Analytics</span><span class="tag">Agile</span>
@@ -461,14 +505,14 @@
               <div class="xpCard__body">
                 <header class="xpCard__top">
                   <div class="xpCard__head">
-                    <h3 class="xpCard__title">IT Business Technology Leader (Leadership Program)</h3>
+                    <h3 class="xpCard__title">IT Business Technology Leader (Leadership Programme)</h3>
                     <div class="xpCard__org">
                       <span class="xpCard__orgName">Johnson &amp; Johnson</span>
                       <span class="xpCard__dot" aria-hidden="true">•</span>
                       <span class="xpCard__orgMeta">
                         <span class="xpCard__orgLine">
                           <span class="xpCard__orgIndustry">Consumer healthcare · Pharmaceuticals · MedTech</span>
-                          <span class="xpCard__orgSep" aria-hidden="true">—</span>
+                          <span class="xpCard__orgSep" aria-hidden="true">·</span>
                           <span class="xpCard__orgDesc">global healthcare company</span>
                         </span>
                         <span class="xpCard__orgLoc">Buckinghamshire, United Kingdom</span>
@@ -478,13 +522,13 @@
                   <div class="xpCard__date">Sep 2022 to Jul 2023</div>
                 </header>
                 <ul class="bullets">
-                  <li>IT partner for the <strong>$500m</strong> UK business: digital, data, and operational IT.</li>
+                  <li>IT partner for the <strong>$500m</strong> UK business: digital, data, commercial, and operational IT.</li>
                   <li>Led low-£m programmes for sales operations and manufacturing.</li>
-                  <li>Selected and procured a new LMS: user-journey workshops, RFP, vendor evaluation.</li>
-                  <li>Delivered BI and automated ordering in LATAM/ASPAC; ~<strong>$1m</strong> P&amp;L impact.</li>
-                  <li>Led UK sales reporting ETL and dashboard refresh; <strong>$1.5m</strong> sales effect attributed.</li>
-                  <li>Supported the UK/IE/Nordics carve-out to Kenvue (500 people).</li>
-                  <li>Top annual rating, early promotion; <strong>1st of 45</strong> in cohort.</li>
+                  <li>Piloted a new COTS e-learning system: user-journey workshops, RFP, and vendor evaluation.</li>
+                  <li>Delivered BI and automated ordering in LATAM/ASPAC with ~<strong>$1m</strong> P&amp;L impact: reporting and automated ordering.</li>
+                  <li>Led UK sales reporting refresh with a <strong>$1.5m</strong> attributed sales effect: ETL and dashboard go-live.</li>
+                  <li>Supported the UK/IE/Nordics carve-out to Kenvue (<strong>500</strong> people across <strong>3</strong> markets).</li>
+                  <li>Top annual rating and early promotion; <strong>1st of 45</strong> in the leadership programme cohort.</li>
                 </ul>
                 <div class="tags">
                   <span class="tag">BI</span><span class="tag">ETL</span><span class="tag">RFP</span><span class="tag">Leadership</span>
@@ -496,14 +540,14 @@
               <div class="xpCard__body">
                 <header class="xpCard__top">
                   <div class="xpCard__head">
-                    <h3 class="xpCard__title">Intelligent Automation Product Manager (Leadership Program)</h3>
+                    <h3 class="xpCard__title">Intelligent Automation Product Manager (Leadership Programme)</h3>
                     <div class="xpCard__org">
                       <span class="xpCard__orgName">Johnson &amp; Johnson</span>
                       <span class="xpCard__dot" aria-hidden="true">•</span>
                       <span class="xpCard__orgMeta">
                         <span class="xpCard__orgLine">
                           <span class="xpCard__orgIndustry">Consumer healthcare · Pharmaceuticals · MedTech</span>
-                          <span class="xpCard__orgSep" aria-hidden="true">—</span>
+                          <span class="xpCard__orgSep" aria-hidden="true">·</span>
                           <span class="xpCard__orgDesc">global healthcare company</span>
                         </span>
                         <span class="xpCard__orgLoc">Buckinghamshire, United Kingdom</span>
@@ -513,13 +557,13 @@
                   <div class="xpCard__date">Jun 2021 to Sep 2022</div>
                 </header>
                 <ul class="bullets">
+                  <li>Automation product manager with <strong>$800k</strong> CIO funding: EMEA plan across Power Platform, Alteryx, and UiPath; <strong>2,800</strong> hours/year returned.</li>
                   <li>Set up the automation delivery model: intake, governance, and prioritisation.</li>
-                  <li>Defined the EMEA automation plan across Power Platform, Alteryx, and UiPath.</li>
-                  <li>Secured <strong>$800k</strong> funding from global and regional CIO sponsors.</li>
-                  <li>Delivered automations with seven-figure savings and measurable hours returned.</li>
-                  <li>Got Power Automate Desktop approved with infosec; <strong>1,500</strong> hours/year returned in that stream.</li>
-                  <li>Ran a UK hackathon; <strong>1,300</strong> hours/year returned from winning ideas; expanded to EMEA.</li>
-                  <li>SAFe Agilist; top-band year-end review.</li>
+                  <li>Delivered automations with seven-figure savings across shipped streams.</li>
+                  <li>Led full compliance review with internal infosec and Microsoft for Power Automate Desktop: new citizen-developer capability for the company.</li>
+                  <li>Ran a UK hackathon expanded to EMEA: <strong>1,300</strong> hours/year returned from winning ideas.</li>
+                  <li>SAFe Agilist.</li>
+                  <li>Top-band year-end review.</li>
                 </ul>
                 <div class="tags">
                   <span class="tag">Power Platform</span><span class="tag">UiPath</span><span class="tag">Alteryx</span><span class="tag">Automation</span>
@@ -538,7 +582,7 @@
                       <span class="xpCard__orgMeta">
                         <span class="xpCard__orgLine">
                           <span class="xpCard__orgIndustry">Pharmaceuticals</span>
-                          <span class="xpCard__orgSep" aria-hidden="true">—</span>
+                          <span class="xpCard__orgSep" aria-hidden="true">·</span>
                           <span class="xpCard__orgDesc">biopharma &amp; vaccines</span>
                         </span>
                         <span class="xpCard__orgLoc">Kent, United Kingdom</span>
@@ -548,11 +592,10 @@
                   <div class="xpCard__date">Sep 2019 to Jun 2021</div>
                 </header>
                 <ul class="bullets">
-                  <li>BA/PM on a global Pega workflow for tracking regulatory interactions with HCPs.</li>
-                  <li>Co-ordinated UAT across <strong>125</strong> countries: test waves, defect triage, and sign-off.</li>
+                  <li>Global project coordinator for rollout across <strong>125</strong> countries: Pega HCP regulatory workflow, UAT waves, and Comirnaty (COVID-19 vaccine) support.</li>
                   <li>Updated clinical/medical process documentation for FDA, EMA, and MHRA impacts.</li>
-                  <li>Managed change control and audit traceability.</li>
-                  <li>Delivered training and demos across a <strong>120,000</strong>-person footprint.</li>
+                  <li>Managed change control and audit traceability for regulated release.</li>
+                  <li>Delivered training and demos across a <strong>120,000</strong>-person global organisation.</li>
                 </ul>
                 <div class="tags">
                   <span class="tag">Pega</span><span class="tag">UAT</span><span class="tag">Regulatory</span><span class="tag">Change control</span>
@@ -564,14 +607,14 @@
               <div class="xpCard__body">
                 <header class="xpCard__top">
                   <div class="xpCard__head">
-                    <h3 class="xpCard__title">Technology Business Partner (Placement) → Product Delivery Lead (Part-time)</h3>
+                    <h3 class="xpCard__title">Technology Business Partner (Placement) to Product Delivery Lead (Part-time)</h3>
                     <div class="xpCard__org">
                       <span class="xpCard__orgName">GSK</span>
                       <span class="xpCard__dot" aria-hidden="true">•</span>
                       <span class="xpCard__orgMeta">
                         <span class="xpCard__orgLine">
                           <span class="xpCard__orgIndustry">Pharmaceuticals</span>
-                          <span class="xpCard__orgSep" aria-hidden="true">—</span>
+                          <span class="xpCard__orgSep" aria-hidden="true">·</span>
                           <span class="xpCard__orgDesc">biopharma</span>
                         </span>
                         <span class="xpCard__orgLoc">Hertfordshire, United Kingdom</span>
@@ -580,9 +623,11 @@
                   </div>
                   <div class="xpCard__date">Jun 2017 to Aug 2019</div>
                 </header>
-                <p class="p">
-                  Completed a year‑in‑industry placement internship during my degree, then was kept on part‑time through final year after being a top achiever in the intern cohort.
-                </p>
+                <ul class="bullets">
+                  <li>Technology business partner on a <strong>20 hrs/week</strong> part-time programme: <strong>1st</strong> in intern cohort; GxP manufacturing and global supply RPA.</li>
+                  <li>Worked in GxP pharma manufacturing, including calibration software for production machinery: fewer defect opportunities and safer medicine supply for patients.</li>
+                  <li>Built global RPA that monitored stock thresholds and auto-ordered parts to keep medicine supply running.</li>
+                </ul>
                 <div class="tags" aria-label="Key themes">
                   <span class="tag">Automation Anywhere</span>
                   <span class="tag">Manufacturing</span>
@@ -640,77 +685,19 @@
           <div class="sectionHead">
             <h2 class="h2">Skills and Platforms</h2>
           </div>
-          <div class="toolboxBand" id="toolbox-product">Product craft</div>
-          <div class="skillProof" aria-label="Product craft: proof points">
-            <div class="skillProof__item"><span class="skillProof__k">Roadmaps</span><span class="skillProof__v">ran multi-squad delivery and OKRs across <strong>25+</strong> squads.</span></div>
-            <div class="skillProof__item"><span class="skillProof__k">Stakeholder alignment</span><span class="skillProof__v">set strategy with MD/Partner stakeholders; made trade-offs tied to outcomes.</span></div>
-            <div class="skillProof__item"><span class="skillProof__k">Product analytics</span><span class="skillProof__v">defined instrumentation and adoption reporting for insight products.</span></div>
-          </div>
-          <div class="tags" aria-labelledby="toolbox-product">
-            <span class="tag">Roadmaps</span>
-            <span class="tag">OKRs</span>
-            <span class="tag">Backlogs</span>
-            <span class="tag">Prioritisation</span>
-            <span class="tag">Stakeholder alignment</span>
-            <span class="tag">Product discovery</span>
-            <span class="tag">User journeys</span>
-            <span class="tag">Agile</span>
-            <span class="tag">SAFe</span>
-            <span class="tag">RFP</span>
-            <span class="tag">UAT</span>
-            <span class="tag">Change control</span>
-            <span class="tag">Jira</span>
-            <span class="tag">Confluence</span>
-          </div>
-          <div class="toolboxBand" id="toolbox-stack">Data, apps &amp; automation</div>
-          <div class="skillProof" aria-label="Data, apps and automation: proof points">
-            <div class="skillProof__item"><span class="skillProof__k">Snowflake</span><span class="skillProof__v">migrated digital + eComm datasets onto a shared platform for faster reporting.</span></div>
-            <div class="skillProof__item"><span class="skillProof__k">SQL / ETL</span><span class="skillProof__v">built datasets powering dashboards and ad hoc analysis; delivered a reporting refresh with a <strong>$1.5m</strong> attributed effect.</span></div>
-            <div class="skillProof__item"><span class="skillProof__k">Automation</span><span class="skillProof__v">set intake + governance; shipped automations returning <strong>1,500</strong> hours/year.</span></div>
-          </div>
-          <div class="tags" aria-labelledby="toolbox-stack">
-            <span class="tag">SQL</span>
-            <span class="tag">ETL</span>
-            <span class="tag">Data migration</span>
-            <span class="tag">Snowflake</span>
-            <span class="tag">AWS</span>
-            <span class="tag">Qlik</span>
-            <span class="tag">BI &amp; reporting</span>
-            <span class="tag">Dashboards</span>
-            <span class="tag">React</span>
-            <span class="tag">MUI</span>
-            <span class="tag">Pega</span>
-            <span class="tag">Power Platform</span>
-            <span class="tag">Power Automate</span>
-            <span class="tag">UiPath</span>
-            <span class="tag">Alteryx</span>
-            <span class="tag">RPA</span>
-            <span class="tag">Product analytics</span>
-          </div>
-        </section>
 
-        <section class="section" id="testimonials" data-reveal>
-          <div class="sectionHead">
-            <h2 class="h2">Testimonials</h2>
-            <p class="sectionHead__sub">Recommendations from colleagues.</p>
-          </div>
-          <div class="stack" aria-label="Testimonials links">
-            <div class="card">
-              <div class="row">
-                <span class="dot" aria-hidden="true"></span>
-                <div>
-                  <div><strong>LinkedIn recommendations</strong></div>
-                  <div class="muted">Opens on LinkedIn.</div>
-                </div>
-              </div>
-              <div class="actions actions--left" style="margin-top: 10px;">
-                <a
-                  class="pill"
-                  href="https://www.linkedin.com/in/willamor/details/recommendations/"
-                  target="_blank"
-                  rel="noreferrer"
-                >View recommendations</a>
-              </div>
+          <div class="skillFlows">
+            <div class="skillFlow" role="group" aria-labelledby="toolbox-product">
+              <h3 class="skillFlow__h" id="toolbox-product">Product craft</h3>
+              <p class="skillFlow__p">
+                I’ve run roadmaps and OKRs across <strong>25+</strong> squads, worked with MD/Partner stakeholders on trade-offs, and set up analytics and adoption reporting for insight products. Day to day: <strong>Agile</strong> and <strong>SAFe</strong>, discovery, UAT, and change control in <strong>Jira</strong> and <strong>Confluence</strong>.
+              </p>
+            </div>
+            <div class="skillFlow" role="group" aria-labelledby="toolbox-stack">
+              <h3 class="skillFlow__h" id="toolbox-stack">Data, apps &amp; automation</h3>
+              <p class="skillFlow__p">
+                <strong>Snowflake</strong> migration and <strong>SQL</strong>/<strong>ETL</strong> for dashboards and analysis, including a reporting refresh with a <strong>$1.5m</strong> attributed effect; governed automation returning <strong>1,500</strong> hours/year. Stack includes <strong>AWS</strong>, <strong>Qlik</strong>, <strong>React</strong>, <strong>MUI</strong>, <strong>Pega</strong>, <strong>Power Platform</strong>, <strong>UiPath</strong>, <strong>Alteryx</strong>, RPA, BI, and product analytics.
+              </p>
             </div>
           </div>
         </section>
@@ -731,12 +718,12 @@
             </details>
             <details class="faqItem">
               <summary>What level of role are you looking for?</summary>
-              <p>Principal Product Owner, Product Owner, or Product Manager: roles with clear ownership and delivery responsibility. I focus on product strategy and shipping work that gets used.</p>
+              <p>Principal Product Owner, Product Owner, or Product Manager: roles with clear ownership and delivery responsibility. I focus on product strategy and products that get used.</p>
             </details>
             <details class="faqItem">
               <summary>Do you have a JSON / structured export?</summary>
               <p>
-                Yes — a structured JSON export for systems that prefer fields you can import or map (without PDF scraping). It includes contact details and key metadata; the full CV is the PDF.
+                Yes. There is a structured JSON export for systems that prefer fields you can import or map (without PDF scraping). It includes contact details and key metadata; the full CV is the PDF.
               </p>
               <div class="actions actions--center">
                 <button class="pill pill--ghost js-download-json" type="button">Download JSON</button>
@@ -755,11 +742,11 @@
               <h2 class="h2">Get in touch.</h2>
               <p class="p">Send the job spec and I’ll reply within a working day with whether it’s a fit and what I’d cover on a first call.</p>
               <div class="contactBand__ctas">
-                <button class="ctaBtn ctaBtn--primary" type="button" id="copyEmail" data-email="william.amor@protonmail.com">
+                <button class="ctaBtn ctaBtn--primary" type="button" data-email-reveal data-email="william.amor@protonmail.com" aria-label="Email me">
                   <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M4 6.75A2.75 2.75 0 0 1 6.75 4h10.5A2.75 2.75 0 0 1 20 6.75v10.5A2.75 2.75 0 0 1 17.25 20H6.75A2.75 2.75 0 0 1 4 17.25V6.75Zm2.1-.75 5.62 4.49c.16.13.39.13.55 0L18.9 6H6.1Zm12.9 1.78-6.06 4.84a1.75 1.75 0 0 1-2.19 0L4.7 7.78V17.25c0 .97.78 1.75 1.75 1.75h10.8c.97 0 1.75-.78 1.75-1.75V7.78Z"/>
                   </svg>
-                  <span id="copyEmailLabel">william.amor@protonmail.com</span>
+                  <span data-email-label>Email me</span>
                 </button>
                 <a class="ctaBtn ctaBtn--ghost" href="https://www.linkedin.com/in/willamor/" target="_blank" rel="noreferrer">LinkedIn</a>
                 <a class="ctaBtn ctaBtn--ghost" href="./assets/files/william-amor-cv-apr-2026.pdf" download hidden>Download CV</a>
@@ -771,7 +758,7 @@
         <section class="section" id="game" data-reveal>
           <div class="sectionHead">
             <h2 class="h2">Not the right fit?</h2>
-            <p class="sectionHead__sub">All good. Here’s a quick game.</p>
+            <p class="sectionHead__sub">All good. Here’s a quick game so you don’t leave empty-handed.</p>
           </div>
           <div class="game">
             <div class="game__hud" aria-label="Game status">
@@ -800,6 +787,13 @@
     </div>
 
     <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+    <button class="backToTop" type="button" id="backToTop" hidden aria-label="Back to top">
+      <svg class="backToTop__ico" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 6.5 6.4 12 7.8 13.4 11 10.2V18h2v-7.8l3.2 3.2 1.4-1.4L12 6.5Z"/>
+      </svg>
+    </button>
+
     <script src="main.js"></script>
   </body>
 </html>

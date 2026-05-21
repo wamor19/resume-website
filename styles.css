@@ -205,10 +205,14 @@ html { scroll-padding-top: 82px; }
   border: 1px solid var(--stroke);
   background: rgba(255,255,255,.06);
   color: var(--text);
+  font-family: inherit;
   font-size: 13.5px;
   font-weight: 650;
   cursor: pointer;
   transition: transform 120ms ease, background 120ms ease, border-color 120ms ease, color 120ms ease;
+}
+button.ctaBtn {
+  appearance: none;
 }
 .ctaBtn:hover {
   text-decoration: none;
@@ -571,19 +575,89 @@ html { scroll-padding-top: 82px; }
   opacity: 1;
   transform: none;
 }
+.hero__surface {
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: var(--r-lg);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.018));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 14px 36px rgba(0, 0, 0, 0.22);
+}
+.hero__panel {
+  display: grid;
+  gap: 18px;
+  padding: 20px 18px;
+  max-width: 72ch;
+}
+.hero__ledes {
+  display: grid;
+  gap: 14px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
 .hero__lede {
   margin: 0;
-  color: var(--muted);
-  max-width: 64ch;
+  color: rgba(255, 255, 255, 0.78);
   font-size: 15px;
+  line-height: 1.6;
+  text-align: left;
 }
-.hero__lede strong { color: var(--text); }
-.hero__chips{
-  margin-top: 12px;
+.hero__lede strong { color: rgba(255, 255, 255, 0.95); font-weight: 600; }
+.hero__chips {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   align-items: center;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.hero__ctaBar {
+  margin-top: 4px;
+  padding: 18px 16px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(200px, 38%);
+  gap: 20px 24px;
+  align-items: start;
+  max-width: 72ch;
+}
+.hero__ctaMain {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+  min-width: 0;
+}
+.hero__ctaActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+.hero__ctaAside {
+  padding-left: 20px;
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  min-width: 0;
+}
+.hero__ctaFacts {
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+.hero__ctaFacts > div {
+  display: grid;
+  gap: 3px;
+}
+.hero__ctaFacts dt {
+  margin: 0;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+.hero__ctaFacts dd {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.86);
 }
 .chip{
   font-size: 12.5px;
@@ -595,22 +669,23 @@ html { scroll-padding-top: 82px; }
   letter-spacing: -0.01em;
   white-space: nowrap;
 }
-.wins{
-  margin: 12px 0 0;
+.impactWins {
+  margin: 0 0 22px;
   padding-left: 18px;
   color: var(--muted);
   max-width: 72ch;
 }
-.wins li{ margin: 8px 0; }
-.wins strong{ color: var(--text); font-weight: 650; }
-.hero__ctas {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px 14px;
-  margin-top: 4px;
+.impactWins li { margin: 10px 0; line-height: 1.55; }
+.impactWins strong {
+  color: rgba(125, 211, 252, 0.92);
+  font-weight: 650;
 }
-.hero__reply { font-size: 12.5px; color: var(--faint); }
+.hero__reply {
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--faint);
+}
 
 /* ========== Industries band ========== */
 .industries {
@@ -777,7 +852,8 @@ html { scroll-padding-top: 82px; }
 .carousel__arrow:focus-visible,
 .carousel__dot:focus-visible,
 .linkBtn:focus-visible,
-.cit-tip:focus-visible {
+.cit-tip:focus-visible,
+.backToTop:focus-visible {
   outline: none;
   box-shadow: none;
 }
@@ -960,19 +1036,16 @@ html { scroll-padding-top: 82px; }
 }
 .bullets li { margin: 8px 0; }
 .bullets strong { color: var(--accent); }
-/* Experience: figures read as body text, not highlighted callouts */
-.xpList .bullets strong {
-  font-weight: inherit;
-  color: inherit;
-}
 
-/* Experience: highlight first bullet */
-.xpCard .bullets li:nth-child(1){
-  color: rgba(255,255,255,.88);
-}
-.xpCard .bullets li:nth-child(1) strong{
+/* Experience: metrics highlighted consistently in every bullet */
+.xpCard .bullets strong {
   color: rgba(125, 211, 252, 0.92);
   font-weight: 650;
+}
+
+/* Experience: lead bullet reads slightly brighter */
+.xpCard .bullets li:nth-child(1) {
+  color: rgba(255, 255, 255, 0.88);
 }
 
 .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
@@ -985,34 +1058,35 @@ html { scroll-padding-top: 82px; }
   border-radius: 999px;
 }
 
-/* Skills proof micro-lines */
-.skillProof{
+/* Skills: concise prose (two short flowing paragraphs) */
+#toolbox-skills .skillFlows {
   margin-top: 12px;
   display: grid;
-  gap: 8px;
-  padding: 12px 14px;
-  border: 1px solid rgba(255,255,255,.10);
-  border-radius: 16px;
-  background: rgba(255,255,255,.03);
+  gap: 1.35rem;
+  max-width: 38rem;
 }
-.skillProof__item{
-  display: grid;
-  grid-template-columns: minmax(120px, 170px) 1fr;
-  gap: 12px;
-  align-items: baseline;
+#toolbox-skills .skillFlow + .skillFlow {
+  padding-top: 1.35rem;
+  border-top: 1px solid rgba(255,255,255,.07);
 }
-.skillProof__k{
-  font-size: 11.5px;
-  letter-spacing: 0.10em;
+#toolbox-skills .skillFlow__h {
+  margin: 0 0 0.45rem;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.82);
+  color: var(--faint);
 }
-.skillProof__v{
-  font-size: 13.5px;
+#toolbox-skills .skillFlow__p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.68;
   color: var(--muted);
-  line-height: 1.45;
 }
-.skillProof__v strong{ color: var(--text); font-weight: 650; }
+#toolbox-skills .skillFlow__p strong {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 650;
+}
 
 .filterEmpty {
   margin: 16px 0 0;
@@ -1028,7 +1102,6 @@ html { scroll-padding-top: 82px; }
   text-transform: uppercase;
   color: var(--faint);
 }
-#toolbox-skills .tags + .toolboxBand { margin-top: 22px; }
 
 .eduRow {
   margin-top: 12px;
@@ -1215,6 +1288,47 @@ kbd {
 }
 
 
+/* ========== Back to top ========== */
+.backToTop {
+  position: fixed;
+  right: max(18px, env(safe-area-inset-right, 0px));
+  bottom: max(22px, env(safe-area-inset-bottom, 0px));
+  z-index: 75;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(7, 11, 24, 0.82);
+  color: var(--text);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(12px);
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(8px) scale(0.96);
+  pointer-events: none;
+  transition:
+    opacity 200ms ease,
+    transform 200ms ease,
+    background 180ms ease,
+    border-color 180ms ease;
+}
+.backToTop.is-visible {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+.backToTop:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(125, 211, 252, 0.45);
+}
+.backToTop__ico {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+}
+
 /* ========== Toast ========== */
 .toast {
   position: fixed;
@@ -1243,8 +1357,9 @@ kbd {
 /* ========== Reveal animations ==========
    Hide section children only when JS has flagged the document. If JS is blocked,
    noscript inline styles keep things visible. */
-html.reveal-animations-on [data-reveal]:not(.is-in) > *:not(ul.bullets):not(.kpis):not(.grid3):not(.tags):not(.stack):not(.industries):not(.faq):not(.xpList):not(.eduRow),
+html.reveal-animations-on [data-reveal]:not(.is-in) > *:not(ul.bullets):not(ul.impactWins):not(.kpis):not(.grid3):not(.tags):not(.stack):not(.industries):not(.faq):not(.xpList):not(.eduRow),
 html.reveal-animations-on [data-reveal]:not(.is-in) > ul.bullets > li,
+html.reveal-animations-on [data-reveal]:not(.is-in) > ul.impactWins > li,
 html.reveal-animations-on [data-reveal]:not(.is-in) > .kpis > .kpi,
 html.reveal-animations-on [data-reveal]:not(.is-in) > .grid3 > .card,
 html.reveal-animations-on [data-reveal]:not(.is-in) > .tags > .tag,
@@ -1258,8 +1373,9 @@ html.reveal-animations-on [data-reveal]:not(.is-in) > .eduRow > .eduChip {
   transition: opacity 0.38s ease, transform 0.4s cubic-bezier(0.2, 0.9, 0.2, 1);
   transition-delay: 0s;
 }
-html.reveal-animations-on [data-reveal].is-in > *:not(ul.bullets):not(.kpis):not(.grid3):not(.tags):not(.stack):not(.industries):not(.faq):not(.xpList):not(.eduRow),
+html.reveal-animations-on [data-reveal].is-in > *:not(ul.bullets):not(ul.impactWins):not(.kpis):not(.grid3):not(.tags):not(.stack):not(.industries):not(.faq):not(.xpList):not(.eduRow),
 html.reveal-animations-on [data-reveal].is-in > ul.bullets > li,
+html.reveal-animations-on [data-reveal].is-in > ul.impactWins > li,
 html.reveal-animations-on [data-reveal].is-in > .kpis > .kpi,
 html.reveal-animations-on [data-reveal].is-in > .grid3 > .card,
 html.reveal-animations-on [data-reveal].is-in > .tags > .tag,
@@ -1283,6 +1399,10 @@ html.reveal-animations-on [data-reveal].is-in > *:nth-child(6) { transition-dela
 html.reveal-animations-on [data-reveal].is-in > ul.bullets > li:nth-child(n+1) { transition-delay: 0.10s; }
 html.reveal-animations-on [data-reveal].is-in > ul.bullets > li:nth-child(n+2) { transition-delay: 0.15s; }
 html.reveal-animations-on [data-reveal].is-in > ul.bullets > li:nth-child(n+3) { transition-delay: 0.20s; }
+html.reveal-animations-on [data-reveal].is-in > ul.impactWins > li:nth-child(n+1) { transition-delay: 0.08s; }
+html.reveal-animations-on [data-reveal].is-in > ul.impactWins > li:nth-child(n+2) { transition-delay: 0.12s; }
+html.reveal-animations-on [data-reveal].is-in > ul.impactWins > li:nth-child(n+3) { transition-delay: 0.16s; }
+html.reveal-animations-on [data-reveal].is-in > ul.impactWins > li:nth-child(n+4) { transition-delay: 0.20s; }
 html.reveal-animations-on [data-reveal].is-in > .grid3 > .card:nth-child(1) { transition-delay: 0.10s; }
 html.reveal-animations-on [data-reveal].is-in > .grid3 > .card:nth-child(2) { transition-delay: 0.16s; }
 html.reveal-animations-on [data-reveal].is-in > .grid3 > .card:nth-child(3) { transition-delay: 0.22s; }
@@ -1325,7 +1445,11 @@ html.reveal-animations-on [data-reveal].is-in > .eduRow > .eduChip:nth-child(3) 
   .xpCard { grid-template-columns: 1fr; }
   .xpCard__logo { width: 52px; height: 52px; }
   .hero__h1 { font-size: clamp(28px, 7.5vw, 38px); }
-  .skillProof__item { grid-template-columns: 1fr; gap: 4px; }
+  .hero__ctaBar {
+    grid-template-columns: 1fr;
+    max-width: 40rem;
+  }
+  .hero__ctaAside { display: none; }
 }
 
 @media (max-width: 520px) {
@@ -1341,7 +1465,8 @@ html.reveal-animations-on [data-reveal].is-in > .eduRow > .eduChip:nth-child(3) 
   .page { max-width: none; padding: 0; display: block; box-shadow: none; border: 0; background: #fff; }
   .side { padding: 0 0 18px; }
   .side__inner { position: static; }
-  .toast { display: none !important; }
+  .toast,
+  .backToTop { display: none !important; }
   a { text-decoration: none; color: inherit; }
   .filterBar, .hero__pulse, .hero__eyebrow, .heroRotator { display: none; }
   .faqItem { break-inside: avoid; }
