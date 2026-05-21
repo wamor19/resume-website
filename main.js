@@ -279,6 +279,23 @@ document.querySelectorAll(".js-download-json").forEach((btn) => {
     let i = 0;
     let timer = null;
 
+    function slideWidth() {
+      const w = slides[0]?.getBoundingClientRect().width;
+      if (w && w > 0) return w;
+      const rect = viewport.getBoundingClientRect();
+      return Math.max(1, rect.width);
+    }
+
+    function slideOffset(idx = i) {
+      return -idx * slideWidth();
+    }
+
+    function syncViewportHeight() {
+      let max = 0;
+      for (const slide of slides) max = Math.max(max, slide.offsetHeight);
+      if (max > 0) viewport.style.minHeight = `${max}px`;
+    }
+
     function renderDots() {
       if (!dotsHost) return;
       dotsHost.innerHTML = "";
@@ -294,7 +311,7 @@ document.querySelectorAll(".js-download-json").forEach((btn) => {
 
     function go(idx) {
       i = (idx + slides.length) % slides.length;
-      track.style.transform = `translateX(${-i * 100}%)`;
+      track.style.transform = `translateX(${slideOffset()}px)`;
       renderDots();
     }
 
@@ -327,18 +344,13 @@ document.querySelectorAll(".js-download-json").forEach((btn) => {
       let w = 0;
       let lastDown = 0;
 
-      function width() {
-        const rect = viewport.getBoundingClientRect();
-        return Math.max(1, rect.width);
-      }
-
       function setTransform(px) {
         track.style.transform = `translateX(${px}px)`;
       }
 
       function snap() {
         track.style.transition = "";
-        track.style.transform = `translateX(${-i * 100}%)`;
+        track.style.transform = `translateX(${slideOffset()}px)`;
       }
 
       viewport.addEventListener("pointerdown", (e) => {
@@ -355,9 +367,9 @@ document.querySelectorAll(".js-download-json").forEach((btn) => {
         dx = 0;
         dragging = false;
         locked = false;
-        w = width();
         lastDown = Date.now();
         stop();
+        w = slideWidth();
         viewport.setPointerCapture?.(pointerId);
       });
 
@@ -423,7 +435,11 @@ document.querySelectorAll(".js-download-json").forEach((btn) => {
       });
 
       // Keep pixel math correct if the viewport size changes.
-      window.addEventListener("resize", () => { w = width(); snap(); });
+      window.addEventListener("resize", () => {
+        w = slideWidth();
+        syncViewportHeight();
+        snap();
+      });
     })();
 
     // Pause on hover/focus so it doesn't fight the user.
@@ -439,6 +455,7 @@ document.querySelectorAll(".js-download-json").forEach((btn) => {
     });
 
     go(0);
+    syncViewportHeight();
     start();
   }
 })();
