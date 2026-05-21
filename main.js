@@ -163,7 +163,14 @@ document.querySelectorAll(".js-download-json").forEach((btn) => {
       linkedin: "https://www.linkedin.com/in/willamor/",
       nationality: "British and Irish (dual citizenship)",
       right_to_work: "UK and EU/EEA (no sponsorship)",
-      open_to: ["Principal Product Owner", "Product Owner", "Product Manager"],
+      open_to: [
+        "Principal Product Owner",
+        "Product Owner",
+        "Product Manager",
+        "Interviewing",
+        "Recruiting",
+        "Line management",
+      ],
       industries: ["Insurance", "Consumer Healthcare", "Pharmaceuticals"],
       open_to_locations:
         "UK, US, Canada, and EU/EEA (EU member states plus Iceland, Liechtenstein, and Norway). Sponsorship required for US and Canada only.",

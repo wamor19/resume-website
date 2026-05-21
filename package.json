@@ -8,7 +8,9 @@
     "build": "vite build",
     "preview": "vite preview --port 4173",
     "resume:sync": "python scripts/generate_resume_docx.py",
-    "resume:pdf": "python scripts/export_pdf.py"
+    "resume:pdf": "python scripts/export_pdf.py",
+    "resume:links": "python scripts/add_cv_hyperlinks.py",
+    "resume:education": "python scripts/add_education_to_cv.py"
   },
   "devDependencies": {
     "vite": "^7.1.1"

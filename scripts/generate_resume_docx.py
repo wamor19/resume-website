@@ -5,8 +5,8 @@ Run after editing resume copy on the site:
   python scripts/generate_resume_docx.py
 
 Outputs:
-  assets/files/william-amor-resume.docx
-  assets/files/william-amor-cv-apr-2026.pdf  (site download link)
+  assets/files/Resume (William Amor).docx
+  assets/files/Resume (William Amor).pdf  (site download link)
 """
 from __future__ import annotations
 
@@ -18,7 +18,18 @@ from pathlib import Path
 from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_LINE_SPACING
 from docx.oxml.ns import qn
-from docx.shared import Inches, Pt, RGBColor
+from docx.shared import Inches, Pt
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from cv_fonts import (  # noqa: E402
+    FONT_BODY_PT,
+    FONT_CONTACT_PT,
+    FONT_NAME_PT,
+    FONT_ROLE_META_PT,
+    FONT_ROLE_TITLE_PT,
+    FONT_SECTION_PT,
+)
+from cv_hyperlinks import ensure_paragraph_centered, fill_contact_line  # noqa: E402
 
 # Export trims longest roles so Word/PDF fit two pages; the site keeps full bullets.
 DEFAULT_BULLET_CAPS: dict[str, int] = {
@@ -34,8 +45,8 @@ PAGE2_ROLE_INDEX = 3  # J&J Automation — everything from here starts page 2
 
 ROOT = Path(__file__).resolve().parents[1]
 HTML_PATH = ROOT / "index.html"
-DOCX_PATH = ROOT / "assets" / "files" / "william-amor-resume.docx"
-PDF_PATH = ROOT / "assets" / "files" / "william-amor-cv-apr-2026.pdf"
+DOCX_PATH = ROOT / "assets" / "files" / "Resume (William Amor).docx"
+PDF_PATH = ROOT / "assets" / "files" / "Resume (William Amor).pdf"
 
 
 def strip_html(text: str) -> str:
@@ -196,7 +207,7 @@ def add_section_heading(doc: Document, text: str) -> None:
     run = p.add_run(text.upper())
     run.font.name = "Calibri"
     run._element.rPr.rFonts.set(qn("w:eastAsia"), "Calibri")
-    run.font.size = Pt(10)
+    run.font.size = Pt(FONT_SECTION_PT)
     run.font.bold = True
     p.paragraph_format.space_before = Pt(10)
     p.paragraph_format.space_after = Pt(4)
@@ -220,14 +231,14 @@ def add_role(doc: Document, role: dict, *, page_break_before: bool = False) -> N
         p.paragraph_format.page_break_before = True
     title_run = p.add_run(role["title"])
     title_run.bold = True
-    title_run.font.size = Pt(10)
+    title_run.font.size = Pt(FONT_ROLE_TITLE_PT)
     title_run.font.name = "Calibri"
     meta = p.add_run(
         f"  |  {role['company']}  |  {role['location']}  |  {role['dates']}"
     )
-    meta.font.size = Pt(9)
+    meta.font.size = Pt(FONT_ROLE_META_PT)
     meta.font.name = "Calibri"
-    style_paragraph(p, 10, space_before=7, space_after=2)
+    style_paragraph(p, FONT_ROLE_TITLE_PT, space_before=7, space_after=2)
     block.append(p)
 
     export_bullets = bullets_for_export(role["title"], role["bullets"])
@@ -237,7 +248,7 @@ def add_role(doc: Document, role: dict, *, page_break_before: bool = False) -> N
         bp.paragraph_format.first_line_indent = Inches(-0.12)
         style_paragraph(
             bp,
-            9,
+            FONT_BODY_PT,
             space_after=3 if j < len(export_bullets) - 1 else 5,
         )
         block.append(bp)
@@ -250,36 +261,30 @@ def build_docx(data: dict) -> Document:
     set_doc_defaults(doc)
 
     h = doc.add_paragraph()
-    h.alignment = WD_ALIGN_PARAGRAPH.CENTER
     name = h.add_run("William Amor")
     name.bold = True
-    name.font.size = Pt(18)
+    name.font.size = Pt(FONT_NAME_PT)
     name.font.name = "Calibri"
-    style_paragraph(h, 18, space_after=2)
+    style_paragraph(h, FONT_NAME_PT, space_after=2)
+    ensure_paragraph_centered(h)
 
     sub = doc.add_paragraph()
-    sub.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    contact = sub.add_run(
-        f"Principal Product Owner  |  London, UK  |  "
-        f"{data['email']}  |  linkedin.com/in/willamor"
-    )
-    contact.font.size = Pt(9.5)
-    contact.font.name = "Calibri"
-    style_paragraph(sub, 9.5, space_after=10)
+    fill_contact_line(sub, data["email"] or "message@william-amor.info", size_pt=FONT_CONTACT_PT)
+    style_paragraph(sub, FONT_CONTACT_PT, space_after=10)
 
     add_section_heading(doc, "Professional Summary")
     sp = doc.add_paragraph(data["summary"])
-    style_paragraph(sp, 9.5, space_after=4, line_spacing=1.15)
+    style_paragraph(sp, FONT_CONTACT_PT, space_after=4, line_spacing=1.15)
 
     if data["impact"]:
-        add_section_heading(doc, "Selected Impact")
+        add_section_heading(doc, "Impact Highlights")
         for i, item in enumerate(data["impact"]):
             bp = doc.add_paragraph(item, style="List Bullet")
             bp.paragraph_format.left_indent = Inches(0.2)
             bp.paragraph_format.first_line_indent = Inches(-0.12)
             style_paragraph(
                 bp,
-                9,
+                FONT_BODY_PT,
                 space_after=3 if i < len(data["impact"]) - 1 else 5,
             )
 
@@ -294,13 +299,13 @@ def build_docx(data: dict) -> Document:
         p = doc.add_paragraph()
         school = p.add_run(f"{edu['school']} — ")
         school.bold = True
-        school.font.size = Pt(10)
+        school.font.size = Pt(FONT_ROLE_TITLE_PT)
         school.font.name = "Calibri"
         line = p.add_run(f"{edu.get('degree', '')}  |  {edu.get('grade', '')}")
-        line.font.size = Pt(9)
+        line.font.size = Pt(FONT_ROLE_META_PT)
         line.font.name = "Calibri"
         edu_block.append(p)
-        style_paragraph(p, 9.5, space_after=3)
+        style_paragraph(p, FONT_CONTACT_PT, space_after=3)
         edu_bullets = edu.get("bullets", [])
         for j, bullet in enumerate(edu_bullets):
             bp = doc.add_paragraph(bullet, style="List Bullet")
@@ -308,7 +313,7 @@ def build_docx(data: dict) -> Document:
             bp.paragraph_format.first_line_indent = Inches(-0.12)
             style_paragraph(
                 bp,
-                9,
+                FONT_BODY_PT,
                 space_after=3 if j < len(edu_bullets) - 1 else 4,
             )
             edu_block.append(bp)
@@ -317,15 +322,15 @@ def build_docx(data: dict) -> Document:
     if data["certificates"]:
         add_section_heading(doc, "Certifications")
         cp = doc.add_paragraph("; ".join(data["certificates"]))
-        style_paragraph(cp, 9, space_after=4)
+        style_paragraph(cp, FONT_BODY_PT, space_after=4)
 
     add_section_heading(doc, "Skills & Platforms")
     if data["product_craft"]:
         p = doc.add_paragraph(data["product_craft"])
-        style_paragraph(p, 9, space_after=4, line_spacing=1.15)
+        style_paragraph(p, FONT_BODY_PT, space_after=4, line_spacing=1.15)
     if data["data_stack"]:
         p = doc.add_paragraph(data["data_stack"])
-        style_paragraph(p, 9, space_after=2, line_spacing=1.15)
+        style_paragraph(p, FONT_BODY_PT, space_after=2, line_spacing=1.15)
 
     return doc
 
