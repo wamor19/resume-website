@@ -158,7 +158,7 @@ document.querySelectorAll(".js-download-json").forEach((btn) => {
       name: "William Amor",
       role: "Principal Product Owner",
       location: "London, SE10 9JU",
-      email: "william.amor@protonmail.com",
+      email: "message@william-amor.info",
       phone: "+44 7 889 904 127",
       linkedin: "https://www.linkedin.com/in/willamor/",
       nationality: "British and Irish (dual citizenship)",
