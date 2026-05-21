@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview --port 4173",
-    "resume:sync": "python scripts/generate_resume_docx.py"
+    "resume:sync": "python scripts/generate_resume_docx.py",
+    "resume:pdf": "python scripts/export_pdf.py"
   },
   "devDependencies": {
     "vite": "^7.1.1"
