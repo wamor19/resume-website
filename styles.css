@@ -615,10 +615,9 @@ button.ctaBtn {
   margin-top: 4px;
   padding: 18px 16px;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(200px, 38%);
-  gap: 20px 24px;
+  gap: 12px;
   align-items: start;
-  max-width: 72ch;
+  max-width: 52rem;
 }
 .hero__ctaMain {
   display: grid;
@@ -631,33 +630,6 @@ button.ctaBtn {
   flex-wrap: wrap;
   align-items: center;
   gap: 10px;
-}
-.hero__ctaAside {
-  padding-left: 20px;
-  border-left: 1px solid rgba(255, 255, 255, 0.08);
-  min-width: 0;
-}
-.hero__ctaFacts {
-  margin: 0;
-  display: grid;
-  gap: 12px;
-}
-.hero__ctaFacts > div {
-  display: grid;
-  gap: 3px;
-}
-.hero__ctaFacts dt {
-  margin: 0;
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--faint);
-}
-.hero__ctaFacts dd {
-  margin: 0;
-  font-size: 13px;
-  line-height: 1.45;
-  color: rgba(255, 255, 255, 0.86);
 }
 .chip{
   font-size: 12.5px;
@@ -1138,6 +1110,81 @@ button.ctaBtn {
 .eduChip__bullets li { margin: 6px 0; }
 .eduChip__bullets strong { color: var(--text); font-weight: 650; }
 
+/* ========== Recommendations ========== */
+.recs {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 14px;
+}
+.rec {
+  position: relative;
+  margin: 0;
+  padding: 18px 20px 16px;
+  border: 1px solid var(--stroke);
+  border-radius: 14px;
+  background: rgba(255,255,255,.04);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.rec::before {
+  content: "\201C";
+  position: absolute;
+  top: 4px;
+  left: 12px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 44px;
+  line-height: 1;
+  color: rgba(125, 211, 252, 0.35);
+  pointer-events: none;
+}
+.rec__q {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.92);
+  font-style: italic;
+  padding-left: 4px;
+}
+.rec__by {
+  display: grid;
+  gap: 2px;
+  font-size: 13px;
+  color: var(--muted);
+  border-top: 1px solid rgba(255,255,255,.08);
+  padding-top: 12px;
+}
+.rec__by strong {
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 650;
+}
+.rec__role { color: var(--muted); }
+.rec__rel { color: var(--faint); font-size: 12px; }
+
+/* Names/roles blurred by default out of courtesy to the LinkedIn writers */
+.rec { cursor: pointer; }
+.rec [data-blurred] {
+  filter: blur(5px);
+  transition: filter 200ms ease;
+  user-select: none;
+}
+.rec:hover [data-blurred],
+.rec:focus [data-blurred],
+.rec:focus-within [data-blurred],
+.rec.is-revealed [data-blurred] {
+  filter: blur(0);
+  user-select: text;
+}
+@media (prefers-reduced-motion: reduce) {
+  .rec [data-blurred] { transition: none; }
+}
+.recs__more {
+  margin: 14px 0 0;
+  text-align: center;
+}
+
 /* ========== Recruiter FAQ ========== */
 .faq {
   margin-top: 14px;
@@ -1446,10 +1493,8 @@ html.reveal-animations-on [data-reveal].is-in > .eduRow > .eduChip:nth-child(3) 
   .xpCard__logo { width: 52px; height: 52px; }
   .hero__h1 { font-size: clamp(28px, 7.5vw, 38px); }
   .hero__ctaBar {
-    grid-template-columns: 1fr;
     max-width: 40rem;
   }
-  .hero__ctaAside { display: none; }
 }
 
 @media (max-width: 520px) {

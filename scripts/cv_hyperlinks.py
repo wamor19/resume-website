@@ -16,6 +16,8 @@ from docx.shared import Pt
 # Black body text — links stay clickable but not Word’s default blue.
 LINK_COLOR = "000000"
 LINKEDIN_URL = "https://www.linkedin.com/in/willamor/"
+WEBSITE_URL = "https://william-amor.info/"
+WEBSITE_LABEL = "william-amor.info"
 
 
 def _append_run(paragraph, text: str, *, size_pt: float = FONT_CONTACT_PT, link: bool = False) -> None:
@@ -103,4 +105,6 @@ def fill_contact_line(paragraph, email: str, *, size_pt: float = FONT_CONTACT_PT
     add_hyperlink(paragraph, email, f"mailto:{email}", size_pt=size_pt)
     _append_run(paragraph, "  |  ", size_pt=size_pt)
     add_hyperlink(paragraph, "linkedin.com/in/willamor", LINKEDIN_URL, size_pt=size_pt)
+    _append_run(paragraph, "  |  ", size_pt=size_pt)
+    add_hyperlink(paragraph, WEBSITE_LABEL, WEBSITE_URL, size_pt=size_pt)
     ensure_paragraph_centered(paragraph)

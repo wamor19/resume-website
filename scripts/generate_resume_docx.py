@@ -38,7 +38,7 @@ DEFAULT_BULLET_CAPS: dict[str, int] = {
     "IT Business Technology Leader (Leadership Programme)": 5,
     "Intelligent Automation Product Manager (Leadership Programme)": 7,
     "Global Project Coordinator": 4,
-    "Technology Business Partner (Placement) to Product Delivery Lead (Part-time)": 3,
+    "Technology Business Partner (Industrial Placement & Part-time)": 3,
 }
 EXPORT_BULLET_CAPS: dict[str, int] = {}
 PAGE2_ROLE_INDEX = 3  # Johnson & Johnson Automation — everything from here starts page 2
@@ -49,11 +49,35 @@ DOCX_PATH = ROOT / "assets" / "files" / "Resume (William Amor).docx"
 PDF_PATH = ROOT / "assets" / "files" / "Resume (William Amor).pdf"
 
 
+_ASCII_FOLD = {
+    "\u2018": "'",   # left single quote
+    "\u2019": "'",   # right single quote / apostrophe
+    "\u201A": ",",   # single low-9 quote
+    "\u201C": '"',   # left double quote
+    "\u201D": '"',   # right double quote
+    "\u201E": '"',   # double low-9 quote
+    "\u2013": "-",   # en dash
+    "\u2014": "-",   # em dash
+    "\u2026": "...",  # ellipsis
+    "\u2011": "-",   # non-breaking hyphen
+    "\u00a0": " ",   # nbsp
+    "\u2022": "-",   # bullet
+    "\u00b7": "|",   # middle dot (used as separator on site)
+    "\u00b7 ": "| ",
+}
+
+
+def ascii_fold(text: str) -> str:
+    for src, dst in _ASCII_FOLD.items():
+        text = text.replace(src, dst)
+    return text
+
+
 def strip_html(text: str) -> str:
     text = re.sub(r"<br\s*/?>", " ", text, flags=re.I)
     text = re.sub(r"<[^>]+>", "", text)
     text = html.unescape(text)
-    text = text.replace("\u2011", "-").replace("\u00a0", " ")
+    text = ascii_fold(text)
     return re.sub(r"\s+", " ", text).strip()
 
 
@@ -97,7 +121,7 @@ def parse_resume_html(source: str) -> dict:
             r'<span class="xpCard__orgLoc">(.*?)</span>', block, re.DOTALL
         )
         dates = first_match(r'<div class="xpCard__date">(.*?)</div>', block, re.DOTALL)
-        dates = dates.replace(" to present", " – Present").replace(" to ", " – ")
+        dates = dates.replace(" to present", " - Present").replace(" to ", " - ")
         bullets_html = first_match_html(
             r'<ul class="bullets">\s*(.*?)\s*</ul>', block, re.DOTALL
         )
@@ -119,15 +143,22 @@ def parse_resume_html(source: str) -> dict:
         source,
         re.DOTALL,
     )
+    grade_html = first_match_html(
+        r'<div class="eduChip__grade">(.*?)</div>', edu_section, re.DOTALL
+    ) or ""
+    # Drop the visual separator span (middle dot etc.) for ATS-clean output
+    grade_html = re.sub(
+        r'\s*<span class="eduChip__gradeSep"[^>]*>.*?</span>\s*',
+        ", ",
+        grade_html,
+        flags=re.DOTALL,
+    )
     education = {
         "school": first_match(r'<div class="eduChip__h">(.*?)</div>', edu_section, re.DOTALL),
         "degree": first_match(
             r'<div class="eduChip__degree">(.*?)</div>', edu_section, re.DOTALL
         ),
-        "grade": strip_html(
-            first_match_html(r'<div class="eduChip__grade">(.*?)</div>', edu_section, re.DOTALL)
-            or ""
-        ),
+        "grade": strip_html(grade_html),
         "bullets": [],
     }
     edu_bullets_html = first_match_html(
@@ -146,16 +177,20 @@ def parse_resume_html(source: str) -> dict:
         all_matches(r"<li>(.*?)</li>", cert_block, re.DOTALL) if cert_block else []
     )
 
-    product_craft = first_match(
-        r'id="toolbox-product">.*?<p class="skillFlow__p">\s*(.*?)\s*</p>',
+    skills_section = first_match_html(
+        r'<section class="section" id="toolbox-skills"[^>]*>(.*?)</section>',
         source,
         re.DOTALL,
     )
-    data_stack = first_match(
-        r'id="toolbox-stack">.*?<p class="skillFlow__p">\s*(.*?)\s*</p>',
-        source,
-        re.DOTALL,
-    )
+    skill_groups: list[tuple[str, str]] = []
+    if skills_section:
+        for m in re.finditer(
+            r'<h3 class="skillFlow__h"[^>]*>(.*?)</h3>\s*<p class="skillFlow__p">\s*(.*?)\s*</p>',
+            skills_section,
+            re.DOTALL,
+        ):
+            skill_groups.append((strip_html(m.group(1)), strip_html(m.group(2))))
+
     chips = all_matches(r'<span class="chip">(.*?)</span>', source, re.DOTALL)
 
     return {
@@ -165,8 +200,7 @@ def parse_resume_html(source: str) -> dict:
         "roles": roles,
         "education": education,
         "certificates": certificates,
-        "product_craft": product_craft,
-        "data_stack": data_stack,
+        "skill_groups": skill_groups,
         "chips": chips,
     }
 
@@ -300,13 +334,17 @@ def build_docx(data: dict) -> Document:
         add_section_heading(doc, "Education")
         edu_block: list = []
         p = doc.add_paragraph()
-        school = p.add_run(f"{edu['school']} | ")
+        school = p.add_run(edu["school"])
         school.bold = True
         school.font.size = Pt(FONT_ROLE_TITLE_PT)
         school.font.name = "Calibri"
-        line = p.add_run(f"{edu.get('degree', '')}  |  {edu.get('grade', '')}")
-        line.font.size = Pt(FONT_ROLE_META_PT)
-        line.font.name = "Calibri"
+        degree_text = edu.get("degree", "")
+        grade_text = edu.get("grade", "")
+        suffix_parts = [t for t in (degree_text, grade_text) if t]
+        if suffix_parts:
+            line = p.add_run("  -  " + "  |  ".join(suffix_parts))
+            line.font.size = Pt(FONT_ROLE_META_PT)
+            line.font.name = "Calibri"
         edu_block.append(p)
         style_paragraph(p, FONT_CONTACT_PT, space_after=3)
         edu_bullets = edu.get("bullets", [])
@@ -324,16 +362,39 @@ def build_docx(data: dict) -> Document:
 
     if data["certificates"]:
         add_section_heading(doc, "Certifications")
-        cp = doc.add_paragraph("; ".join(data["certificates"]))
-        style_paragraph(cp, FONT_BODY_PT, space_after=4)
+        cert_block: list = []
+        for j, cert in enumerate(data["certificates"]):
+            bp = doc.add_paragraph(cert, style="List Bullet")
+            bp.paragraph_format.left_indent = Inches(0.2)
+            bp.paragraph_format.first_line_indent = Inches(-0.12)
+            style_paragraph(
+                bp,
+                FONT_BODY_PT,
+                space_after=2 if j < len(data["certificates"]) - 1 else 4,
+            )
+            cert_block.append(bp)
+        keep_block_together(cert_block)
 
-    add_section_heading(doc, "Skills & Platforms")
-    if data["product_craft"]:
-        p = doc.add_paragraph(data["product_craft"])
-        style_paragraph(p, FONT_BODY_PT, space_after=4, line_spacing=1.15)
-    if data["data_stack"]:
-        p = doc.add_paragraph(data["data_stack"])
-        style_paragraph(p, FONT_BODY_PT, space_after=2, line_spacing=1.15)
+    if data["skill_groups"]:
+        add_section_heading(doc, "Skills & Platforms")
+        skills_block: list = []
+        for j, (label, body) in enumerate(data["skill_groups"]):
+            p = doc.add_paragraph()
+            head = p.add_run(f"{label}: ")
+            head.bold = True
+            head.font.size = Pt(FONT_BODY_PT)
+            head.font.name = "Calibri"
+            rest = p.add_run(body)
+            rest.font.size = Pt(FONT_BODY_PT)
+            rest.font.name = "Calibri"
+            style_paragraph(
+                p,
+                FONT_BODY_PT,
+                space_after=3 if j < len(data["skill_groups"]) - 1 else 2,
+                line_spacing=1.15,
+            )
+            skills_block.append(p)
+        keep_block_together(skills_block)
 
     return doc
 
