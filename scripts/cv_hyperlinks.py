@@ -13,7 +13,8 @@ DEFAULT_EMAIL = "message@william-amor.info"
 from docx.oxml.ns import qn
 from docx.shared import Pt
 
-LINK_COLOR = "0563C1"
+# Black body text — links stay clickable but not Word’s default blue.
+LINK_COLOR = "000000"
 LINKEDIN_URL = "https://www.linkedin.com/in/willamor/"
 
 
@@ -53,10 +54,6 @@ def add_hyperlink(paragraph, text: str, url: str, *, size_pt: float = FONT_CONTA
     color = OxmlElement("w:color")
     color.set(qn("w:val"), LINK_COLOR)
     r_pr.append(color)
-
-    underline = OxmlElement("w:u")
-    underline.set(qn("w:val"), "single")
-    r_pr.append(underline)
 
     size = OxmlElement("w:sz")
     size.set(qn("w:val"), str(int(size_pt * 2)))

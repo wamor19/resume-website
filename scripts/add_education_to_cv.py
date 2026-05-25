@@ -36,7 +36,7 @@ EDUCATION = {
     "grade": "First Class Honours  |  US GPA equivalent: ~4.0",
     "bullets": [
         "Year in Industry at GSK, then extended into final year: 20 hrs/week part-time on an RPA product automating goods ordering in a manufacturing plant.",
-        'Dissertation (First Class): "The disruption and emergence of FinTech".',
+        'Dissertation: "The disruption and emergence of FinTech". Awarded a First Class grade.',
     ],
 }
 
@@ -86,7 +86,7 @@ def add_education(doc: Document, anchor: Paragraph) -> None:
         cursor = bp
 
     p = insert_paragraph_before(cursor)
-    school = p.add_run(f"{EDUCATION['school']} — ")
+    school = p.add_run(f"{EDUCATION['school']} | ")
     school.bold = True
     school.font.size = Pt(FONT_ROLE_TITLE_PT)
     school.font.name = "Calibri"

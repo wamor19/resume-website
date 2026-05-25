@@ -41,7 +41,7 @@ DEFAULT_BULLET_CAPS: dict[str, int] = {
     "Technology Business Partner (Placement) to Product Delivery Lead (Part-time)": 3,
 }
 EXPORT_BULLET_CAPS: dict[str, int] = {}
-PAGE2_ROLE_INDEX = 3  # J&J Automation — everything from here starts page 2
+PAGE2_ROLE_INDEX = 3  # Johnson & Johnson Automation — everything from here starts page 2
 
 ROOT = Path(__file__).resolve().parents[1]
 HTML_PATH = ROOT / "index.html"
@@ -114,21 +114,24 @@ def parse_resume_html(source: str) -> dict:
             }
         )
 
-    edu_block = first_match(
-        r'<section class="section" id="education"[^>]*>.*?<div class="eduChip">(.*?)</div>\s*</div>\s*</section>',
+    edu_section = first_match_html(
+        r'<section class="section" id="education"[^>]*>(.*?)</section>',
         source,
         re.DOTALL,
     )
     education = {
-        "school": first_match(r'<div class="eduChip__h">(.*?)</div>', edu_block, re.DOTALL),
+        "school": first_match(r'<div class="eduChip__h">(.*?)</div>', edu_section, re.DOTALL),
         "degree": first_match(
-            r'<div class="eduChip__degree">(.*?)</div>', edu_block, re.DOTALL
+            r'<div class="eduChip__degree">(.*?)</div>', edu_section, re.DOTALL
         ),
-        "grade": first_match(r'<div class="eduChip__grade">(.*?)</div>', edu_block, re.DOTALL),
+        "grade": strip_html(
+            first_match_html(r'<div class="eduChip__grade">(.*?)</div>', edu_section, re.DOTALL)
+            or ""
+        ),
         "bullets": [],
     }
     edu_bullets_html = first_match_html(
-        r'<ul class="eduChip__bullets"[^>]*>(.*?)</ul>', edu_block, re.DOTALL
+        r'<ul class="eduChip__bullets"[^>]*>(.*?)</ul>', edu_section, re.DOTALL
     )
     education["bullets"] = (
         all_matches(r"<li>(.*?)</li>", edu_bullets_html, re.DOTALL) if edu_bullets_html else []
@@ -297,7 +300,7 @@ def build_docx(data: dict) -> Document:
         add_section_heading(doc, "Education")
         edu_block: list = []
         p = doc.add_paragraph()
-        school = p.add_run(f"{edu['school']} — ")
+        school = p.add_run(f"{edu['school']} | ")
         school.bold = True
         school.font.size = Pt(FONT_ROLE_TITLE_PT)
         school.font.name = "Calibri"
@@ -407,6 +410,18 @@ def main() -> None:
         sys.exit(1)
 
     print(f"Wrote {DOCX_PATH.relative_to(ROOT)}")
+
+    from cv_fonts import apply_fonts_to_document  # noqa: E402
+
+    doc = Document(str(DOCX_PATH))
+    if len(doc.paragraphs) > 1:
+        fill_contact_line(
+            doc.paragraphs[1],
+            data["email"] or "message@william-amor.info",
+            size_pt=FONT_CONTACT_PT,
+        )
+    apply_fonts_to_document(doc)
+    doc.save(str(DOCX_PATH))
 
     try:
         export_pdf(DOCX_PATH, PDF_PATH)
