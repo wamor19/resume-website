@@ -611,26 +611,6 @@ button.ctaBtn {
   padding-top: 16px;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
-.hero__ctaBar {
-  margin-top: 4px;
-  padding: 18px 16px;
-  display: grid;
-  gap: 12px;
-  align-items: start;
-  max-width: 52rem;
-}
-.hero__ctaMain {
-  display: grid;
-  gap: 12px;
-  align-content: start;
-  min-width: 0;
-}
-.hero__ctaActions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
-}
 .chip{
   font-size: 12.5px;
   color: rgba(255,255,255,.86);
@@ -652,10 +632,10 @@ button.ctaBtn {
   color: rgba(125, 211, 252, 0.92);
   font-weight: 650;
 }
-.hero__reply {
-  margin: 0;
-  font-size: 12.5px;
-  line-height: 1.45;
+.ctaRow__reply {
+  margin: 6px 0 0 68px;
+  font-size: 12px;
+  line-height: 1.4;
   color: var(--faint);
 }
 
@@ -1478,6 +1458,7 @@ html.reveal-animations-on [data-reveal].is-in > .eduRow > .eduChip:nth-child(3) 
     padding-right: 0;
   }
   .ctaRow { margin-left: 0; }
+  .ctaRow__reply { margin-left: 0; }
   .kpis { grid-template-columns: 1fr; }
   .grid3 { grid-template-columns: 1fr; }
   .industries { grid-template-columns: 1fr; }
@@ -1492,9 +1473,6 @@ html.reveal-animations-on [data-reveal].is-in > .eduRow > .eduChip:nth-child(3) 
   .xpCard { grid-template-columns: 1fr; }
   .xpCard__logo { width: 52px; height: 52px; }
   .hero__h1 { font-size: clamp(28px, 7.5vw, 38px); }
-  .hero__ctaBar {
-    max-width: 40rem;
-  }
 }
 
 @media (max-width: 520px) {
