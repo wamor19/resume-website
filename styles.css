@@ -296,9 +296,77 @@ button.ctaBtn {
 .status__grid > div:nth-child(n + 3) {
   border-top: 1px solid rgba(255,255,255,.07);
 }
-.status__grid > div:nth-child(odd) { border-right: 1px solid rgba(255,255,255,.07); }
+.status__grid > div:nth-child(odd):not(.status__gridSpan) {
+  border-right: 1px solid rgba(255,255,255,.07);
+}
+.status__gridSpan {
+  grid-column: 1 / -1;
+  border-right: 0;
+}
+.status__loc {
+  text-align: center;
+  padding: 14px 16px 16px;
+}
+.status__loc > .status__k {
+  margin-bottom: 8px;
+}
 .status__k { font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text); }
+.status__k--travel {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
 .status__v { font-size: 13px; color: var(--text); margin-top: 2px; }
+.status__regions {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+}
+.status__regions li {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  padding: 5px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.04);
+}
+.status__sponsor {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 12px;
+  text-align: center;
+}
+.status__sponsorCol {
+  display: grid;
+  gap: 3px;
+  padding: 8px 6px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+.status__sponsorK {
+  font-size: 10px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+.status__sponsorV {
+  font-size: 12.5px;
+  color: var(--text);
+  line-height: 1.35;
+}
+.status__travel {
+  margin: 6px 0 0;
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.4;
+}
 .status__sub {
   margin-top: 6px;
   font-size: 12px;
@@ -1090,79 +1158,82 @@ button.ctaBtn {
 .eduChip__bullets li { margin: 6px 0; }
 .eduChip__bullets strong { color: var(--text); font-weight: 650; }
 
-/* ========== Recommendations ========== */
+/* ========== Recommendations (stacked list) ========== */
 .recs {
-  margin-top: 14px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 14px;
+  gap: 12px;
+  max-width: 42rem;
 }
 .rec {
   position: relative;
   margin: 0;
-  padding: 18px 20px 16px;
+  padding: 16px 18px 14px 20px;
   border: 1px solid var(--stroke);
   border-radius: 14px;
-  background: rgba(255,255,255,.04);
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border-left: 3px solid rgba(125, 211, 252, 0.55);
+  display: grid;
+  gap: 12px;
 }
 .rec::before {
   content: "\201C";
   position: absolute;
-  top: 4px;
-  left: 12px;
+  top: 2px;
+  left: 14px;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 44px;
+  font-size: 40px;
   line-height: 1;
-  color: rgba(125, 211, 252, 0.35);
+  color: rgba(125, 211, 252, 0.28);
   pointer-events: none;
 }
 .rec__q {
   margin: 0;
-  font-size: 14.5px;
-  line-height: 1.6;
+  padding: 0 0 0 6px;
+}
+.rec__q p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.65;
   color: rgba(255, 255, 255, 0.92);
   font-style: italic;
-  padding-left: 4px;
+}
+.rec__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 11px;
 }
 .rec__by {
-  display: grid;
-  gap: 2px;
+  margin: 0;
   font-size: 13px;
   color: var(--muted);
-  border-top: 1px solid rgba(255,255,255,.08);
-  padding-top: 12px;
+  line-height: 1.45;
 }
 .rec__by strong {
   color: var(--text);
   font-size: 14px;
   font-weight: 650;
+  margin-right: 6px;
+}
+.rec__rel {
+  color: var(--faint);
+  font-size: 12px;
+}
+.rec__when {
+  font-size: 12px;
+  color: var(--faint);
+  white-space: nowrap;
 }
 .rec__role { color: var(--muted); }
-.rec__rel { color: var(--faint); font-size: 12px; }
-
-/* Names/roles blurred by default out of courtesy to the LinkedIn writers */
-.rec { cursor: pointer; }
-.rec [data-blurred] {
-  filter: blur(5px);
-  transition: filter 200ms ease;
-  user-select: none;
-}
-.rec:hover [data-blurred],
-.rec:focus [data-blurred],
-.rec:focus-within [data-blurred],
-.rec.is-revealed [data-blurred] {
-  filter: blur(0);
-  user-select: text;
-}
-@media (prefers-reduced-motion: reduce) {
-  .rec [data-blurred] { transition: none; }
-}
 .recs__more {
   margin: 14px 0 0;
-  text-align: center;
+  max-width: 42rem;
 }
 
 /* ========== Recruiter FAQ ========== */

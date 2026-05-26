@@ -118,22 +118,136 @@ function setActiveSection(id) {
 
 const supportsIo = typeof window !== "undefined" && "IntersectionObserver" in window;
 
-if (supportsIo) {
-  /* Section highlight for topbar nav */
-  const sectionIo = new IntersectionObserver(
-    (entries) => {
-      let best = null;
-      for (const e of entries) {
-        if (e.isIntersecting) {
-          if (!best || e.intersectionRatio > best.ratio) best = { id: e.target.id, ratio: e.intersectionRatio };
-        }
-      }
-      if (best?.id) setActiveSection(best.id);
-    },
-    { threshold: [0.25, 0.45, 0.65] }
-  );
-  sections.forEach((s) => sectionIo.observe(s));
+/* Topbar nav: active section from scroll position (aligned with scroll-padding-top / hash jumps). */
+(function setupSectionNavSpy() {
+  if (!sections.length || !navLinks.length) return;
 
+  function scrollSpyOffset() {
+    const pad = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop);
+    return Number.isFinite(pad) && pad > 0 ? pad : 82;
+  }
+
+  function sectionDocTop(section) {
+    return section.getBoundingClientRect().top + (window.scrollY || window.pageYOffset || 0);
+  }
+
+  function pickActiveSectionId() {
+    const y = (window.scrollY || window.pageYOffset || 0) + scrollSpyOffset();
+
+    let id = sections[0].id;
+    for (const section of sections) {
+      if (sectionDocTop(section) <= y + 1) id = section.id;
+      else break;
+    }
+
+    const docH = document.documentElement.scrollHeight;
+    const viewBottom = (window.scrollY || 0) + window.innerHeight;
+    if (viewBottom >= docH - 8) id = sections[sections.length - 1].id;
+
+    return id;
+  }
+
+  function idFromNavLink(link) {
+    const href = link.getAttribute("href");
+    if (!href?.startsWith("#")) return "";
+    return decodeURIComponent(href.slice(1));
+  }
+
+  let scrollSpyPaused = false;
+  let scrollSpyResumeTimer = 0;
+  /** Nav click target — keeps highlight on the link you chose until scroll settles. */
+  let pendingNavId = null;
+
+  function sectionIsAtReadingLine(section) {
+    const y = (window.scrollY || window.pageYOffset || 0) + scrollSpyOffset();
+    const top = sectionDocTop(section);
+    const idx = sections.indexOf(section);
+    const nextTop = idx >= 0 && idx < sections.length - 1 ? sectionDocTop(sections[idx + 1]) : Infinity;
+    return top <= y + 2 && y < nextTop - 2;
+  }
+
+  function finishNavScroll() {
+    scrollSpyPaused = false;
+    pendingNavId = null;
+    applyFromScroll();
+  }
+
+  function pauseScrollSpy(ms = 1400) {
+    scrollSpyPaused = true;
+    window.clearTimeout(scrollSpyResumeTimer);
+    scrollSpyResumeTimer = window.setTimeout(finishNavScroll, ms);
+  }
+
+  function applyFromScroll() {
+    if (scrollSpyPaused) {
+      if (pendingNavId) setActiveSection(pendingNavId);
+      return;
+    }
+    const id = pickActiveSectionId();
+    if (id && id !== activeId) setActiveSection(id);
+  }
+
+  let raf = 0;
+  function onScroll() {
+    if (raf) return;
+    raf = window.requestAnimationFrame(() => {
+      raf = 0;
+      applyFromScroll();
+    });
+  }
+
+  for (const link of navLinks) {
+    link.addEventListener("click", (e) => {
+      const id = idFromNavLink(link);
+      const target = id ? document.getElementById(id) : null;
+      if (!target) return;
+      e.preventDefault();
+      pendingNavId = id;
+      setActiveSection(id);
+      history.pushState(null, "", `#${id}`);
+      const scrollBehavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+      target.scrollIntoView({ behavior: scrollBehavior, block: "start" });
+      pauseScrollSpy();
+    });
+  }
+
+  window.addEventListener("hashchange", () => {
+    const id = decodeURIComponent((window.location.hash || "#hero").slice(1));
+    const target = document.getElementById(id);
+    if (!target) return;
+    pendingNavId = id;
+    setActiveSection(id);
+    const scrollBehavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+    target.scrollIntoView({ behavior: scrollBehavior, block: "start" });
+    pauseScrollSpy();
+  });
+
+  if ("onscrollend" in window) {
+    window.addEventListener(
+      "scrollend",
+      () => {
+        if (pendingNavId) {
+          setActiveSection(pendingNavId);
+          const target = document.getElementById(pendingNavId);
+          if (target && sectionIsAtReadingLine(target)) {
+            window.clearTimeout(scrollSpyResumeTimer);
+            finishNavScroll();
+          }
+          return;
+        }
+        applyFromScroll();
+      },
+      { passive: true }
+    );
+  }
+
+  applyFromScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", applyFromScroll, { passive: true });
+  window.addEventListener("load", applyFromScroll, { once: true });
+})();
+
+if (supportsIo) {
   /* Reveal-on-scroll */
   const revealIo = new IntersectionObserver(
     (entries) => {
@@ -157,9 +271,8 @@ document.querySelectorAll(".js-download-json").forEach((btn) => {
         "Contact and key metadata in structured form. For CRM, ATS, or other tooling. Full resume: use the PDF download on this page.",
       name: "William Amor",
       role: "Principal Product Owner",
-      location: "London, SE10 9JU",
+      location: "London, United Kingdom",
       email: "message@william-amor.info",
-      phone: "+44 7 889 904 127",
       linkedin: "https://www.linkedin.com/in/willamor/",
       nationality: "British and Irish (dual citizenship)",
       right_to_work: "UK and EU/EEA (no sponsorship)",
@@ -167,11 +280,16 @@ document.querySelectorAll(".js-download-json").forEach((btn) => {
         "Principal Product Owner",
         "Product Owner",
         "Product Manager",
-        "Interviewing",
-        "Recruiting",
-        "Line management",
+        "Product Lead",
+      ],
+      open_to_sectors: [
+        "Financial services",
+        "Consulting",
+        "Tech",
+        "Pharma and biotech",
       ],
       industries: ["Insurance", "Consumer Healthcare", "Pharmaceuticals"],
+      notice_period: "3 months (currently at Marsh)",
       open_to_locations:
         "UK, US, Canada, and EU/EEA (EU member states plus Iceland, Liechtenstein, and Norway). Sponsorship required for US and Canada only.",
       will_travel: "Up to 75%",

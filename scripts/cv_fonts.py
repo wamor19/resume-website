@@ -70,7 +70,12 @@ def apply_fonts_to_document(doc: Document) -> None:
             _apply_role_line(paragraph)
             continue
 
-        if paragraph.runs and paragraph.runs[0].bold and " — " in text:
+        if (
+            paragraph.runs
+            and paragraph.runs[0].bold
+            and (" — " in text or " - " in text)
+            and "  |  " not in text
+        ):
             for i, run in enumerate(paragraph.runs):
                 run.font.size = Pt(FONT_ROLE_TITLE_PT if i == 0 else FONT_ROLE_META_PT)
                 run.font.name = run.font.name or "Calibri"
