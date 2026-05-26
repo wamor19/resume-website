@@ -184,12 +184,28 @@ def parse_resume_html(source: str) -> dict:
     )
     skill_groups: list[tuple[str, str]] = []
     if skills_section:
-        for m in re.finditer(
-            r'<h3 class="skillFlow__h"[^>]*>(.*?)</h3>\s*<p class="skillFlow__p">\s*(.*?)\s*</p>',
-            skills_section,
-            re.DOTALL,
-        ):
-            skill_groups.append((strip_html(m.group(1)), strip_html(m.group(2))))
+        tool_group_pat = (
+            r'<h3 class="toolGroup__h"[^>]*>(.*?)</h3>\s*'
+            r'<div class="tags"[^>]*>(.*?)</div>'
+        )
+        legacy_flow_pat = (
+            r'<h3 class="skillFlow__h"[^>]*>(.*?)</h3>\s*'
+            r'<p class="skillFlow__p">\s*(.*?)\s*</p>'
+        )
+        for pattern in (tool_group_pat, legacy_flow_pat):
+            for m in re.finditer(pattern, skills_section, re.DOTALL):
+                label = strip_html(m.group(1))
+                body_block = m.group(2)
+                if '<span class="tag">' in body_block:
+                    tags = all_matches(
+                        r'<span class="tag">(.*?)</span>', body_block, re.DOTALL
+                    )
+                    body = ", ".join(tags)
+                else:
+                    body = strip_html(body_block)
+                skill_groups.append((label, body))
+            if skill_groups:
+                break
 
     chips = all_matches(r'<span class="chip">(.*?)</span>', source, re.DOTALL)
 
@@ -376,7 +392,7 @@ def build_docx(data: dict) -> Document:
         keep_block_together(cert_block)
 
     if data["skill_groups"]:
-        add_section_heading(doc, "Skills & Platforms")
+        add_section_heading(doc, "Tools & Platforms")
         skills_block: list = []
         for j, (label, body) in enumerate(data["skill_groups"]):
             p = doc.add_paragraph()

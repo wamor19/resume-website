@@ -18,7 +18,7 @@
   window.addEventListener("load", run, { once: true });
 })();
 
-const sections = Array.from(document.querySelectorAll("main .section"));
+const sections = Array.from(document.querySelectorAll("main .section:not([hidden])"));
 const navLinks = Array.from(document.querySelectorAll(".topbar__nav .topbar__link"));
 const toastEl = document.getElementById("toast");
 const topbarEl = document.querySelector(".topbar");
@@ -268,12 +268,14 @@ document.querySelectorAll(".js-download-json").forEach((btn) => {
   btn.addEventListener("click", () => {
     const data = {
       purpose:
-        "Contact and key metadata in structured form. For CRM, ATS, or other tooling. Full resume: use the PDF download on this page.",
+        "Contact and key metadata in structured form. For CRM, ATS, or in-house tooling. Full CV: use cv_pdf.",
       name: "William Amor",
       role: "Principal Product Owner",
       location: "London, United Kingdom",
       email: "message@william-amor.info",
       linkedin: "https://www.linkedin.com/in/willamor/",
+      website: "https://william-amor.info/",
+      cv_pdf: "https://william-amor.info/assets/files/Resume%20(William%20Amor).pdf",
       nationality: "British and Irish (dual citizenship)",
       right_to_work: "UK and EU/EEA (no sponsorship)",
       open_to: [

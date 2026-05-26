@@ -71,13 +71,13 @@
         </a>
         <nav class="topbar__nav" aria-label="Sections">
           <a class="topbar__link" href="#hero">Summary</a>
-          <a class="topbar__link" href="#industries">Industries</a>
+          <!-- <a class="topbar__link" href="#industries">Industries</a> -->
           <a class="topbar__link" href="#impact">Impact highlights</a>
           <a class="topbar__link" href="#experience">Experience</a>
           <a class="topbar__link" href="#recommendations">Recommendations</a>
           <a class="topbar__link" href="#education">Education</a>
           <a class="topbar__link" href="#certificates">Certificates</a>
-          <a class="topbar__link" href="#toolbox-skills">Skills and Platforms</a>
+          <a class="topbar__link" href="#toolbox-skills">Tools &amp; platforms</a>
           <a class="topbar__link" href="#faq">FAQ</a>
           <a class="topbar__link" href="#contact">Contact</a>
         </nav>
@@ -177,11 +177,16 @@
             <div class="sideBlock__h">Prefer the PDF?</div>
             <div class="sideBlock__p">Same content, easy for recruiters to forward.</div>
             <div class="actions actions--center">
-              <a class="pill" href="./assets/files/Resume%20(William%20Amor).pdf" download="Resume (William Amor).pdf">Download CV (PDF)</a>
+              <a class="pill pill--with-ico" href="./assets/files/Resume%20(William%20Amor).pdf" download="Resume (William Amor).pdf">
+                <svg class="ico ico--pill" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6Zm-1 2 5 5h-5V4ZM7 13h2.2v5H7v-5Zm3.8 0H13c1.1 0 2 .75 2 1.85 0 .65-.3 1.12-.82 1.4.65.2 1.02.78 1.02 1.55 0 1.2-1 2-2.35 2h-2.05v-5Zm2.05 1.85c.55 0 .9-.3.9-.75s-.35-.75-.9-.75h-1.3v1.5h1.3Zm.15 2.35c.58 0 .95-.32.95-.8 0-.5-.37-.82-.95-.82h-1.45v1.62h1.45Z"/>
+                </svg>
+                <span>Download CV (PDF)</span>
+              </a>
             </div>
           </div>
 
-          <div class="sideBlock" role="group" aria-label="Resume: structured JSON">
+          <div class="sideBlock" role="group" aria-label="Resume: structured JSON" hidden>
             <div class="sideBlock__h">JSON / structured export?</div>
             <div class="sideBlock__p">
               For ATS, CRM, or in-house tools that want fields, not a scraped PDF. Contact and key metadata only. Use the
@@ -192,7 +197,7 @@
             </div>
           </div>
 
-          <div class="sideBlock" role="group" aria-label="Recommendations">
+          <div class="sideBlock" role="group" aria-label="Recommendations" hidden>
             <div class="sideBlock__h">Recommendations</div>
             <div class="sideBlock__p">LinkedIn testimonials from colleagues.</div>
             <div class="actions actions--center">
@@ -241,7 +246,8 @@
           </div>
         </section>
 
-        <section class="section" id="industries" data-reveal>
+        <!-- Optional: remove hidden to show industry summary cards (overlaps Experience). -->
+        <section class="section" id="industries" data-reveal hidden>
           <div class="sectionHead">
             <h2 class="h2">Industries</h2>
           </div>
@@ -275,7 +281,7 @@
                 </span>
                 <h3 class="h3">Pharmaceuticals</h3>
               </div>
-              <p class="industry__p">Regulated workflow and compliance across Pfizer, GSK, and Johnson &amp; Johnson: BA/PM on Pega for global regulatory tracking (later used for <strong>Comirnaty (COVID-19 vaccine)</strong>), GxP manufacturing digitisation, and EMEA automation with <strong>$800k</strong> CIO funding and <strong>2,800</strong> hours/year returned.</p>
+              <p class="industry__p">Regulated workflow and compliance across Pfizer, GSK, and Johnson &amp; Johnson: BA/PA on a new Pega platform for global regulatory tracking (built from greenfield; later used for <strong>Comirnaty (COVID-19 vaccine)</strong>), GxP manufacturing digitisation, and EMEA automation with <strong>$800k</strong> CIO funding and <strong>2,800</strong> hours/year returned.</p>
               <div class="industry__metric">Pega (Pfizer) · GxP (GSK) · <strong>2,800</strong> hrs/year (Johnson &amp; Johnson)</div>
               <div class="industry__co">Pfizer · Johnson &amp; Johnson · GSK</div>
             </article>
@@ -289,9 +295,11 @@
           <ul class="impactWins" aria-label="Impact highlights">
             <li>Built Marsh product functionality that enabled broker operations teams to identify <strong>$8m+</strong> in new placement premium opportunities; <strong>$2m</strong> one-time revenue uplift attributed to outcomes teams delivered using the product.</li>
             <li>Co-defined Amazon 360 with EMEA commercial users at Kenvue: a dashboard for Amazon listing performance and sentiment analysis that enabled teams to focus on listings most likely to grow, contributing to a <strong>$5m</strong> sales uplift.</li>
-            <li>Built an EMEA intelligent automation function at Johnson &amp; Johnson from scratch with <strong>$800k</strong> CIO funding; <strong>2,800</strong> hours/year returned and three early-talent cohorts hired into the region.</li>
+            <li>Built an EMEA intelligent automation function at Johnson &amp; Johnson from scratch with <strong>$800k</strong> CIO funding; <strong>2,800</strong> hours/year returned.</li>
+            <li>Built an EMEA early-talent programme at Johnson &amp; Johnson: defined the UK intake, won regional sponsorship from the Kenvue CIO, and recruited and line-managed <strong>3</strong> cohorts across the UK, Germany, and Dubai over <strong>3</strong> years.</li>
           </ul>
-          <div class="carousel" data-carousel aria-label="Impact examples">
+          <!-- Optional: remove hidden to show extra impact examples carousel. -->
+          <div class="carousel" data-carousel aria-label="Impact examples" hidden>
             <div class="carousel__top">
               <div class="carousel__hint">More examples.</div>
             </div>
@@ -363,7 +371,7 @@
                   </div>
                   <p class="industry__p">Automation product manager with <strong>$800k</strong> CIO funding: EMEA plan across Power Platform, Alteryx, and UiPath.</p>
                   <p class="industry__p">Created the automation team; became the most successful team in the region for automation initiatives.</p>
-                  <div class="industry__metric"><strong>2,800</strong> hours/year returned · six-figure savings in EMEA</div>
+                  <div class="industry__metric"><strong>2,800</strong> hours/year returned · <strong>six-figure savings</strong> · in-house vs vendor</div>
                   <div class="industry__co">Johnson &amp; Johnson</div>
                 </article>
 
@@ -374,9 +382,9 @@
                     </span>
                     <h3 class="h3">Regulated delivery (pharma)</h3>
                   </div>
-                  <p class="industry__p">Business analyst and project manager for a new Pega solution to track regulatory interactions with health authorities globally.</p>
-                  <p class="industry__p">The platform was eventually used to help track regulatory interactions for <strong>Comirnaty (COVID-19 vaccine)</strong>; managed change control and audit traceability for regulated releases.</p>
-                  <div class="industry__metric">FDA · EMA · MHRA SOP documentation</div>
+                  <p class="industry__p">BA/PA on a greenfield Pega platform for global regulatory interactions with health authorities - joined before go-live, defined requirements with the digital delivery team, and partnered with implementation teams through build and UAT.</p>
+                  <p class="industry__p">The platform was later used for <strong>Comirnaty (COVID-19 vaccine)</strong> tracking; managed change control and audit traceability for regulated releases.</p>
+                  <div class="industry__metric">FDA · EMA · MHRA compliant documentation</div>
                   <div class="industry__co">Pfizer</div>
                 </article>
 
@@ -546,7 +554,7 @@
                 </header>
                 <ul class="bullets">
                   <li>Built an EMEA intelligent automation function from scratch with <strong>$800k</strong> CIO funding across Power Platform, Alteryx, and UiPath; <strong>2,800</strong> hours/year returned, with year-on-year growth as the region's most successful automation team.</li>
-                  <li>Recruited and led a global development team in the UK, Egypt, Portugal, and Kosovo through discovery, design, testing, and delivery; six-figure savings across EMEA.</li>
+                  <li>Recruited and led a global development team in the UK, Egypt, Portugal, and Kosovo through discovery, design, testing, and delivery - process improvement and optimisation, including building in-house apps instead of off-the-shelf vendor solutions; <strong>six-figure savings</strong> across EMEA.</li>
                   <li>Set up the team operating model - intake, governance, prioritisation, delivery pipeline; line-managed developers and interns through onboarding, objectives, and development.</li>
                   <li>Led full compliance review with internal infosec and Microsoft for Power Automate Desktop, unlocking citizen-developer capability across the company.</li>
                 </ul>
@@ -577,8 +585,8 @@
                   <div class="xpCard__date">Sep 2019 to Jun 2021</div>
                 </header>
                 <ul class="bullets">
-                  <li>Business analyst and project manager for the Pega solution Pfizer used to track global regulatory interactions with health authorities: defined requirements with the digital delivery team and supported UAT through to regulated release. The platform was eventually used to help track regulatory interactions for <strong>Comirnaty (COVID-19 vaccine)</strong>.</li>
-                  <li>Authored clinical and medical process documentation aligned to FDA, EMA, and MHRA standard operating procedures.</li>
+                  <li>Business analyst and project administrator (BA/PA) on a new Pega platform for global regulatory interactions with health authorities - not in production when I joined. Defined requirements with the digital delivery team and worked with implementation teams through build, UAT, and regulated release. The platform was later used to track interactions for <strong>Comirnaty (COVID-19 vaccine)</strong>.</li>
+                  <li>Authored clinical and medical process documentation to FDA, EMA, and MHRA compliant standards.</li>
                   <li>Managed change control and audit traceability for heavily regulated software releases.</li>
                   <li>Delivered training and demos across a <strong>120,000</strong>-person global organisation for the new Microsoft 365 digital workplace.</li>
                 </ul>
@@ -609,7 +617,7 @@
                   <div class="xpCard__date">Jun 2017 to Aug 2019</div>
                 </header>
                 <ul class="bullets">
-                  <li>Built a global RPA tool monitoring stock thresholds and auto-ordering parts to keep medicine supply running for patients - first global automation deployed in the manufacturing IT team.</li>
+                  <li>Defined requirements for a global RPA solution to monitor stock thresholds and auto-order parts to keep medicine supply running for patients - the manufacturing IT team&rsquo;s first global automation initiative; did not reach go-live due to reorganisation.</li>
                   <li>Moved GxP pharma manufacturing sites globally (all continents) from paper to paperless calibration software for production machinery: fewer defect opportunities, safer medicine supply, and digital records.</li>
                   <li>Retained part-time through final year of university (<strong>20 hrs/week</strong>) - only person from the intern cohort kept on after the placement year.</li>
                 </ul>
@@ -706,27 +714,34 @@
 
         <section class="section" id="toolbox-skills" data-reveal>
           <div class="sectionHead">
-            <h2 class="h2">Skills and Platforms</h2>
+            <h2 class="h2">Tools &amp; platforms</h2>
+            <p class="sectionHead__sub">Technologies and tools from the roles above - not a repeat of impact stories.</p>
           </div>
 
-          <div class="skillFlows">
-            <div class="skillFlow" role="group" aria-labelledby="toolbox-product">
-              <h3 class="skillFlow__h" id="toolbox-product">Product &amp; delivery</h3>
-              <p class="skillFlow__p">
-                Product strategy, roadmaps, OKRs; discovery, UAT, change control, and regulated delivery. Agile and SAFe (certified <strong>SAFe 5 Agilist</strong>); service management (<strong>ITIL v3</strong>). Stakeholder management with MD, Partner, and C-level. Line management of cross-border teams.
-              </p>
+          <div class="toolGroups">
+            <div class="toolGroup" role="group" aria-labelledby="toolbox-product">
+              <h3 class="toolGroup__h" id="toolbox-product">Product &amp; delivery</h3>
+              <div class="tags" aria-label="Product and delivery tools">
+                <span class="tag">Agile</span><span class="tag">Change control</span><span class="tag">Confluence</span><span class="tag">Discovery</span><span class="tag">Figma</span><span class="tag">ITIL</span><span class="tag">Jira</span><span class="tag">OKRs</span><span class="tag">Pendo</span><span class="tag">Regulated delivery</span><span class="tag">SAFe</span><span class="tag">UAT</span>
+              </div>
             </div>
-            <div class="skillFlow" role="group" aria-labelledby="toolbox-data">
-              <h3 class="skillFlow__h" id="toolbox-data">Data &amp; analytics</h3>
-              <p class="skillFlow__p">
-                <strong>Snowflake</strong> migration and <strong>SQL</strong> datasets for EMEA reporting; <strong>Power BI</strong>, <strong>Qlik</strong>, and commercial dashboards (Amazon 360 co-defined with users, <strong>$5m</strong> sales uplift; ~<strong>$1m</strong> P&amp;L BI and automated ordering LATAM/ASPAC). Product analytics with <strong>Pendo</strong>.
-              </p>
+            <div class="toolGroup" role="group" aria-labelledby="toolbox-data">
+              <h3 class="toolGroup__h" id="toolbox-data">Data &amp; analytics</h3>
+              <div class="tags" aria-label="Data and analytics tools">
+                <span class="tag">ETL</span><span class="tag">Power BI</span><span class="tag">Qlik</span><span class="tag">Snowflake</span><span class="tag">SQL</span>
+              </div>
             </div>
-            <div class="skillFlow" role="group" aria-labelledby="toolbox-automation">
-              <h3 class="skillFlow__h" id="toolbox-automation">Automation &amp; platforms</h3>
-              <p class="skillFlow__p">
-                Intelligent automation with <strong>Power Platform</strong>, <strong>UiPath</strong>, and <strong>Alteryx</strong> (<strong>2,800</strong> hours/year returned on <strong>$800k</strong> CIO funding); global RPA in GxP manufacturing. Web and apps: <strong>React</strong>, <strong>MUI</strong>, <strong>AWS</strong>, <strong>Pega</strong>. Prototyping in <strong>Figma</strong>. Tooling: <strong>Jira</strong>, <strong>Confluence</strong>.
-              </p>
+            <div class="toolGroup" role="group" aria-labelledby="toolbox-automation">
+              <h3 class="toolGroup__h" id="toolbox-automation">Automation</h3>
+              <div class="tags" aria-label="Automation tools">
+                <span class="tag">Alteryx</span><span class="tag">Automation Anywhere</span><span class="tag">Power Platform</span><span class="tag">RPA</span><span class="tag">UiPath</span>
+              </div>
+            </div>
+            <div class="toolGroup" role="group" aria-labelledby="toolbox-build">
+              <h3 class="toolGroup__h" id="toolbox-build">Build &amp; platforms</h3>
+              <div class="tags" aria-label="Build and platform technologies">
+                <span class="tag">AWS</span><span class="tag">Microsoft 365</span><span class="tag">MUI</span><span class="tag">Pega</span><span class="tag">React</span>
+              </div>
             </div>
           </div>
         </section>
@@ -745,7 +760,8 @@
               <summary>Where are you open to working?</summary>
               <p>London-based and self-relocating. UK and EU/EEA roles need no sponsorship; US and Canada are possible with sponsorship. Happy to consider remote-first roles.</p>
             </details>
-            <details class="faqItem">
+            <!-- Optional: remove hidden to show JSON export FAQ (sidebar block is hidden too). -->
+            <details class="faqItem" hidden>
               <summary>Do you have a JSON / structured export?</summary>
               <p>
                 Yes. There is a structured JSON export for systems that prefer fields you can import or map (without PDF scraping). It includes contact details and key metadata; the full CV is the PDF.
@@ -770,7 +786,12 @@
                   <span data-email-label>Email me</span>
                 </button>
                 <a class="ctaBtn ctaBtn--ghost" href="https://www.linkedin.com/in/willamor/" target="_blank" rel="noreferrer">LinkedIn</a>
-                <a class="ctaBtn ctaBtn--ghost" href="./assets/files/Resume%20(William%20Amor).pdf" download="Resume (William Amor).pdf" hidden>Download CV</a>
+                <a class="ctaBtn ctaBtn--ghost" href="./assets/files/Resume%20(William%20Amor).pdf" download="Resume (William Amor).pdf">
+                  <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6Zm-1 2 5 5h-5V4ZM7 13h2.2v5H7v-5Zm3.8 0H13c1.1 0 2 .75 2 1.85 0 .65-.3 1.12-.82 1.4.65.2 1.02.78 1.02 1.55 0 1.2-1 2-2.35 2h-2.05v-5Zm2.05 1.85c.55 0 .9-.3.9-.75s-.35-.75-.9-.75h-1.3v1.5h1.3Zm.15 2.35c.58 0 .95-.32.95-.8 0-.5-.37-.82-.95-.82h-1.45v1.62h1.45Z"/>
+                  </svg>
+                  <span>Download CV (PDF)</span>
+                </a>
               </div>
             </div>
           </div>
