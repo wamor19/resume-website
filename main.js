@@ -291,7 +291,7 @@ document.querySelectorAll(".js-download-json").forEach((btn) => {
         "Pharma and biotech",
       ],
       industries: ["Insurance", "Consumer Healthcare", "Pharmaceuticals"],
-      notice_period: "3 months (currently at Marsh)",
+      notice_period: "3 months",
       open_to_locations:
         "UK, US, Canada, and EU/EEA (EU member states plus Iceland, Liechtenstein, and Norway). Sponsorship required for US and Canada only.",
       will_travel: "Up to 75%",
