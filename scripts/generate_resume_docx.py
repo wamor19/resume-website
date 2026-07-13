@@ -461,10 +461,48 @@ def export_pdf(docx_path: Path, pdf_path: Path) -> None:
     convert(str(docx_path), str(pdf_path))
 
 
+def bump_site_last_updated() -> None:
+    """Refresh the site footer timestamp to now in UK local time (with UTC offset)."""
+    from datetime import datetime
+    try:
+        from zoneinfo import ZoneInfo
+        now = datetime.now(ZoneInfo("Europe/London"))
+    except Exception:
+        # Python 3.9 on Windows may lack tzdata; fall back to local clock.
+        now = datetime.now().astimezone()
+
+    offset = now.utcoffset() or __import__("datetime").timedelta(0)
+    offset_hours = int(offset.total_seconds() // 3600)
+    offset_mins = int(abs(offset.total_seconds()) % 3600 // 60)
+    sign = "+" if offset_hours >= 0 else "-"
+    tz_name = now.tzname() or "UK"
+    utc_label = f"UTC{sign}{abs(offset_hours)}"
+    if offset_mins:
+        utc_label += f":{offset_mins:02d}"
+
+    display = f"{now.day} {now.strftime('%b %Y')}, {now.strftime('%H:%M')} UK ({tz_name}, {utc_label})"
+    iso = now.isoformat(timespec="seconds")
+
+    html = HTML_PATH.read_text(encoding="utf-8")
+    updated, n = re.subn(
+        r'(<p class="siteFoot__updated">Last updated <time datetime=")[^"]*("[^>]*>)[^<]*(</time></p>)',
+        rf"\g<1>{iso}\g<2>{display}\g<3>",
+        html,
+        count=1,
+    )
+    if n:
+        HTML_PATH.write_text(updated, encoding="utf-8")
+        print(f"Site last updated: {display}")
+    else:
+        print("Could not find siteFoot__updated to bump.", file=sys.stderr)
+
+
 def main() -> None:
     if not HTML_PATH.exists():
         print(f"Missing {HTML_PATH}", file=sys.stderr)
         sys.exit(1)
+
+    bump_site_last_updated()
 
     source = HTML_PATH.read_text(encoding="utf-8")
     data = parse_resume_html(source)
