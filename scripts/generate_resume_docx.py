@@ -38,7 +38,7 @@ DEFAULT_BULLET_CAPS: dict[str, int] = {
     "IT Business Technology Leader (Leadership Programme)": 5,
     "Intelligent Automation Product Manager (Leadership Programme)": 7,
     "Global Project Coordinator": 4,
-    "Technology Business Partner (Industrial Placement & Part-time)": 3,
+    "Technology Business Partner (Industrial Placement & Part-time)": 6,
 }
 EXPORT_BULLET_CAPS: dict[str, int] = {}
 PAGE2_ROLE_INDEX = 3  # Johnson & Johnson Automation — everything from here starts page 2
