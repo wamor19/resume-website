@@ -294,6 +294,7 @@ document.querySelectorAll(".js-download-json").forEach((btn) => {
       notice_period: "3 months",
       open_to_locations:
         "UK, US, Canada, and EU/EEA (EU member states plus Iceland, Liechtenstein, and Norway). Sponsorship required for US and Canada only.",
+      work_arrangement: "Office or remote - whichever fits the role and hiring manager preference",
       will_travel: "Up to 75%",
       certifications: ["SAFe 5 Agilist", "ITIL v3"],
     };
