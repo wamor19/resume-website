@@ -33,12 +33,16 @@ from cv_hyperlinks import ensure_paragraph_centered, fill_contact_line  # noqa: 
 
 # Export trims longest roles so Word/PDF fit two pages; the site keeps full bullets.
 DEFAULT_BULLET_CAPS: dict[str, int] = {
-    "Principal Product Owner": 7,
-    "Data & Analytics Product Owner (EMEA)": 6,
+    "Principal Product Owner": 5,
+    "Data & Analytics Product Owner (EMEA)": 4,
     "IT Business Technology Leader (Leadership Programme)": 5,
-    "Intelligent Automation Product Manager (Leadership Programme)": 7,
-    "Global Project Coordinator": 4,
-    "Technology Business Partner (Industrial Placement & Part-time)": 6,
+    "Intelligent Automation Product Manager (Leadership Programme)": 4,
+    "Global Project Coordinator": 3,
+    "Technology Business Partner (Industrial Placement & Part-time)": 4,
+}
+# Do not drop below these when auto-tightening for page count.
+MIN_EXPORT_CAPS: dict[str, int] = {
+    "IT Business Technology Leader (Leadership Programme)": 5,
 }
 EXPORT_BULLET_CAPS: dict[str, int] = {}
 PAGE2_ROLE_INDEX = 3  # Johnson & Johnson Automation — everything from here starts page 2
@@ -441,7 +445,8 @@ def reset_export_caps() -> None:
 
 def tighten_export_caps() -> None:
     for key in list(EXPORT_BULLET_CAPS.keys()):
-        EXPORT_BULLET_CAPS[key] = max(3, EXPORT_BULLET_CAPS[key] - 1)
+        floor = MIN_EXPORT_CAPS.get(key, 3)
+        EXPORT_BULLET_CAPS[key] = max(floor, EXPORT_BULLET_CAPS[key] - 1)
 
 
 def export_pdf(docx_path: Path, pdf_path: Path) -> None:
