@@ -309,36 +309,55 @@ document.querySelectorAll(".js-download-json").forEach((btn) => {
   });
 });
 
-/* Reveal email on click, then copy to clipboard */
-(function setupEmailReveal() {
-  const buttons = document.querySelectorAll("[data-email-reveal]");
-  if (!buttons.length) return;
+/* Mailto CTAs open the mail client with a prefilled subject/body. */
 
-  buttons.forEach((btn) => {
-    const email = btn.getAttribute("data-email") || "";
-    const label = btn.querySelector("[data-email-label]");
-    if (!email || !label) return;
+/* Portrait easter egg: click a few times to unlock the runner game */
+(function setupAvatarEasterEgg() {
+  const avatar = document.getElementById("avatarEgg");
+  const modal = document.getElementById("eggModal");
+  const closeBtn = document.getElementById("eggModalClose");
+  if (!avatar || !modal) return;
 
-    btn.addEventListener("click", async () => {
-      if (!btn.classList.contains("is-revealed")) {
-        btn.classList.add("is-revealed");
-        label.textContent = email;
-        btn.setAttribute("aria-label", email);
-      }
+  const NEED = 5;
+  const WINDOW_MS = 2500;
+  let clicks = 0;
+  let windowStart = 0;
+  let unlocked = false;
 
-      const restore = btn.classList.contains("is-revealed") ? email : "Email me";
+  function openEgg() {
+    if (typeof modal.showModal === "function") modal.showModal();
+    else modal.setAttribute("open", "");
+    toast("Congrats - enjoy the easter egg.");
+    window.dispatchEvent(new CustomEvent("egg-game-open"));
+  }
 
-      try {
-        await navigator.clipboard.writeText(email);
-        toast("Email copied to clipboard.");
-        label.textContent = "Copied";
-        setTimeout(() => {
-          label.textContent = restore;
-        }, 1600);
-      } catch {
-        window.location.href = `mailto:${email}`;
-      }
-    });
+  function closeEgg() {
+    if (typeof modal.close === "function") modal.close();
+    else modal.removeAttribute("open");
+    window.dispatchEvent(new CustomEvent("egg-game-close"));
+  }
+
+  avatar.addEventListener("click", () => {
+    const now = Date.now();
+    if (!windowStart || now - windowStart > WINDOW_MS) {
+      windowStart = now;
+      clicks = 0;
+    }
+    clicks += 1;
+    if (clicks < NEED) return;
+    clicks = 0;
+    windowStart = 0;
+    if (!unlocked) unlocked = true;
+    openEgg();
+  });
+
+  closeBtn?.addEventListener("click", closeEgg);
+  modal.addEventListener("cancel", (e) => {
+    e.preventDefault();
+    closeEgg();
+  });
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) closeEgg();
   });
 })();
 
@@ -619,6 +638,19 @@ document.querySelectorAll(".js-download-json").forEach((btn) => {
 
   let size = resize();
   window.addEventListener("resize", () => { size = resize(); });
+  window.addEventListener("egg-game-open", () => {
+    // Dialog layout is ready after paint; resize so the canvas fills the modal.
+    requestAnimationFrame(() => {
+      size = resize();
+      reset();
+      setOverlay("Press Start", "Then jump over the blocks.");
+    });
+  });
+  window.addEventListener("egg-game-close", () => {
+    running = false;
+    if (raf) window.cancelAnimationFrame(raf);
+    raf = 0;
+  });
 
   const state = {
     groundY: 0,

@@ -87,28 +87,35 @@
     <div class="page">
       <aside class="side" aria-label="Intro and status">
         <div class="side__inner">
-          <a class="brand" href="#top">
-            <div class="avatar">
-              <img class="avatar__img" src="./assets/images/headshot.png" alt="William Amor" loading="lazy" />
-            </div>
+          <div class="brand">
+            <button class="avatar" type="button" id="avatarEgg" aria-label="Profile photo">
+              <img class="avatar__img" src="./assets/images/headshot.png" alt="" width="54" height="54" loading="lazy" />
+            </button>
             <div>
-              <div class="brand__name">William Amor</div>
-              <div class="brand__role">
-                <span id="roleType" data-text="Principal Product Owner" aria-label="Job title">Principal Product Owner</span>
-                <span class="caret" aria-hidden="true"></span>
-              </div>
+              <a class="brand__text" href="#top">
+                <div class="brand__name">William Amor</div>
+                <div class="brand__role">
+                  <span id="roleType" data-text="Principal Product Owner" aria-label="Job title">Principal Product Owner</span>
+                  <span class="caret" aria-hidden="true"></span>
+                </div>
+              </a>
             </div>
-          </a>
+          </div>
 
           <div class="ctaRow" aria-label="Primary contact links">
-            <button class="ctaBtn" type="button" data-email-reveal data-email="message@william-amor.info" aria-label="Email me">
+            <a
+              class="ctaBtn"
+              href="mailto:message@william-amor.info?subject=William%20Amor%20%E2%80%94%20Principal%20PO&body=I%27m%20hiring%20for%E2%80%A6%0A%0A"
+              data-email="message@william-amor.info"
+              aria-label="Email William Amor"
+            >
               <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
                 <path
                   d="M4 6.75A2.75 2.75 0 0 1 6.75 4h10.5A2.75 2.75 0 0 1 20 6.75v10.5A2.75 2.75 0 0 1 17.25 20H6.75A2.75 2.75 0 0 1 4 17.25V6.75Zm2.1-.75 5.62 4.49c.16.13.39.13.55 0L18.9 6H6.1Zm12.9 1.78-6.06 4.84a1.75 1.75 0 0 1-2.19 0L4.7 7.78V17.25c0 .97.78 1.75 1.75 1.75h10.8c.97 0 1.75-.78 1.75-1.75V7.78Z"
                 />
               </svg>
-              <span data-email-label>Email me</span>
-            </button>
+              <span>Email me</span>
+            </a>
 
             <a class="ctaBtn ctaBtn--ghost" href="https://www.linkedin.com/in/willamor/" target="_blank" rel="noreferrer">
               <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
@@ -174,8 +181,7 @@
           </div>
 
           <div class="sideBlock" role="group" aria-label="Resume: PDF">
-            <div class="sideBlock__h">Prefer the PDF?</div>
-            <div class="sideBlock__p">Same content, easy for recruiters to forward.</div>
+            <div class="sideBlock__h">CV Export</div>
             <div class="actions actions--center">
               <a class="pill pill--with-ico" href="./assets/files/Resume%20(William%20Amor).pdf" download="Resume (William Amor).pdf">
                 <svg class="ico ico--pill" viewBox="0 0 24 24" aria-hidden="true">
@@ -222,22 +228,22 @@
             <div class="hero__panel hero__surface">
               <div class="hero__ledes">
                 <p class="hero__lede">
-                  Principal Product Owner with 8 years across <strong>insurance</strong>, <strong>consumer health</strong>, and <strong>pharma</strong>. At <strong>Marsh</strong>, owning brokering operations products tracking <strong>$15bn+</strong> in client premiums, with <strong>$2m</strong> in attributed revenue and product capabilities I built that enabled teams to identify <strong>$8m+</strong> in new placement opportunities.
+                  Principal Product Owner with 8 years in <strong>insurance</strong>, <strong>consumer health</strong>, and <strong>pharma</strong>. At <strong>Marsh</strong> I own brokering operations products that track <strong>$15bn+</strong> in client premiums. Product work I led helped teams find <strong>$8m+</strong> in new placement opportunities, with <strong>$2m</strong> in attributed revenue.
                 </p>
                 <p class="hero__lede">
-                  Previously at <strong>Kenvue</strong> and <strong>Johnson &amp; Johnson</strong> - co-defined Amazon 360 with commercial users, contributing to sales uplift in the <strong>millions</strong>, and built an EMEA intelligent automation function with <strong>$800k</strong> CIO funding (<strong>2,800</strong> hrs/year returned). Earlier at <strong>Pfizer</strong> in regulatory affairs and <strong>GSK</strong> in manufacturing. Strong in <strong>regulated environments</strong>.
+                  Before that, <strong>Kenvue</strong> and <strong>Johnson &amp; Johnson</strong>: Amazon 360 with commercial users (sales uplift in the <strong>millions</strong>), and an EMEA automation function built from scratch with <strong>$800k</strong> CIO funding (<strong>2,800</strong> hrs/year returned). Earlier roles at <strong>Pfizer</strong> in regulatory affairs and <strong>GSK</strong> in manufacturing. Used to delivering in heavily <strong>regulated environments</strong>.
                 </p>
               </div>
               <div class="hero__chips" aria-label="Core strengths">
                 <span class="chip">Agile &amp; SAFe</span>
                 <span class="chip">Commercial outcomes</span>
                 <span class="chip">Data &amp; analytics</span>
-                <span class="chip">Discovery &amp; prototyping</span>
+                <span class="chip">Discovery</span>
                 <span class="chip">Global delivery</span>
                 <span class="chip">Intelligent automation</span>
                 <span class="chip">Line management</span>
                 <span class="chip">Power Platform &amp; UiPath</span>
-                <span class="chip">Product strategy &amp; roadmaps</span>
+                <span class="chip">Product strategy</span>
                 <span class="chip">Regulated delivery</span>
                 <span class="chip">Snowflake &amp; SQL</span>
                 <span class="chip">Stakeholder management</span>
@@ -293,10 +299,10 @@
             <h2 class="h2">Impact highlights</h2>
           </div>
           <ul class="impactWins" aria-label="Impact highlights">
-            <li>Built Marsh product functionality that enabled broker operations teams to identify <strong>$8m+</strong> in new placement premium opportunities; <strong>$2m</strong> one-time revenue uplift attributed to outcomes teams delivered using the product.</li>
-            <li>Co-defined Amazon 360 with EMEA commercial users at Kenvue: a dashboard for Amazon listing performance and sentiment analysis that enabled teams to focus on listings most likely to grow, contributing to sales uplift in the <strong>millions</strong>.</li>
-            <li>Built an EMEA intelligent automation function at Johnson &amp; Johnson from scratch with <strong>$800k</strong> CIO funding; <strong>2,800</strong> hours/year returned.</li>
-            <li>Built an EMEA early-talent programme at Johnson &amp; Johnson: defined the UK intake, won regional sponsorship from the Kenvue EMEA CIO, and recruited and line-managed <strong>3</strong> cohorts across the UK, Germany, and Dubai over <strong>3</strong> years.</li>
+            <li>At Marsh, built placement and commission insight features that helped broker operations find <strong>$8m+</strong> in new premium opportunities, attributing a one-time <strong>$2m</strong> revenue uplift to work done with the product.</li>
+            <li>At Kenvue, built Amazon 360 with EMEA commercial users: listing performance and sentiment in one place, so teams could prioritise the listings most likely to grow. Sales uplift in the <strong>millions</strong>.</li>
+            <li>At Johnson &amp; Johnson, set up an EMEA automation function from scratch with <strong>$800k</strong> CIO funding. <strong>2,800</strong> hours/year returned.</li>
+            <li>Also at Johnson &amp; Johnson, set up an EMEA early-talent programme: UK intake first, then regional sponsorship from the Kenvue EMEA CIO. Recruited and line-managed <strong>3</strong> cohorts in the UK, Germany, and Dubai over <strong>3</strong> years.</li>
           </ul>
           <!-- Optional: remove hidden to show extra impact examples carousel. -->
           <div class="carousel" data-carousel aria-label="Impact examples" hidden>
@@ -319,7 +325,7 @@
                     </span>
                     <h3 class="h3">Placement opportunities (insurance)</h3>
                   </div>
-                  <p class="industry__p">Built commission-rate and placement insight capabilities that enabled broker operations teams to identify <strong>$8m+</strong> in new placement premium opportunities; Marsh attributes a <strong>$2m</strong> revenue increase from commission-rate insight with clients.</p>
+                  <p class="industry__p">Built commission-rate and placement insight capabilities that helped broker operations find <strong>$8m+</strong> in new placement premium opportunities, attributing a <strong>$2m</strong> revenue increase to commission-rate insight with clients.</p>
                   <div class="industry__metric"><strong>$8m+</strong> enabled by product · <strong>$2m</strong> attributed revenue</div>
                   <div class="industry__co">Marsh</div>
                 </article>
@@ -423,7 +429,7 @@
         <section class="section" id="experience">
           <div class="sectionHead">
             <h2 class="h2">Experience</h2>
-            <p class="sectionHead__sub">Filter to the work that’s relevant to the role you have in mind.</p>
+            <p class="sectionHead__sub">Filter by industry if useful.</p>
           </div>
 
           <div class="filterBar" role="tablist" aria-label="Filter experience by industry">
@@ -455,12 +461,12 @@
                   <div class="xpCard__date">Aug 2024 to present</div>
                 </header>
                 <ul class="bullets">
-                  <li>Own a portfolio of client-facing and internal products in a global brokering operations area tracking <strong>$15bn+</strong> in client premiums; lead cross-functional squads of up to <strong>25</strong> engineers, analysts, and designers with MD and Partner stakeholders.</li>
-                  <li>Built product functionality that enabled broker operations teams to identify <strong>$8m+</strong> in new placement premium opportunities; Marsh attributes a one-time <strong>$2m</strong> revenue uplift to outcomes teams delivered using the product.</li>
-                  <li>Designed and defined a new cross-sell feature (in late development): helps broker operations identify where Marsh can sell additional coverage classes to existing clients - estimated to unlock multiple millions in new business.</li>
-                  <li>Set strategy, roadmaps, and OKRs with MD/Partner stakeholders; cut scope and re-allocated capacity when ROI did not justify the cost.</li>
-                  <li>Run usage and engagement tracking in Pendo to keep roadmap decisions evidence-led; own defect triage through to fix across shared infrastructure.</li>
-                  <li>Prototype in Figma to validate functionality and UX with broker operations users before build.</li>
+                  <li>Own client-facing and internal products in global brokering operations tracking <strong>$15bn+</strong> in premiums. Lead squads of up to <strong>25</strong> engineers, analysts, and designers, working with MD and Partner stakeholders.</li>
+                  <li>Built placement and commission insight features that helped broker operations find <strong>$8m+</strong> in new premium opportunities, attributing a one-time <strong>$2m</strong> revenue uplift to outcomes delivered using the product.</li>
+                  <li>Defining a cross-sell feature now in late development: where Marsh can sell more coverage classes to existing clients. Expected value in the multiple millions.</li>
+                  <li>Set strategy, roadmaps, and OKRs with MD/Partner stakeholders. Cut scope and moved capacity when the ROI did not stack up.</li>
+                  <li>Use Pendo for usage and engagement so roadmap calls are based on what people actually use. Own defect triage through to fix on shared infrastructure.</li>
+                  <li>Prototype in Figma with broker operations users before we build.</li>
                 </ul>
                 <div class="tags">
                   <span class="tag">AWS</span><span class="tag">Commercial outcomes</span><span class="tag">Cross-functional delivery</span><span class="tag">Figma</span><span class="tag">Insurance</span><span class="tag">MUI</span><span class="tag">OKRs</span><span class="tag">Pendo</span><span class="tag">Product strategy</span><span class="tag">Qlik</span><span class="tag">React</span><span class="tag">Roadmaps</span>
@@ -489,10 +495,10 @@
                   <div class="xpCard__date">Jul 2023 to Jun 2024</div>
                 </header>
                 <ul class="bullets">
-                  <li>Owned an EMEA portfolio across digital, eCommerce, and marketing - vision, backlog, and delivery - partnering with a senior product manager on investment and squad capacity.</li>
-                  <li>Co-defined Amazon 360 with EMEA commercial users: a dashboard for Amazon listing performance and sentiment analysis that enabled teams to focus on listings most likely to grow Amazon sales, contributing to uplift in the <strong>millions</strong>.</li>
-                  <li>Migrated digital, eCommerce, and marketing data onto Snowflake, consolidating the sources behind EMEA reporting; built SQL datasets to identify what data we could bring into products.</li>
-                  <li>Ran prioritisation and stakeholder reviews; cut scope when ROI did not justify the cost.</li>
+                  <li>Owned an EMEA portfolio across digital, eCommerce, and marketing: vision, backlog, and delivery. Worked with a senior product manager on investment and squad capacity.</li>
+                  <li>Built Amazon 360 with EMEA commercial users: listing performance and sentiment so teams could focus on the listings most likely to grow. Uplift in the <strong>millions</strong>.</li>
+                  <li>Moved digital, eCommerce, and marketing data onto Snowflake for EMEA reporting. Built SQL datasets to see what we could pull into products.</li>
+                  <li>Ran prioritisation and stakeholder reviews. Dropped work when the ROI was not there.</li>
                 </ul>
                 <div class="tags">
                   <span class="tag">Agile</span><span class="tag">Amazon</span><span class="tag">Analytics</span><span class="tag">Data migration</span><span class="tag">Digital marketing</span><span class="tag">eCommerce</span><span class="tag">EMEA</span><span class="tag">Portfolio</span><span class="tag">Sentiment analysis</span><span class="tag">Snowflake</span><span class="tag">SQL</span>
@@ -521,10 +527,10 @@
                   <div class="xpCard__date">Sep 2022 to Jul 2023</div>
                 </header>
                 <ul class="bullets">
-                  <li>IT business partner for the ~<strong>$500m</strong> UK consumer health business: digital, data, commercial, and operational IT.</li>
-                  <li>Selected by the North America CIO to deliver new BI and automated ordering across LATAM/ASPAC with ~<strong>$1m</strong> P&amp;L impact; built the dashboard with a Cairo-based third-party group.</li>
-                  <li>Built an EMEA early-talent function: defined the UK programme, then pitched and won regional sponsorship from the Kenvue EMEA CIO with funding and hiring in the UK, Germany, and Dubai (<strong>3</strong> cohorts over <strong>3</strong> years).</li>
-                  <li>Piloted a new e-learning platform: user-journey workshops, RFP, and vendor evaluation.</li>
+                  <li>IT business partner for the ~<strong>$500m</strong> UK consumer health business across digital, data, commercial, and operational IT.</li>
+                  <li>Picked by the North America CIO to deliver BI and automated ordering in LATAM/ASPAC (~<strong>$1m</strong> P&amp;L impact). Built the dashboard with a third-party team in Cairo.</li>
+                  <li>Set up an EMEA early-talent programme: started in the UK, then won regional sponsorship from the Kenvue EMEA CIO with hiring in the UK, Germany, and Dubai (<strong>3</strong> cohorts over <strong>3</strong> years).</li>
+                  <li>Piloted a new e-learning platform: user workshops, RFP, and vendor evaluation.</li>
                 </ul>
                 <div class="tags">
                   <span class="tag">BI</span><span class="tag">Business partnering</span><span class="tag">Early talent</span><span class="tag">e-Learning</span><span class="tag">ETL</span><span class="tag">Global delivery</span><span class="tag">IT strategy</span><span class="tag">Leadership</span><span class="tag">RFP</span><span class="tag">Vendor management</span>
@@ -553,10 +559,10 @@
                   <div class="xpCard__date">Jun 2021 to Sep 2022</div>
                 </header>
                 <ul class="bullets">
-                  <li>Built an EMEA intelligent automation function from scratch with <strong>$800k</strong> CIO funding across Power Platform, Alteryx, and UiPath; <strong>2,800</strong> hours/year returned, with year-on-year growth as the region's most successful automation team.</li>
-                  <li>Recruited and led a global development team in the UK, Egypt, Portugal, and Kosovo through discovery, design, testing, and delivery - process improvement and optimisation, including building in-house apps instead of off-the-shelf vendor solutions; <strong>six-figure savings</strong> across EMEA.</li>
-                  <li>Set up the team operating model - intake, governance, prioritisation, delivery pipeline; line-managed developers and interns through onboarding, objectives, and development.</li>
-                  <li>Led full compliance review with internal infosec and Microsoft for Power Automate Desktop, unlocking citizen-developer capability across the company.</li>
+                  <li>Built an EMEA automation function from scratch with <strong>$800k</strong> CIO funding (Power Platform, Alteryx, UiPath). <strong>2,800</strong> hours/year returned. Became the strongest automation team in the region year on year.</li>
+                  <li>Recruited and led developers in the UK, Egypt, Portugal, and Kosovo. Focused on process improvement and building in-house apps instead of buying off-the-shelf tools. <strong>Six-figure savings</strong> across EMEA.</li>
+                  <li>Set up intake, governance, prioritisation, and delivery. Line-managed developers and interns.</li>
+                  <li>Ran the compliance review with infosec and Microsoft for Power Automate Desktop, which opened up citizen development across the company.</li>
                 </ul>
                 <div class="tags">
                   <span class="tag">Alteryx</span><span class="tag">Automation</span><span class="tag">Citizen development</span><span class="tag">Governance</span><span class="tag">Infosec</span><span class="tag">Line management</span><span class="tag">Power Platform</span><span class="tag">UiPath</span>
@@ -585,10 +591,10 @@
                   <div class="xpCard__date">Sep 2019 to Jun 2021</div>
                 </header>
                 <ul class="bullets">
-                  <li>Business analyst and project administrator (BA/PA) on a new Pega platform for global regulatory interactions with health authorities - not in production when I joined. Defined requirements with the digital delivery team and worked with implementation teams through build, UAT, and regulated release. The platform was later used to track interactions for <strong>Comirnaty (COVID-19 vaccine)</strong>.</li>
-                  <li>Authored clinical and medical process documentation to FDA, EMA, and MHRA compliant standards.</li>
-                  <li>Managed change control and audit traceability for heavily regulated software releases.</li>
-                  <li>Delivered training and demos across a <strong>120,000</strong>-person global organisation for the new Microsoft 365 digital workplace.</li>
+                  <li>BA/PA on a new Pega platform for global regulatory interactions with health authorities. It was not live when I joined. Wrote requirements with the digital delivery team and worked with implementers through build, UAT, and regulated release. Later used to track interactions for <strong>Comirnaty (COVID-19 vaccine)</strong>.</li>
+                  <li>Wrote clinical and medical process documentation to FDA, EMA, and MHRA compliant standards.</li>
+                  <li>Owned change control and audit trail for regulated software releases.</li>
+                  <li>Ran training and demos on the new Microsoft 365 workplace across a <strong>120,000</strong>-person organisation.</li>
                 </ul>
                 <div class="tags">
                   <span class="tag">Business analysis</span><span class="tag">Change control</span><span class="tag">COVID-19</span><span class="tag">Global delivery</span><span class="tag">Microsoft 365</span><span class="tag">Pega</span><span class="tag">Project management</span><span class="tag">Regulatory</span><span class="tag">Training</span><span class="tag">UAT</span>
@@ -617,9 +623,9 @@
                   <div class="xpCard__date">Jun 2017 to Aug 2019</div>
                 </header>
                 <ul class="bullets">
-                  <li>Defined requirements for a global RPA solution to monitor stock thresholds and auto-order parts to keep medicine supply running for patients - the manufacturing IT team&rsquo;s first global automation initiative; did not reach go-live due to reorganisation.</li>
-                  <li>Moved GxP pharma manufacturing sites globally (all continents) from paper to paperless calibration software for production machinery: fewer defect opportunities, safer medicine supply, and digital records.</li>
-                  <li>Retained part-time through final year of university (<strong>20 hrs/week</strong>) - only person from the intern cohort kept on after the placement year.</li>
+                  <li>Defined requirements for a global RPA tool to monitor stock thresholds and auto-order parts for medicine supply. First global automation initiative in manufacturing IT. Did not go live after a reorganisation.</li>
+                  <li>Took GxP manufacturing sites worldwide from paper to paperless calibration for production machinery: fewer defects, safer supply, digital records.</li>
+                  <li>Kept on part-time through final year (<strong>20 hrs/week</strong>). Only person from that intern cohort retained after the placement year.</li>
                 </ul>
                 <div class="tags" aria-label="Key themes">
                   <span class="tag">Automation Anywhere</span><span class="tag">Engineering</span><span class="tag">Global delivery</span><span class="tag">GxP</span><span class="tag">Manufacturing</span><span class="tag">Paperless</span><span class="tag">Pharma IT</span><span class="tag">RPA</span><span class="tag">Validation</span>
@@ -634,7 +640,7 @@
         <section class="section" id="recommendations" data-reveal>
           <div class="sectionHead">
             <h2 class="h2">Recommendations</h2>
-            <p class="sectionHead__sub">From colleagues and managers on LinkedIn - verbatim. Names withheld out of courtesy; full versions on LinkedIn.</p>
+            <p class="sectionHead__sub">From LinkedIn, lightly shortened. Initials only here; full text on LinkedIn.</p>
           </div>
           <ol class="recs" aria-label="Recommendations">
             <li class="rec">
@@ -695,8 +701,8 @@
                 </div>
               </div>
               <ul class="eduChip__bullets" aria-label="Highlights">
-                <li>Year in Industry at <strong>GSK</strong> as part of the degree; extended into final year as a <strong>20 hrs/week</strong> part-time placement, balancing degree work with GSK commitments throughout. Awarded <strong>First Class Honours</strong>, the highest grade for the degree.</li>
-                <li>Dissertation: &ldquo;The disruption and emergence of FinTech&rdquo; - awarded a First Class grade.</li>
+                <li>Year in Industry at <strong>GSK</strong>, then kept on part-time (<strong>20 hrs/week</strong>) through final year. Graduated with <strong>First Class Honours</strong>.</li>
+                <li>Dissertation on FinTech (“The disruption and emergence of FinTech”), First Class.</li>
               </ul>
             </div>
           </div>
@@ -707,15 +713,15 @@
             <h2 class="h2">Certificates</h2>
           </div>
           <ul class="bullets" aria-label="Certificates">
-            <li><strong>SAFe 5 Agilist</strong> - Scaled Agile Framework certification.</li>
-            <li><strong>ITIL v3</strong> - Service management foundation.</li>
+            <li><strong>SAFe 5 Agilist</strong></li>
+            <li><strong>ITIL v3</strong></li>
           </ul>
         </section>
 
         <section class="section" id="toolbox-skills" data-reveal>
           <div class="sectionHead">
             <h2 class="h2">Tools &amp; platforms</h2>
-            <p class="sectionHead__sub">Technologies and tools from the roles above - not a repeat of impact stories.</p>
+            <p class="sectionHead__sub">What I have actually used in the roles above.</p>
           </div>
 
           <div class="toolGroups">
@@ -749,7 +755,7 @@
         <section class="section" id="faq" data-reveal>
           <div class="sectionHead">
             <h2 class="h2">For recruiters</h2>
-            <p class="sectionHead__sub">The questions you usually have to email me to find out.</p>
+            <p class="sectionHead__sub">Quick answers.</p>
           </div>
           <div class="faq">
             <details class="faqItem">
@@ -758,7 +764,7 @@
             </details>
             <details class="faqItem">
               <summary>Where are you open to working?</summary>
-              <p>London-based and self-relocating. UK and EU/EEA roles need no sponsorship; US and Canada are possible with sponsorship. Happy to consider remote-first roles.</p>
+              <p>Based in London. Happy to relocate. No sponsorship needed for UK or EU/EEA. US and Canada need sponsorship. Open to remote-first roles.</p>
             </details>
             <!-- Optional: remove hidden to show JSON export FAQ (sidebar block is hidden too). -->
             <details class="faqItem" hidden>
@@ -776,15 +782,19 @@
         <section class="section section--contact" id="contact" data-reveal>
           <div class="contactBand">
             <div>
-              <h2 class="h2">Get in touch.</h2>
-              <p class="p">Send the job spec and I’ll reply within a working day with whether it’s a fit.</p>
+              <h2 class="h2">Get in touch</h2>
+              <p class="p">Send the job spec. I will reply within a working day on whether it looks like a fit.</p>
               <div class="contactBand__ctas">
-                <button class="ctaBtn ctaBtn--primary" type="button" data-email-reveal data-email="message@william-amor.info" aria-label="Email me">
+                <a
+                  class="ctaBtn ctaBtn--primary"
+                  href="mailto:message@william-amor.info?subject=William%20Amor%20%E2%80%94%20Principal%20PO&body=I%27m%20hiring%20for%E2%80%A6%0A%0A"
+                  aria-label="Email William Amor"
+                >
                   <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M4 6.75A2.75 2.75 0 0 1 6.75 4h10.5A2.75 2.75 0 0 1 20 6.75v10.5A2.75 2.75 0 0 1 17.25 20H6.75A2.75 2.75 0 0 1 4 17.25V6.75Zm2.1-.75 5.62 4.49c.16.13.39.13.55 0L18.9 6H6.1Zm12.9 1.78-6.06 4.84a1.75 1.75 0 0 1-2.19 0L4.7 7.78V17.25c0 .97.78 1.75 1.75 1.75h10.8c.97 0 1.75-.78 1.75-1.75V7.78Z"/>
                   </svg>
-                  <span data-email-label>Email me</span>
-                </button>
+                  <span>Email me</span>
+                </a>
                 <a class="ctaBtn ctaBtn--ghost" href="https://www.linkedin.com/in/willamor/" target="_blank" rel="noreferrer">LinkedIn</a>
                 <a class="ctaBtn ctaBtn--ghost" href="./assets/files/Resume%20(William%20Amor).pdf" download="Resume (William Amor).pdf">
                   <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
@@ -799,6 +809,42 @@
 
       </main>
     </div>
+
+    <footer class="siteFoot" aria-label="Site info">
+      <p class="siteFoot__updated">Last updated <time datetime="2026-07-13">13 Jul 2026</time></p>
+    </footer>
+
+    <dialog class="eggModal" id="eggModal" aria-labelledby="eggModalTitle">
+      <div class="eggModal__panel">
+        <div class="eggModal__top">
+          <div>
+            <p class="eggModal__kicker" id="eggModalTitle">Congrats</p>
+            <p class="eggModal__msg">Enjoy the easter egg.</p>
+          </div>
+          <button class="eggModal__close" type="button" id="eggModalClose" aria-label="Close">Close</button>
+        </div>
+        <div class="game" data-egg-game>
+          <div class="game__hud">
+            <div class="game__score">
+              <span class="game__k">Score</span>
+              <span class="game__v" id="gameScore">0</span>
+            </div>
+            <div class="game__hint">Space / tap to jump</div>
+            <div class="game__actions">
+              <button class="pill" type="button" id="gameStart">Start</button>
+              <button class="pill pill--ghost" type="button" id="gameRestart" hidden>Restart</button>
+            </div>
+          </div>
+          <div class="game__stage">
+            <canvas id="runnerGame" width="720" height="180" aria-label="Runner game"></canvas>
+            <div class="game__overlay" id="gameOverlay" tabindex="0">
+              <div class="game__overlayTitle">Press Start</div>
+              <div class="game__overlaySub">Then jump over the blocks.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </dialog>
 
     <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
 
