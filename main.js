@@ -23,6 +23,13 @@ const navLinks = Array.from(document.querySelectorAll(".topbar__nav .topbar__lin
 const toastEl = document.getElementById("toast");
 const topbarEl = document.querySelector(".topbar");
 
+// Mailto leaves the link focused after the mail client opens; drop it so the CTA doesn't stay highlighted.
+document.querySelectorAll('a[href^="mailto:"]').forEach((el) => {
+  el.addEventListener("click", () => {
+    requestAnimationFrame(() => el.blur());
+  });
+});
+
 function sleep(ms) {
   return new Promise((r) => setTimeout(r, ms));
 }
@@ -270,8 +277,8 @@ document.querySelectorAll(".js-download-json").forEach((btn) => {
       purpose:
         "Contact and key metadata in structured form. For CRM, ATS, or in-house tooling. Full CV: use cv_pdf.",
       name: "William Amor",
-      role: "Principal Product Owner",
-      location: "London, United Kingdom",
+      role: "Principal, Product Owner",
+      location: "London, UK",
       email: "message@william-amor.info",
       linkedin: "https://www.linkedin.com/in/willamor/",
       website: "https://william-amor.info/",
@@ -279,7 +286,6 @@ document.querySelectorAll(".js-download-json").forEach((btn) => {
       nationality: "British and Irish (dual citizenship)",
       right_to_work: "UK and EU/EEA (no sponsorship)",
       open_to: [
-        "Principal Product Owner",
         "Product Owner",
         "Product Manager",
         "Product Lead",
@@ -848,7 +854,7 @@ onReady(() => {
   else setActiveSection("hero");
 
   const roleEl = document.getElementById("roleType");
-  const roleText = roleEl?.getAttribute("data-text") || "Principal Product Owner";
+  const roleText = roleEl?.getAttribute("data-text") || "Principal, Product Owner";
   const caretEl =
     (roleEl?.nextElementSibling && roleEl.nextElementSibling.classList.contains("caret") ? roleEl.nextElementSibling : null) ||
     roleEl?.parentElement?.querySelector?.(".caret") ||

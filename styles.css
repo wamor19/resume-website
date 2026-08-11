@@ -248,7 +248,20 @@ button.ctaBtn {
   background: rgba(125, 211, 252, 0.26);
   border-color: rgba(125, 211, 252, 0.55);
 }
-.ctaBtn:focus-visible { outline: none; box-shadow: none; }
+.ctaBtn:focus,
+.ctaBtn:focus-visible,
+.ctaBtn:active {
+  outline: none;
+  box-shadow: none;
+}
+/* Mailto keeps :focus after the mail client opens — don't leave a hover-like ring */
+.ctaBtn--ghost:focus,
+.ctaBtn--ghost:focus-visible,
+.ctaBtn--ghost:active {
+  background: transparent;
+  border-color: var(--stroke);
+  color: var(--text);
+}
 .ico {
   width: 18px;
   height: 18px;
@@ -432,6 +445,19 @@ button.ctaBtn {
   color: var(--muted);
   font-size: 13.5px;
   line-height: 1.5;
+}
+.sideBlock__p--note {
+  font-size: 12.5px;
+  text-align: center;
+  margin: 0;
+}
+.sideBlock__p--note a {
+  color: var(--signal);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.sideBlock__p--note a:hover {
+  color: var(--signal-deep);
 }
 
 .actions { display: flex; flex-wrap: wrap; gap: 10px; }
@@ -897,6 +923,7 @@ button.ctaBtn {
 }
 
 /* Remove the “clicked/focused” highlight look */
+.ctaBtn:focus,
 .ctaBtn:focus-visible,
 .pill:focus-visible,
 .filterPill:focus-visible,
