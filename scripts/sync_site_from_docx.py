@@ -11,6 +11,7 @@ easter egg) is left alone.
 from __future__ import annotations
 
 import html
+import json
 import re
 import sys
 from datetime import datetime, timedelta
@@ -20,6 +21,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from resume_model import DOCX_PATH, ROOT, parse_docx, split_role_heading  # noqa: E402
 
 HTML_PATH = ROOT / "index.html"
+TAGS_PATH = Path(__file__).resolve().parent / "role_tags.json"
 
 # Metrics, tools and product keywords worth emphasising on the site. Order
 # matters: longer patterns first so "$8m+" wins before "$8m", and "Figma Make"
@@ -146,35 +148,56 @@ def build_impact(model: dict) -> str:
     return "\n" + "\n".join(items) + "\n          "
 
 
-def existing_role_tags(source: str) -> dict[str, str]:
-    """Keep the decorative tool tags already on each experience card.
+def role_tags() -> dict[str, list[str]]:
+    """Per-role theme tags, keyed "Company | Dates".
 
-    They are presentation only and have no equivalent in the Word file, so they
-    are carried over per role title rather than regenerated.
+    These are site-only decoration with no equivalent in the Word file. They used
+    to be scraped back out of index.html on each run and matched by job title,
+    which lost them silently the moment a title was edited - that is how Marsh
+    ended up with none. Keeping them in their own file means a Word edit cannot
+    delete them.
     """
-    found: dict[str, str] = {}
-    for card in re.finditer(r'<article class="xpCard".*?</article>', source, re.DOTALL):
-        block = card.group(0)
-        title = re.search(r'<h3 class="xpCard__title">(.*?)</h3>', block, re.DOTALL)
-        tags = re.search(r'(<div class="tags"[^>]*>.*?</div>)', block, re.DOTALL)
-        if title and tags:
-            found[html.unescape(title.group(1)).strip()] = tags.group(1)
-    return found
+    if not TAGS_PATH.exists():
+        print(f"Warning: {TAGS_PATH.name} is missing; cards will have no tags.", file=sys.stderr)
+        return {}
+    return json.loads(TAGS_PATH.read_text(encoding="utf-8"))
 
 
-def build_experience(model: dict, kept_tags: dict[str, str]) -> str:
+def tags_for(parts: dict, tags: dict[str, list[str]]) -> list[str]:
+    """Look up a role's tags, tolerating a renamed company."""
+    exact = tags.get(f"{parts['company']} | {parts['dates']}")
+    if exact is not None:
+        return exact
+    by_dates = [v for k, v in tags.items() if k.endswith(f"| {parts['dates']}")]
+    if len(by_dates) == 1:
+        return by_dates[0]
+    print(
+        f"Warning: no tags found for {parts['company']} ({parts['dates']}). "
+        f"Add an entry to {TAGS_PATH.name}.",
+        file=sys.stderr,
+    )
+    return []
+
+
+def build_experience(model: dict, tags: dict[str, list[str]]) -> str:
     cards = []
     for role in model["roles"]:
         parts = split_role_heading(role["heading"])
         key = company_key(parts["company"])
-        tags = COMPANY_TAGS.get(key, "")
+        filters = COMPANY_TAGS.get(key, "")
         industry, descriptor = COMPANY_META.get(key, ("", ""))
         dates = parts["dates"].replace(" - Present", " to present").replace(" - ", " to ")
         bullets = "\n".join(f"                  <li>{emphasise(b)}</li>" for b in role["bullets"])
-        tag_block = kept_tags.get(parts["title"].strip(), "")
-        tag_html = f"\n                {tag_block}" if tag_block else ""
+        themes = "".join(f'<span class="tag">{esc(t)}</span>' for t in tags_for(parts, tags))
+        tag_html = (
+            '\n                <div class="tags" aria-label="Key themes">'
+            f"\n                  {themes}"
+            "\n                </div>"
+            if themes
+            else ""
+        )
         cards.append(
-            f"""            <article class="xpCard" data-tags="{tags}">
+            f"""            <article class="xpCard" data-tags="{filters}">
               <div class="xpCard__body">
                 <header class="xpCard__top">
                   <div class="xpCard__head">
@@ -204,31 +227,23 @@ def build_experience(model: dict, kept_tags: dict[str, str]) -> str:
 
 
 def build_education(model: dict) -> str:
+    """Institution as the card heading; degree and grade together in body text.
+
+    The grade used to sit in small print on its own row, where it was easy to
+    miss, so it now runs on from the degree at full body size.
+    """
     edu = model["education"]
-    heading = edu["heading"]
-    school, sep, rest = heading.partition(" - ")
+    school, sep, degree = edu["heading"].partition(" - ")
     if not sep:
-        school, _, rest = heading.partition("  |  ")
-    degree, _, grade = rest.partition("  |  ")
-    grade_main, _, grade_extra = grade.partition(", ")
+        school, _, degree = edu["heading"].partition("  |  ")
+    detail = " - ".join(part for part in (degree.strip(), edu["grade"]) if part)
     bullets = "\n".join(
         f"                <li>{emphasise(b)}</li>" for b in edu["bullets"]
     )
-    grade_html = f"<strong>{esc(grade_main)}</strong>"
-    if grade_extra:
-        grade_html += (
-            "\n                  <span class=\"eduChip__gradeSep\" aria-hidden=\"true\">\u00b7</span>"
-            f"\n                  <span class=\"eduChip__gpa\">{esc(grade_extra)}</span>"
-        )
     return f"""
             <div class="eduChip">
               <div class="eduChip__h">{esc(school)}</div>
-              <div class="eduChip__meta">
-                <div class="eduChip__degree">{esc(degree)}</div>
-                <div class="eduChip__grade">
-                  {grade_html}
-                </div>
-              </div>
+              <p class="eduChip__degree">{emphasise(detail)}</p>
               <ul class="eduChip__bullets" aria-label="Highlights">
 {bullets}
               </ul>
@@ -262,6 +277,33 @@ def build_tools(model: dict) -> str:
             </div>"""
         )
     return "\n" + "\n".join(groups) + "\n          "
+
+
+def sync_meta_years(source: str, model: dict) -> str:
+    """Keep the years-of-experience figure in the meta tags matching the summary.
+
+    The share/search descriptions are written for those channels rather than
+    lifted from the CV, so only this one number is carried across.
+    """
+    match = re.search(r"\d+\+ years", " ".join(model["summary"]))
+    if not match:
+        return source
+    years = match.group(0)
+
+    def patch(meta: re.Match) -> str:
+        return re.sub(r"\d+\+ years", years, meta.group(0))
+
+    source, count = re.subn(
+        r"<meta[^>]*(?:name=\"description\"|property=\"og:description\"|"
+        r"name=\"twitter:description\")[^>]*>",
+        patch,
+        source,
+    )
+    if not count:
+        print("Warning: could not find the meta descriptions to check.", file=sys.stderr)
+    else:
+        print(f"Meta descriptions checked against the summary ({years}).")
+    return source
 
 
 def bump_timestamp(source: str) -> str:
@@ -322,7 +364,7 @@ def main() -> None:
         source,
         r'<div class="xpList" id="xpList">',
         r'</div>\s*\n\s*<p class="filterEmpty"',
-        build_experience(model, existing_role_tags(source)),
+        build_experience(model, role_tags()),
         label="experience",
     )
     source = replace_block(
@@ -360,6 +402,7 @@ def main() -> None:
         flags=re.S,
     )
 
+    source = sync_meta_years(source, model)
     source = bump_timestamp(source)
     HTML_PATH.write_text(source, encoding="utf-8")
     print(f"Updated {HTML_PATH.relative_to(ROOT)} from the Word CV")

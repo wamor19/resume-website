@@ -100,6 +100,37 @@ FIT_STEPS: tuple[Fit, ...] = (
         section_after_pt=4.5,
         role_before_pt=8,
     ),
+    # Hold the body size and buy space back from spacing before dropping a point.
+    # Body size is what a reader notices first, so it gives way last.
+    Fit(
+        name_pt=20,
+        section_pt=12,
+        role_title_pt=11.5,
+        role_meta_pt=11,
+        body_pt=11,
+        line_spacing=1.06,
+        bullet_after_pt=2.5,
+        para_gap_pt=6.5,
+        para_after_pt=4,
+        section_before_pt=9,
+        section_after_pt=3.5,
+        role_before_pt=6.5,
+    ),
+    Fit(
+        margin_in=0.45,
+        name_pt=20,
+        section_pt=11.5,
+        role_title_pt=11.5,
+        role_meta_pt=11,
+        body_pt=11,
+        line_spacing=1.03,
+        bullet_after_pt=2,
+        para_gap_pt=5.5,
+        para_after_pt=3,
+        section_before_pt=8,
+        section_after_pt=3,
+        role_before_pt=5.5,
+    ),
     Fit(
         name_pt=20,
         section_pt=11.5,
@@ -112,6 +143,37 @@ FIT_STEPS: tuple[Fit, ...] = (
         section_before_pt=10.5,
         section_after_pt=4,
         role_before_pt=7.5,
+    ),
+    # Word's PDF export also lays 10.5pt and up out more cleanly than 10pt: at
+    # 10pt it starts emitting hyphens as separately positioned text objects,
+    # which makes text extractors read "COVID -19".
+    Fit(
+        name_pt=20,
+        section_pt=11.5,
+        role_title_pt=11,
+        role_meta_pt=10.5,
+        body_pt=10.5,
+        line_spacing=1.06,
+        bullet_after_pt=2.5,
+        para_gap_pt=6.5,
+        para_after_pt=4,
+        section_before_pt=9,
+        section_after_pt=3.5,
+        role_before_pt=6.5,
+    ),
+    Fit(
+        margin_in=0.45,
+        section_pt=11,
+        role_title_pt=11,
+        role_meta_pt=10.5,
+        body_pt=10.5,
+        line_spacing=1.03,
+        bullet_after_pt=2,
+        para_gap_pt=5.5,
+        para_after_pt=3,
+        section_before_pt=8,
+        section_after_pt=3,
+        role_before_pt=5.5,
     ),
     Fit(
         section_pt=11,
@@ -250,12 +312,12 @@ def fit_contact_pt(headline: str, fit: Fit) -> float:
 
 
 def split_education_heading(heading: str) -> tuple[str, str]:
-    """"University of Kent - BSc ...' -> bold institution, plus the rest."""
+    """'University of Kent - BSc ...' -> bold institution, plus the degree."""
     school, sep, rest = heading.partition(" - ")
     if not sep:
         school, _, rest = heading.partition(SEP)
-        return school, (SEP + rest if rest else "")
-    return school, (f" - {rest}" if rest else "")
+    rest = rest.strip()
+    return school.strip(), (f" - {rest}" if rest else "")
 
 
 def heading_lines(model: dict) -> list[tuple[str, str]]:
@@ -411,6 +473,14 @@ def _add_text_with_italics(paragraph, text: str, size_pt: float) -> None:
         _add_run(paragraph, text[cursor:], size_pt)
 
 
+def _add_grade(paragraph, grade: str, size_pt: float) -> None:
+    """Grade line: classification in bold, anything after the comma plain."""
+    head, sep, tail = grade.partition(", ")
+    _add_run(paragraph, head, size_pt, bold=True)
+    if sep:
+        _add_run(paragraph, sep + tail, size_pt)
+
+
 def _add_bullet(doc: Document, text: str, fit: Fit, *, last: bool) -> object:
     paragraph = doc.add_paragraph(style="List Bullet")
     paragraph.paragraph_format.left_indent = Inches(0.22)
@@ -514,19 +584,27 @@ def build_docx(model: dict, fit: Fit) -> Document:
         _add_heading(doc, SECTION_EDUCATION, fit)
         block = []
         if education["heading"]:
-            # "University of Kent - BSc ... | First Class": bold the institution only.
-            school, rest_text = split_education_heading(education["heading"])
+            # Institution and degree share the heading line, with the institution
+            # bold. The grade sits below at body size: it is the part a reader
+            # looks for, and keeping it out of the heading stops that line
+            # wrapping, which would otherwise shrink every role heading to match.
+            school, degree_text = split_education_heading(education["heading"])
             paragraph = doc.add_paragraph()
             run = paragraph.add_run(school)
             run.bold = True
             run.font.name = FONT
             run.font.size = Pt(fit.role_title_pt)
-            if rest_text:
-                meta = paragraph.add_run(rest_text)
+            if degree_text:
+                meta = paragraph.add_run(degree_text)
                 meta.font.name = FONT
                 meta.font.size = Pt(fit.role_meta_pt)
             _space(paragraph, after=2, line_spacing=fit.line_spacing)
             block.append(paragraph)
+            if education["grade"]:
+                grade_para = doc.add_paragraph()
+                _add_grade(grade_para, education["grade"], fit.body_pt)
+                _space(grade_para, after=fit.bullet_after_pt, line_spacing=fit.line_spacing)
+                block.append(grade_para)
         for i, bullet in enumerate(education["bullets"]):
             block.append(_add_bullet(doc, bullet, fit, last=i == len(education["bullets"]) - 1))
         _keep_together(block)
@@ -622,6 +700,17 @@ def main() -> None:
             file=sys.stderr,
         )
         sys.exit(1)
+
+    # Reading the rebuilt file back has to give the same model, otherwise a later
+    # sync would parse the layout as content: that is how the education grade
+    # once turned into a bullet point.
+    rewritten = parse_docx(DOCX_PATH)
+    drift = [key for key in model if rewritten[key] != model[key]]
+    if drift:
+        print(
+            f"  warning: reformatting changed {', '.join(drift)} - the layout is not round-tripping.",
+            file=sys.stderr,
+        )
 
     for label, over in heading_overflow(model, chosen, chosen.role_meta_pt):
         print(

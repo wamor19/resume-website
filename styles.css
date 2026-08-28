@@ -16,6 +16,10 @@
   --signal: #7dd3fc;        /* sky-300 */
   --signal-deep: #38bdf8;   /* sky-400 */
   --signal-soft: rgba(125, 211, 252, 0.18);
+  /* Highlighted metrics and product names in body copy. Slightly softer than
+     --signal so a bullet full of them does not glare. Use this everywhere text
+     is emphasised, so the shade cannot drift section by section. */
+  --signal-text: rgba(125, 211, 252, 0.92);
   --signal2: #a78bfa;       /* violet-400 */
   --signal2-soft: rgba(167, 139, 250, 0.16);
 
@@ -754,7 +758,7 @@ button.ctaBtn {
 }
 .impactWins li { margin: 10px 0; line-height: 1.55; }
 .impactWins strong {
-  color: rgba(125, 211, 252, 0.92);
+  color: var(--signal-text);
   font-weight: 650;
 }
 .ctaRow__reply {
@@ -771,7 +775,6 @@ button.ctaBtn {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
 }
-.industries--impact .industry__metric strong { color: var(--signal); }
 .industries--impact .industry__co { opacity: 0.9; }
 .industry {
   border: 1px solid var(--stroke);
@@ -809,6 +812,7 @@ button.ctaBtn {
 }
 .industry__icon svg { width: 20px; height: 20px; fill: currentColor; }
 .industry__p { margin: 2px 0 0; color: var(--muted); font-size: 13.5px; line-height: 1.55; }
+.industry__p strong { color: var(--signal-text); font-weight: 650; }
 .industry__p + .industry__p { margin-top: 8px; }
 .industry__metric {
   font-size: 13px;
@@ -818,7 +822,7 @@ button.ctaBtn {
   border-radius: 10px;
   background: rgba(0,0,0,.18);
 }
-.industry__metric strong { color: var(--signal); }
+.industry__metric strong { color: var(--signal-text); }
 .industry__co {
   font-size: 12px;
   color: var(--faint);
@@ -1113,11 +1117,9 @@ button.ctaBtn {
   color: var(--muted);
 }
 .bullets li { margin: 8px 0; }
-.bullets strong { color: var(--accent); }
-
-/* Experience: metrics highlighted consistently in every bullet */
-.xpCard .bullets strong {
-  color: rgba(125, 211, 252, 0.92);
+/* Metrics highlighted consistently in every bullet, experience and certificates alike */
+.bullets strong {
+  color: var(--signal-text);
   font-weight: 650;
 }
 
@@ -1188,13 +1190,15 @@ button.ctaBtn {
 .eduChip__h { font-weight: 650; font-size: 14px; }
 .eduChip__p { color: var(--muted); font-size: 13px; margin-top: 4px; line-height: 1.5; }
 
-/* Education card: stronger hierarchy */
-.eduChip__meta { margin-top: 6px; display: grid; gap: 6px; }
-.eduChip__degree { font-weight: 650; letter-spacing: -0.01em; }
-.eduChip__grade { color: var(--muted); font-size: 13px; line-height: 1.35; }
-.eduChip__grade strong { color: var(--text); font-weight: 650; }
-.eduChip__gradeSep { opacity: .6; margin: 0 6px; }
-.eduChip__gpa { white-space: nowrap; }
+/* Education card: degree and grade read as one body-text line */
+.eduChip__degree {
+  margin: 6px 0 0;
+  font-size: 15px;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+.eduChip__degree strong { color: var(--signal-text); font-weight: 700; }
 .eduChip__bullets {
   margin: 10px 0 0;
   padding-left: 18px;
@@ -1203,7 +1207,7 @@ button.ctaBtn {
   line-height: 1.45;
 }
 .eduChip__bullets li { margin: 6px 0; }
-.eduChip__bullets strong { color: var(--text); font-weight: 650; }
+.eduChip__bullets strong { color: var(--signal-text); font-weight: 650; }
 
 /* ========== Recommendations (stacked list) ========== */
 .recs {

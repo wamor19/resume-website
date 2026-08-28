@@ -131,7 +131,10 @@ def _flatten(doc: Document) -> list[tuple[str, str, bool]]:
         if not text:
             return
         body, trailing = _split_merged_heading(text)
-        heading = _canonical_heading(body) if not bullet else None
+        # Match headings on text alone: editing in Word often leaves a section
+        # heading carrying a list style, which would otherwise swallow the whole
+        # section into the bullets above it.
+        heading = _canonical_heading(body)
         if heading and not trailing:
             items.append(("heading", heading, True))
             return
@@ -162,7 +165,7 @@ def parse_docx(path: Path = DOCX_PATH) -> dict:
         "summary": [],
         "impact": [],
         "roles": [],
-        "education": {"heading": "", "bullets": []},
+        "education": {"heading": "", "grade": "", "bullets": []},
         "certifications": [],
         "tools": [],
     }
@@ -194,10 +197,17 @@ def parse_docx(path: Path = DOCX_PATH) -> dict:
                 model["roles"][-1]["bullets"].append(text)
 
         elif section == SECTION_EDUCATION:
-            if kind == "bullet" or model["education"]["heading"]:
-                model["education"]["bullets"].append(text)
+            edu = model["education"]
+            if kind == "bullet":
+                edu["bullets"].append(text)
+            elif not edu["heading"]:
+                edu["heading"] = normalise_separators(text)
+            elif not edu["grade"]:
+                # Plain paragraph under the heading: the grade line this script
+                # writes out, so a reformat round-trips instead of demoting it.
+                edu["grade"] = text
             else:
-                model["education"]["heading"] = normalise_separators(text)
+                edu["bullets"].append(text)
 
         elif section == SECTION_CERTIFICATIONS:
             model["certifications"].append(text)
@@ -208,6 +218,12 @@ def parse_docx(path: Path = DOCX_PATH) -> dict:
                 model["tools"].append({"label": label.strip(), "items": body.strip()})
             else:
                 model["tools"].append({"label": "", "items": text})
+
+    # Hand-typed education puts the grade after a pipe on the heading line. Pull
+    # it out so the model shape is the same however the Word file was written.
+    edu = model["education"]
+    if not edu["grade"] and SEP in edu["heading"]:
+        edu["heading"], _, edu["grade"] = (part.strip() for part in edu["heading"].partition(SEP))
 
     return model
 
@@ -239,6 +255,8 @@ if __name__ == "__main__":
     for role in data["roles"]:
         parts = split_role_heading(role["heading"])
         print(f"  - {parts['title']} @ {parts['company']} ({parts['dates']}): {len(role['bullets'])} bullets")
+    print(f"education: {data['education']['heading']}")
+    print(f"education grade: {data['education']['grade']}")
     print(f"education bullets: {len(data['education']['bullets'])}")
     print(f"certifications: {data['certifications']}")
     print(f"tool groups: {[t['label'] for t in data['tools']]}")
