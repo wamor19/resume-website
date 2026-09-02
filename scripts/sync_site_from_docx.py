@@ -353,13 +353,34 @@ def main() -> None:
         build_hero(model),
         label="hero summary",
     )
-    source = replace_block(
-        source,
-        r'<ul class="impactWins" aria-label="Impact highlights">',
-        r"</ul>",
-        build_impact(model),
-        label="impact highlights",
-    )
+    if model["impact"]:
+        source = replace_block(
+            source,
+            r'<ul class="impactWins" aria-label="Impact highlights">',
+            r"</ul>",
+            build_impact(model),
+            label="impact highlights",
+        )
+    else:
+        source, nav = re.subn(
+            r'\n\s*<a class="topbar__link" href="#impact">[^<]*</a>',
+            "",
+            source,
+            count=1,
+        )
+        source, section = re.subn(
+            r'\n\s*<section class="section" id="impact"[^>]*>.*?</section>',
+            "",
+            source,
+            count=1,
+            flags=re.S,
+        )
+        if nav:
+            print("Removed Impact highlights from the site nav (not in the Word CV).")
+        if section:
+            print("Removed Impact highlights section from the site (not in the Word CV).")
+        elif not nav:
+            print("Warning: could not find the impact section to remove.", file=sys.stderr)
     source = replace_block(
         source,
         r'<div class="xpList" id="xpList">',
