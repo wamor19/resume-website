@@ -605,38 +605,6 @@ button.ctaBtn {
   gap: 18px;
   padding: 4px 0 4px;
 }
-.hero__eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  max-width: 100%;
-  flex-wrap: wrap;
-  justify-content: center;
-  box-sizing: border-box;
-  padding: 6px 12px;
-  border: 1px solid rgba(125, 211, 252, 0.30);
-  border-radius: 999px;
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #cbecff;
-  background: var(--signal-soft);
-  white-space: normal;
-  overflow-wrap: anywhere;
-  text-align: center;
-}
-.hero__pulse {
-  width: 8px;
-  height: 8px;
-  border-radius: 999px;
-  background: var(--signal);
-  box-shadow: 0 0 12px var(--signal);
-  animation: heroPulse 2s ease-out infinite;
-}
-@keyframes heroPulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50%      { opacity: 0.55; transform: scale(0.85); }
-}
 .hero__h1 {
   margin: 0;
   font-size: clamp(30px, 4.6vw, 48px);
@@ -731,7 +699,6 @@ button.ctaBtn {
   line-height: 1.6;
   text-align: left;
 }
-.hero__lede strong { color: rgba(255, 255, 255, 0.95); font-weight: 600; }
 .hero__chips {
   display: flex;
   flex-wrap: wrap;
@@ -1669,14 +1636,6 @@ html.reveal-animations-on [data-reveal].is-in > .eduRow > .eduChip:nth-child(3) 
   .hero__h1 { font-size: clamp(28px, 7.5vw, 38px); }
 }
 
-@media (max-width: 520px) {
-  .hero__eyebrow { width: 100%; }
-}
-
-@media (max-width: 420px) {
-  .hero__eyebrow { font-size: 11px; letter-spacing: 0.06em; padding: 6px 10px; }
-}
-
 @media print {
   body { background: #fff; color: #111; }
   .page { max-width: none; padding: 0; display: block; box-shadow: none; border: 0; background: #fff; }
@@ -1685,7 +1644,7 @@ html.reveal-animations-on [data-reveal].is-in > .eduRow > .eduChip:nth-child(3) 
   .toast,
   .backToTop { display: none !important; }
   a { text-decoration: none; color: inherit; }
-  .filterBar, .hero__pulse, .hero__eyebrow, .heroRotator { display: none; }
+  .filterBar, .heroRotator { display: none; }
   .faqItem { break-inside: avoid; }
   [data-reveal] > * { opacity: 1 !important; transform: none !important; }
 }

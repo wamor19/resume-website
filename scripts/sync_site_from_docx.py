@@ -133,11 +133,14 @@ def replace_block(source: str, start_pat: str, end_pat: str, body: str, *, label
 
 
 def build_hero(model: dict) -> str:
+    # No <strong> here: the summary is continuous prose, and emphasising metrics
+    # inside it leaves the paragraph looking speckled. Bold stays for the bullets
+    # and education, where it marks a figure the eye is meant to land on.
     paragraphs = []
     for para in model["summary"]:
         paragraphs.append(
             "                <p class=\"hero__lede\">\n"
-            f"                  {emphasise(para)}\n"
+            f"                  {_with_italics(para)}\n"
             "                </p>"
         )
     return "\n" + "\n".join(paragraphs) + "\n              "
