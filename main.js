@@ -296,6 +296,7 @@ document.querySelectorAll(".js-download-json").forEach((btn) => {
         "Tech",
         "Pharma and biotech",
       ],
+      open_to_domains: ["Commercial", "Regulatory affairs", "Supply chain"],
       industries: ["Insurance", "Consumer Healthcare", "Pharmaceuticals"],
       notice_period: "3 months",
       open_to_locations:

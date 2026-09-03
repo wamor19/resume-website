@@ -136,7 +136,7 @@ html { scroll-padding-top: 82px; }
 }
 
 /* ========== Sidebar ========== */
-.side { padding: clamp(26px, 5vw, 56px) 0; }
+.side { padding: clamp(18px, 3vw, 30px) 0 clamp(26px, 5vw, 56px); }
 .side__inner {
   position: sticky;
   top: 84px;
@@ -316,7 +316,21 @@ button.ctaBtn {
   text-transform: uppercase;
   color: var(--text);
 }
-.status__p { font-size: 13.5px; color: var(--text); margin-top: 4px; line-height: 1.45; }
+/* Titles, sectors and domains are three different kinds of answer, so each gets
+   a label and a hairline: unlabelled, the lines read as one block of text. */
+.status__facets { display: grid; margin-top: 8px; }
+.status__facet + .status__facet {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255,255,255,.07);
+}
+.status__facetK {
+  font-size: 10px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+.status__facetV { font-size: 13px; color: var(--text); margin-top: 3px; line-height: 1.45; }
 .status__grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -514,7 +528,9 @@ button.ctaBtn {
 /* ========== Main content ========== */
 .content {
   min-width: 0;
-  padding: clamp(26px, 5vw, 56px) 0;
+  /* Less air at the top than the bottom: the sidebar matches, so the heading and
+     the avatar still start on the same line. */
+  padding: clamp(18px, 3vw, 30px) 0 clamp(26px, 5vw, 56px);
 }
 
 .section {
@@ -611,7 +627,7 @@ button.ctaBtn {
   line-height: 1.08;
   letter-spacing: -0.035em;
   font-weight: 760;
-  max-width: 22ch;
+  text-align: center;
 }
 .hero__accent {
   background: linear-gradient(180deg, #ffffff 0%, var(--signal) 110%);
@@ -686,6 +702,9 @@ button.ctaBtn {
   padding: 20px 18px;
   max-width: 72ch;
 }
+/* Sits above the rule that already opened the panel, turning a stray divider
+   into a proper card heading. */
+.hero__panelH { text-align: center; }
 .hero__ledes {
   display: grid;
   gap: 14px;
