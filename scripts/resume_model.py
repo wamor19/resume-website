@@ -113,6 +113,16 @@ def _is_role_line(text: str) -> bool:
     return "|" in text and bool(_DATE_RANGE_RE.search(text))
 
 
+def _is_contact_line(text: str) -> bool:
+    """The header line carrying the email and links, as opposed to the job title.
+
+    ATS parsers read the top block for an address using the `City, Region`
+    pattern, so the title sits on its own line to keep every comma out of the
+    way of the contact details.
+    """
+    return "@" in text or "http" in text.lower()
+
+
 def _split_merged_heading(text: str) -> tuple[str, str | None]:
     """Return (body, trailing heading) for '...sentence.EDUCATION' style edits."""
     match = _MERGED_HEADING_RE.search(text)
@@ -161,6 +171,7 @@ def parse_docx(path: Path = DOCX_PATH) -> dict:
 
     model: dict = {
         "name": NAME,
+        "title": "",
         "headline": "",
         "summary": [],
         "impact": [],
@@ -179,9 +190,14 @@ def parse_docx(path: Path = DOCX_PATH) -> dict:
 
         if section is None:
             # Name line is rebuilt from constants; contact line is regenerated
-            # with live hyperlinks, so only the headline is worth keeping.
-            if text != NAME and not model["headline"]:
-                model["headline"] = text
+            # with live hyperlinks, so only the text of each is worth keeping.
+            if text == NAME:
+                continue
+            if _is_contact_line(text):
+                if not model["headline"]:
+                    model["headline"] = text
+            elif not model["title"]:
+                model["title"] = text
             continue
 
         if section == SECTION_SUMMARY:
@@ -248,6 +264,7 @@ def split_role_heading(heading: str) -> dict:
 
 if __name__ == "__main__":
     data = parse_docx()
+    print(f"title: {data['title']}")
     print(f"headline: {data['headline']}")
     print(f"summary paragraphs: {len(data['summary'])}")
     print(f"impact bullets: {len(data['impact'])}")

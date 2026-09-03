@@ -531,6 +531,13 @@ def build_docx(model: dict, fit: Fit) -> Document:
     name.alignment = WD_ALIGN_PARAGRAPH.CENTER
     _space(name, after=1.5, line_spacing=1.0)
 
+    if model["title"]:
+        title = doc.add_paragraph()
+        title.add_run(model["title"])
+        _style_runs(title, fit.role_title_pt, bold=False)
+        title.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        _space(title, after=1.5, line_spacing=1.0)
+
     contact = doc.add_paragraph()
     _write_contact_line(contact, model["headline"], fit)
     _space(contact, after=fit.section_after_pt + 2, line_spacing=1.0)
