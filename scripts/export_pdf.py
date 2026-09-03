@@ -41,9 +41,9 @@ def archive(pdf: Path = PDF) -> Path | None:
     return dest
 
 
-def export(docx: Path = DOCX, pdf: Path = PDF) -> Path | None:
+def export(docx: Path = DOCX, pdf: Path = PDF, *, keep_history: bool = True) -> Path | None:
     pdf.parent.mkdir(parents=True, exist_ok=True)
-    archived = archive(pdf)
+    archived = archive(pdf) if keep_history else None
     if pdf.exists():
         try:
             pdf.unlink()

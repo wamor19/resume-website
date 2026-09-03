@@ -9,6 +9,7 @@ Steps:
   1. Reformat the Word file for consistency and ATS readability, fitting 2 pages.
   2. Export the PDF the site links to.
   3. Update the CV-derived sections of index.html and bump the footer timestamp.
+  4. Rebuild the private copy that carries the phone number, if one is set up.
 """
 from __future__ import annotations
 
@@ -18,15 +19,16 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import export_pdf  # noqa: E402
+import export_private_pdf  # noqa: E402
 import format_resume_docx  # noqa: E402
 import sync_site_from_docx  # noqa: E402
 
 
 def main() -> None:
-    print("[1/3] Formatting the Word CV")
+    print("[1/4] Formatting the Word CV")
     format_resume_docx.main()
 
-    print("\n[2/3] Exporting the PDF")
+    print("\n[2/4] Exporting the PDF")
     archived = export_pdf.export()
     if archived is not None:
         kept = len(list(export_pdf.HISTORY_DIR.glob("*.pdf")))
@@ -36,8 +38,11 @@ def main() -> None:
         )
     print(f"Wrote {export_pdf.PDF.relative_to(export_pdf.ROOT)}")
 
-    print("\n[3/3] Updating the site")
+    print("\n[3/4] Updating the site")
     sync_site_from_docx.main()
+
+    print("\n[4/4] Rebuilding the phone copy")
+    export_private_pdf.main()
 
     print("\nWord, PDF, and site are in sync.")
 

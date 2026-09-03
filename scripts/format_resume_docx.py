@@ -661,6 +661,33 @@ def save(doc: Document, path: Path) -> None:
         ) from exc
 
 
+def fit_and_save(model: dict, path: Path) -> Fit:
+    """Write `model` to `path`, tightening typography until Word reports 2 pages."""
+    for step, fit in enumerate(FIT_STEPS, start=1):
+        fit = replace(
+            fit,
+            contact_pt=fit_contact_pt(model["headline"], fit),
+            role_meta_pt=fit_meta_pt(model, fit),
+        )
+        save(build_docx(model, fit), path)
+        pages = count_pages(path)
+        if pages is None:
+            print("Word unavailable for page count; wrote the default layout.")
+            return fit
+        print(
+            f"Layout {step}/{len(FIT_STEPS)}: body {fit.body_pt}pt, headings "
+            f"{fit.role_title_pt}/{fit.role_meta_pt}pt, contact {fit.contact_pt}pt -> {pages} page(s)"
+        )
+        if pages <= MAX_PAGES:
+            return fit
+
+    print(
+        f"Still over {MAX_PAGES} pages at the tightest layout. Copy needs trimming.",
+        file=sys.stderr,
+    )
+    sys.exit(1)
+
+
 def main() -> None:
     if not DOCX_PATH.exists():
         raise SystemExit(f"Missing {DOCX_PATH}")
@@ -675,31 +702,7 @@ def main() -> None:
         f"{len(model['impact'])} impact bullets, {len(model['summary'])} summary paragraphs."
     )
 
-    chosen = FIT_STEPS[-1]
-    for step, fit in enumerate(FIT_STEPS, start=1):
-        fit = replace(
-            fit,
-            contact_pt=fit_contact_pt(model["headline"], fit),
-            role_meta_pt=fit_meta_pt(model, fit),
-        )
-        chosen = fit
-        save(build_docx(model, fit), DOCX_PATH)
-        pages = count_pages(DOCX_PATH)
-        if pages is None:
-            print("Word unavailable for page count; wrote the default layout.")
-            break
-        print(
-            f"Layout {step}/{len(FIT_STEPS)}: body {fit.body_pt}pt, headings "
-            f"{fit.role_title_pt}/{fit.role_meta_pt}pt, contact {fit.contact_pt}pt -> {pages} page(s)"
-        )
-        if pages <= MAX_PAGES:
-            break
-    else:
-        print(
-            f"Still over {MAX_PAGES} pages at the tightest layout. Copy needs trimming.",
-            file=sys.stderr,
-        )
-        sys.exit(1)
+    chosen = fit_and_save(model, DOCX_PATH)
 
     # Reading the rebuilt file back has to give the same model, otherwise a later
     # sync would parse the layout as content: that is how the education grade
